@@ -267,7 +267,7 @@
         z-index: 3;
     }
 
-     $blue-royal: #4268db; // Définir la couleur bleu roi
+     $blue-royal: #266d8a; // Définir la couleur bleu roi
   
      &[data-color="blue"] {
        @include sidebar-color($blue-royal);

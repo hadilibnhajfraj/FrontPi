@@ -1,0 +1,12 @@
+/* Ajoutez des styles pour afficher/masquer les sous-modules */
+
+.sub-menu {
+    padding-left: 35px;
+  
+}
+
+.sub-menu a {
+    color: rgb(192, 192, 192);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}

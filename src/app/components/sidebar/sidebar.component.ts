@@ -5,35 +5,30 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  children?: RouteInfo[];
 }
+
 export const ROUTES: RouteInfo[] = [
   { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "" },
-  { path: "/icons", title: "Icons", icon: "education_atom", class: "" },
-  { path: "/maps", title: "Maps", icon: "location_map-big", class: "" },
   {
-    path: "/notifications",
-    title: "Notifications",
-    icon: "ui-1_bell-53",
+    path: "/cours",
+    title: "Gestion des cours",
+    icon: "education_atom",
     class: "",
-  },
-
-  {
-    path: "/user-profile",
-    title: "User Profile",
-    icon: "users_single-02",
-    class: "",
-  },
-  {
-    path: "/table-list",
-    title: "Table List",
-    icon: "design_bullet-list-67",
-    class: "",
-  },
-  {
-    path: "/typography",
-    title: "Typography",
-    icon: "text_caps-small",
-    class: "",
+    children: [
+      {
+        path: "/cours/lecon",
+        title: "Leçon",
+        icon: "education_agenda-bookmark",
+        class: "",
+      },
+      {
+        path: "/cours/observation",
+        title: "Observation",
+        icon: "education_paper",
+        class: "",
+      },
+    ],
   },
 ];
 
@@ -43,17 +38,37 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ["./sidebar.component.css"],
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+  menuItems: RouteInfo[];
 
   constructor() {}
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter((menuItem) => menuItem);
+    console.log("Menu items:", ROUTES);
+    this.menuItems = ROUTES.map((item) => {
+      return {
+        ...item,
+        showChildren: false,
+      };
+    });
+    console.log("Menu items with showChildren property:", this.menuItems);
   }
-  isMobileMenu() {
-    if (window.innerWidth > 991) {
-      return false;
+
+  toggleSubMenu(menuItem: any): void {
+    console.log("Toggling submenu:", menuItem);
+    menuItem.showChildren = !menuItem.showChildren;
+
+    if (menuItem.children) {
+      console.log(
+        "Children paths:",
+        menuItem.children.map((child) => child.path)
+      );
     }
-    return true;
+
+    // Reste du code pour basculer la visibilité des enfants...
+  }
+
+  isMobileMenu() {
+    console.log("Window width:", window.innerWidth);
+    return window.innerWidth <= 991;
   }
 }
