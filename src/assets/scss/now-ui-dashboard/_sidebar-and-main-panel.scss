@@ -267,9 +267,11 @@
         z-index: 3;
     }
 
-    &[data-color="blue"]{
-      @include sidebar-color($info-color);
-    }
+     $blue-royal: #4268db; // Définir la couleur bleu roi
+  
+     &[data-color="blue"] {
+       @include sidebar-color($blue-royal);
+     }
     &[data-color="green"]{
       @include sidebar-color($success-color);
     }
