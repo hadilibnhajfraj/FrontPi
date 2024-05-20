@@ -13,7 +13,10 @@ import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-
+import { FullCalendarModule } from '@fullcalendar/angular'; // Import the FullCalendar module
+import dayGridPlugin from '@fullcalendar/daygrid'; // Optional: For month view
+import timeGridPlugin from '@fullcalendar/timegrid'; // For week view
+import interactionPlugin from '@fullcalendar/interaction';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +24,8 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
     FormsModule,
     ChartsModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FullCalendarModule
   ],
   declarations: [
     DashboardComponent,

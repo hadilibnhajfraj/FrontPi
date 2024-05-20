@@ -1,0 +1,41 @@
+.form-group.modification {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+select.custom-select.custom-select-sm.ng-untouched.ng-pristine.ng-invalid {
+  border-radius: 30px;
+  background-color: transparent;
+  border: 1px solid #E3E3E3;
+  border-radius: 30px;
+  box-shadow: none;
+}
+.boxmodif {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* padding: 3px; */
+}
+
+label.nomallergene {
+  color: #000;
+  font-size: 17px;
+  font-weight: 400;
+}
+.card {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  display: block;
+  padding: 100px;
+  margin-bottom: 20px;
+  margin-top: 140px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px #9a9a9a;
+  border: 1px solid #9a9a9a;
+}
+label {
+  font-size: 20px !important;
+  color: #000 !important;
+  font-weight: 600;
+}
