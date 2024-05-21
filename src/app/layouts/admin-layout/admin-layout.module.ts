@@ -20,6 +20,7 @@ import { LeconComponent } from "../../courses/cours/lecon/lecon.component";
     NgbModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    
   ],
   declarations: [DashboardComponent, CoursComponent, LeconComponent],
 })

@@ -1,14 +1,125 @@
-.separator {
-    padding: 1em 0;
-}
+ body {
+     display: flex;
+     flex-direction: column;
+     height: 100vh;
+     margin: 0;
+ }
 
+ .container {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+ }
 
-.main-title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-top: 20px;
-    padding-left: 15px;
-    font-family: 'Courier New', Courier, monospace;
-}
+ .main-title {
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     padding-top: 20px;
+     font-size: 30px;
+     font-family: 'Courier New', Courier, monospace;
+     font-weight: bold;
+ }
 
+ .tabs {
+     display: flex;
+     overflow: hidden;
+     border-bottom: 1px solid #ccc;
+     margin-bottom: 20px;
+ }
+
+ .tab {
+     padding: 10px 20px;
+     cursor: pointer;
+     background-color: transparent;
+ }
+
+ .tab:hover {
+     background-color: #f8f9fa;
+ }
+
+ .tab.active {
+     border-bottom: 2px solid #007bff;
+     font-weight: bold;
+ }
+
+ .tab-content {
+     padding: 20px;
+     border-top: none;
+     flex: 1;
+     overflow-y: auto;
+ }
+
+ .file-upload {
+     display: flex;
+     flex-direction: column;
+     border: 1px dashed #ccc;
+     padding: 20px;
+     border-radius: 5px;
+     background-color: #f8f9fa;
+     margin-bottom: 20px;
+ }
+
+ .input-group {
+     display: flex;
+     align-items: center;
+     margin-top: 10px;
+ }
+
+ .input-group-text {
+     background-color: #007bff;
+     color: white;
+     border-color: #007bff;
+     cursor: pointer;
+     margin-top: 10px;
+ }
+
+ .file-selected {
+     color: #28a745;
+     font-size: 0.875rem;
+     margin-top: 10px;
+ }
+
+ .file-preview img {
+     max-width: 100%;
+     height: auto;
+     border: 1px solid #dee2e6;
+     border-radius: 0.25rem;
+     margin-top: 10px;
+ }
+
+ .d-flex.justify-content-end {
+     margin-top: 20px;
+ }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                }
+        
+                th,
+                td {
+                    border: 1px solid #ccc;
+                    padding: 12px;
+                    text-align: left;
+                }
+        
+                th {
+                    background-color: #f2f2f2;
+                }
+
+                                 h1 {
+                                            font-family: Arial, sans-serif;
+                                     text-align: center;
+                                     margin-bottom: 20px;
+                                 }
+
+                                                                 .container_table {
+                                                                     max-width: 900px;
+                                                                     margin: 0 auto;
+                                                                     background-color: #fff;
+                                                                     padding: 20px;
+                                                                     border-radius: 8px;
+                                                                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                                                 }
