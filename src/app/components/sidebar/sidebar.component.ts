@@ -5,6 +5,7 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  selected?: boolean; // Définir la propriété selected comme optionnelle
   children?: RouteInfo[];
 }
 
@@ -18,16 +19,23 @@ export const ROUTES: RouteInfo[] = [
     children: [
       {
         path: "/cours/lecon",
-        title: "Leçon",
+        title: "Gestion des leçons",
         icon: "education_agenda-bookmark",
         class: "",
       },
       {
-        path: "/cours/observation",
-        title: "Observation",
+        path: "/observation",
+        title: "Gestion des observations",
         icon: "education_paper",
         class: "",
       },
+      {
+        path: "/etudiant",
+        title: "Gestion des élèves",
+        icon: "users_circle-08",
+        class: "",
+      },
+      
     ],
   },
 ];
@@ -39,7 +47,8 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: RouteInfo[];
-
+  selectedMenuItem: any;
+  selectedChildItem: any;
   constructor() {}
 
   ngOnInit() {
@@ -48,27 +57,30 @@ export class SidebarComponent implements OnInit {
       return {
         ...item,
         showChildren: false,
+        selected: false,
       };
     });
-    console.log("Menu items with showChildren property:", this.menuItems);
   }
 
   toggleSubMenu(menuItem: any): void {
-    console.log("Toggling submenu:", menuItem);
-    menuItem.showChildren = !menuItem.showChildren;
-
-    if (menuItem.children) {
-      console.log(
-        "Children paths:",
-        menuItem.children.map((child) => child.path)
-      );
+    this.selectedMenuItem = menuItem;
+    if (menuItem.children && menuItem.children.length > 0) {
+      menuItem.showChildren = true;
     }
+  }
 
-    // Reste du code pour basculer la visibilité des enfants...
+  toggleChildItem(childItem: any): void {
+    this.selectedChildItem = childItem;
+    this.menuItems.forEach((menuItem) => {
+      if (menuItem.children && menuItem.children.length > 0) {
+        menuItem.children.forEach((child) => {
+          child.selected = child === childItem;
+        });
+      }
+    });
   }
 
   isMobileMenu() {
-    console.log("Window width:", window.innerWidth);
     return window.innerWidth <= 991;
   }
 }

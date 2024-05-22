@@ -10,6 +10,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
 import { CoursComponent } from "../../courses/cours/cours.component";
 import { LeconComponent } from "../../courses/cours/lecon/lecon.component";
+import { ObservationComponent } from "../../observation/observation/observation.component";
+import { EleveComponent } from "../../etudiant/eleve/eleve.component";
+import { ChatBotComponent } from "../../chatBot/chat-bot/chat-bot.component";
 
 @NgModule({
   imports: [
@@ -20,8 +23,14 @@ import { LeconComponent } from "../../courses/cours/lecon/lecon.component";
     NgbModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    
   ],
-  declarations: [DashboardComponent, CoursComponent, LeconComponent],
+  declarations: [
+    DashboardComponent,
+    CoursComponent,
+    LeconComponent,
+    ObservationComponent,
+    EleveComponent,
+    ChatBotComponent,
+  ],
 })
 export class AdminLayoutModule {}

@@ -16,8 +16,9 @@
         <p>{{ menuItem.title }}</p>
       </a>
       <div *ngIf="menuItem.showChildren && menuItem.children" class="sub-menu">
-        <div *ngFor="let childItem of menuItem.children">
-          <a [routerLink]="[ childItem.path]">
+        <div *ngFor="let childItem of menuItem.children" [class.selected]="childItem.selected"
+          (click)="toggleChildItem(childItem)">
+          <a [routerLink]="[childItem.path]">
             <i class="now-ui-icons {{ childItem.icon }}"></i>
             <p>{{ childItem.title }}</p>
           </a>

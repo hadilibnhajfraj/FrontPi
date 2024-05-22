@@ -21,7 +21,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     NgbModule,
     ToastrModule.forRoot(),
   ],
-  declarations: [AppComponent, AdminLayoutComponent],
+  declarations: [AppComponent, AdminLayoutComponent,],
   providers: [],
   bootstrap: [AppComponent],
 })

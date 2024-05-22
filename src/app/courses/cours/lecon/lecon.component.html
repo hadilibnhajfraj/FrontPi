@@ -14,7 +14,9 @@
 
   <body>
     <div class="container mt-5">
-      <h2 class="main-title mb-4">Création d'un nouveau leçon</h2>
+      <h2 class="main-title mb-4">
+        <i class="fa-solid fa-book-open"></i> GESTION DES COURS
+      </h2>
 
       <div class="tabs">
         <div
@@ -22,21 +24,21 @@
           [ngClass]="{ active: activeTab === 1 }"
           (click)="setActiveTab(1)"
         >
-          Ajouter leçon
+          <i class="fa-solid fa-plus"></i> Ajouter leçon
         </div>
         <div
           class="tab"
           [ngClass]="{ active: activeTab === 2 }"
           (click)="setActiveTab(2)"
         >
-          Téléchargement des documents
+          <i class="fa-solid fa-download"></i> Téléchargement des documents
         </div>
         <div
           class="tab"
           [ngClass]="{ active: activeTab === 3 }"
           (click)="setActiveTab(3)"
         >
-          Révision
+          <i class="fa-solid fa-list-check"></i> Révision
         </div>
       </div>
 
@@ -174,27 +176,50 @@
                 <th>Nom</th>
                 <th>Horaire</th>
                 <th>Description du contenu</th>
-                <th>Plan du cours et document</th>
+                <th>Plan du cours</th>
+                <th>Documents</th>
+                <th style="width: 70px">Modifier</th>
+                <th style="width: 70px">Supprimer</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Exemple de Cours 1</td>
-                <td>Lundi 10:00 - 12:00</td>
-                <td>Introduction au sujet</td>
-                <td><a href="#">Voir le plan</a></td>
-              </tr>
-              <tr>
-                <td>Exemple de Cours 2</td>
+                <td>Exemple de Cours</td>
                 <td>Mercredi 14:00 - 16:00</td>
                 <td>Approfondissement</td>
-                <td><a href="#">Voir le plan</a></td>
+                <td>Chapitres</td>
+                <td><a href="#">documents</a></td>
+                <td style="text-align: right">
+                  <i class="fa-solid fa-pen-to-square blue-icon"></i>
+                </td>
+                <td style="text-align: right">
+                  <i class="fa-solid fa-trash red-icon"></i>
+                </td>
               </tr>
-              <!-- Ajoutez d'autres lignes selon vos besoins -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    <img
+      [src]="imagePath"
+      alt="ai"
+      class="img-fluid rounded"
+      style="max-width: 200px; position: fixed; bottom: 15px; right: 30px"
+      (click)="openModal()"
+    />
   </body>
 </html>
+
+
+<!-- lecon.component.html -->
+<div *ngIf="opened" class="popup">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h2 class="main-title"><i class="fa-solid fa-robot"></i> EduKids-GPT</h2>
+      <button class="close-icon" (click)="closeModal()">&times;</button>
+    </div>
+    <chat-bot></chat-bot>
+  </div>
+</div>
+

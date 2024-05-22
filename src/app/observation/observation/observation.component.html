@@ -1,0 +1,293 @@
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h2 class="main-title mb-4">
+        <i class="fa-solid fa-eye"></i> GESTION D'OBSERVATION
+      </h2>
+
+      <div class="tabs">
+        <div
+          class="tab"
+          [ngClass]="{ active: activeTab === 1 }"
+          (click)="setActiveTab(1)"
+        >
+          <i class="fa-solid fa-plus"></i> Ajouter observation
+        </div>
+        <div
+          class="tab"
+          [ngClass]="{ active: activeTab === 2 }"
+          (click)="setActiveTab(2)"
+        >
+          <i class="fa-solid fa-rectangle-list"></i> Historique des observations
+        </div>
+      </div>
+
+      <div class="tab-content" *ngIf="activeTab == 1">
+        <form [formGroup]="observationForm" class="observation-form mt-4">
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Description :</label>
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              formControlName="description"
+            />
+            <div
+              *ngIf="
+                observationForm.get('description').errors &&
+                observationForm.get('description').touched
+              "
+              class="invalid-feedback"
+            >
+              La description est requise.
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="form-group">
+            <label for="date">Date :</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              formControlName="date"
+            />
+            <div
+              *ngIf="
+                observationForm.get('date').errors &&
+                observationForm.get('date').touched
+              "
+              class="invalid-feedback"
+            >
+              La date est requise.
+            </div>
+          </div>
+
+          <!-- Heure -->
+          <div class="form-group">
+            <label for="heure">Heure :</label>
+            <input
+              type="time"
+              class="form-control"
+              id="heure"
+              formControlName="heure"
+            />
+            <div
+              *ngIf="
+                observationForm.get('heure').errors &&
+                observationForm.get('heure').touched
+              "
+              class="invalid-feedback"
+            >
+              L'heure est requise.
+            </div>
+          </div>
+
+          <!-- Repas -->
+          <div class="form-group">
+            <label>Repas :</label>
+            <div class="meal-options">
+              <div *ngFor="let repas of repasEnumValues" class="meal-option">
+                <input
+                  type="radio"
+                  formControlName="repas"
+                  [value]="repas"
+                  id="{{ repas }}"
+                  class="form-check-input"
+                />
+                <label for="{{ repas }}" class="radio-label">{{ repas }}</label>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                observationForm.get('repas').errors &&
+                observationForm.get('repas').touched
+              "
+              class="invalid-feedback"
+            >
+              Le repas est requis.
+            </div>
+          </div>
+
+          <!-- Santé -->
+          <div class="form-group">
+            <label for="sante">Santé :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="margin-right: 15px">
+                  <i class="fas fa-heartbeat"></i>
+                </span>
+              </div>
+              <select class="custom-select" id="sante" formControlName="sante">
+                <option value="" disabled selected hidden>
+                  Sélectionnez l'état de santé
+                </option>
+                <option value="Bon">Bon</option>
+                <option value="Moyen">Moyen</option>
+                <option value="Mauvais">Mauvais</option>
+              </select>
+            </div>
+            <div
+              *ngIf="
+                observationForm.get('sante').errors &&
+                observationForm.get('sante').touched
+              "
+              class="invalid-feedback"
+            >
+              La santé est requise.
+            </div>
+          </div>
+
+          <!-- Humeur -->
+          <div class="form-group">
+            <label for="humeur">Humeur :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="margin-right: 15px">
+                  <i class="fas fa-smile"></i>
+                </span>
+              </div>
+              <select
+                class="custom-select"
+                id="humeur"
+                formControlName="humeur"
+              >
+                <option value="" disabled selected hidden>
+                  Sélectionnez l'humeur
+                </option>
+                <option value="Heureux">Heureux</option>
+                <option value="Triste">Triste</option>
+                <option value="Stressé">Stressé</option>
+                <option value="Calme">Calme</option>
+              </select>
+            </div>
+            <div
+              *ngIf="
+                observationForm.get('humeur').errors &&
+                observationForm.get('humeur').touched
+              "
+              class="invalid-feedback"
+            >
+              L'humeur est requise.
+            </div>
+          </div>
+
+          <!-- Communication -->
+          <div class="form-group">
+            <label for="communication">Communication :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="margin-right: 15px">
+                  <i class="fas fa-comments"></i>
+                </span>
+              </div>
+              <select
+                class="custom-select"
+                id="communication"
+                formControlName="communication"
+              >
+                <option value="" disabled selected hidden>
+                  Sélectionnez le niveau de communication
+                </option>
+                <option value="Bonne">Bonne</option>
+                <option value="Moyenne">Moyenne</option>
+                <option value="Mauvaise">Mauvaise</option>
+              </select>
+            </div>
+            <div
+              *ngIf="
+                observationForm.get('communication').errors &&
+                observationForm.get('communication').touched
+              "
+              class="invalid-feedback"
+            >
+              La communication est requise.
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <a href="#" class="btn btn-primary">Sauvegarder</a>
+          </div>
+        </form>
+      </div>
+      <div class="tab-content" *ngIf="activeTab == 2">
+        <div class="accordion">
+          <div
+            class="accordion-item"
+            [ngClass]="{ active: activeAccordion === 1 }"
+            (click)="setActiveAccordion(1)"
+          >
+            <div class="accordion-item-header">Etudiant 1</div>
+            <div class="accordion-item-content">
+              <details>
+                <summary>Details etudiant</summary>
+                This is the content of section 1.
+              </details>
+            </div>
+          </div>
+          <div
+            class="accordion-item"
+            [ngClass]="{ active: activeAccordion === 2 }"
+            (click)="setActiveAccordion(2)"
+          >
+            <div class="accordion-item-header">Section 2</div>
+            <div class="accordion-item-content">
+              <details>
+                <summary>Details test</summary>
+                This is the content of section 2.
+              </details>
+            </div>
+          </div>
+          <div
+            class="accordion-item"
+            [ngClass]="{ active: activeAccordion === 3 }"
+            (click)="setActiveAccordion(3)"
+          >
+            <div class="accordion-item-header">Section 3</div>
+            <div class="accordion-item-content">
+              <details>
+                <summary>Details test</summary>
+                This is the content of section 3.
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const accordionItems = document.querySelectorAll(".accordion-item");
+
+        accordionItems.forEach((item) => {
+          const header = item.querySelector(".accordion-item-header");
+
+          header.addEventListener("click", () => {
+            const isOpen = item.classList.contains("active");
+
+            accordionItems.forEach((otherItem) => {
+              otherItem.classList.remove("active");
+            });
+
+            if (!isOpen) {
+              item.classList.add("active");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

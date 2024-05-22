@@ -10,3 +10,12 @@
     text-decoration: none;
     transition: color 0.3s ease;
 }
+.selected {
+    background: rgb(116, 151, 165);
+    color: rgb(255, 245, 245);
+    border-left: 4px solid #236170;
+    padding-left: 16px;
+    margin-right: 8px;
+    margin-top: 5px;
+  
+}
