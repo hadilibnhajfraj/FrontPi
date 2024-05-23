@@ -9,7 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ObservationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) { }
+  imagePath: string = "/assets/img/ai.jpg";
 
+  opened: boolean = false;
 
   observationForm: FormGroup = this.formBuilder.group({
     description: [undefined, Validators.required],
@@ -38,5 +40,13 @@ export class ObservationComponent implements OnInit {
   }
   setActiveAccordion(accordion: number) {
     this.activeAccordion = accordion;
+  }
+
+  openModal() {
+    this.opened = true;
+  }
+
+  closeModal() {
+    this.opened = false;
   }
 }

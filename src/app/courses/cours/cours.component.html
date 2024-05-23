@@ -1,0 +1,233 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="main-title mb-4">
+            <i class="fa-solid fa-book-open"></i> GESTION DES COURS
+        </h2>
+
+        <div class="tabs">
+            <div class="tab" [ngClass]="{ active: activeTab == 1 }" (click)="setActiveTab(1)">
+                <i class="fa-solid fa-plus"></i> Ajouter leçon
+            </div>
+
+            <div class="tab" [ngClass]="{ active: activeTab == 2 }" (click)="setActiveTab(2)">
+                <i class="fa-solid fa-list-check"></i> Révision
+            </div>
+        </div>
+
+        <div class="tab-content" *ngIf="activeTab == 1">
+            <form [formGroup]="leconForm" class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom:</label>
+                    <input type="text" class="form-control" id="nom" formControlName="nom" required />
+                    <div *ngIf="
+                leconForm.get('nom').invalid && leconForm.get('nom').touched
+              " class="invalid-feedback">
+                        Le nom est requis.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="horaire" class="form-label">Horaire:</label>
+                    <input type="text" class="form-control" id="horaire" formControlName="horaire" required />
+                    <div *ngIf="
+                leconForm.get('horaire').invalid &&
+                leconForm.get('horaire').touched
+              " class="invalid-feedback">
+                        L'horaire est requis.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descriptionContenu" class="form-label">Description du contenu:</label>
+                    <input type="text" class="form-control" id="descriptionContenu" formControlName="descriptionContenu"
+                        required />
+                    <div *ngIf="
+                leconForm.get('descriptionContenu').invalid &&
+                leconForm.get('descriptionContenu').touched
+              " class="invalid-feedback">
+                        La description du contenu est requise.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="planCours" class="form-label">Plan du cours:</label>
+                    <input type="text" class="form-control" id="planCours" formControlName="planCours" required />
+                    <div *ngIf="
+                leconForm.get('planCours').invalid &&
+                leconForm.get('planCours').touched
+              " class="invalid-feedback">
+                        Le plan du cours est requis.
+                    </div>
+                </div>
+                <div class="file-upload mb-1">
+                    <label for="doc" class="form-label">Documents:</label>
+                    <div class="input-group">
+                        <input type="file" multiple (change)="selectFile($event)" class="form-control"
+                            formControlName="file" />
+
+                    </div>
+
+                    <div *ngIf="fileName" class="file-selected mt-2">
+                        <strong>Fichier sélectionné:</strong> {{ fileName }}
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="leconForm.invalid">
+                        Sauvegarder
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="tab-content" *ngIf="activeTab == 2">
+            <div class="container_table">
+                <h3>Tableau des Cours</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Horaire</th>
+                            <th>Description du contenu</th>
+                            <th>Plan du cours</th>
+                            <th>Documents</th>
+                            <th style="width: 70px">Modifier</th>
+                            <th style="width: 70px">Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cours of coursData">
+                            <td>{{ cours.nom }}</td>
+                            <td>{{ cours.horaire }}</td>
+                            <td>{{ cours.descriptionContenu }}</td>
+                            <td>{{ cours.planCours }}</td>
+                            <td>
+                                <ng-container *ngIf="cours.documents && cours.documents.length > 0">
+                                    <ul>
+                                        <li *ngFor="let document of cours.documents">
+                                            <a href="http://localhost:3001/{{ document }}" target="_blank">{{
+                                                getFileNameFromPath(document) }}</a>
+                                        </li>
+                                    </ul>
+
+                                </ng-container>
+                                <ng-container *ngIf="!cours.documents || cours.documents.length === 0">
+                                    Aucun document disponible
+                                </ng-container>
+                            </td>
+                            <td style="text-align: right">
+                                <i class="fa-solid fa-pen-to-square blue-icon" (click)="openEditModal(cours)"></i>
+                            </td>
+                            <td style="text-align: right">
+                                <i class="fa-solid fa-trash red-icon" (click)="deleteCours(cours._id)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <img [src]="imagePath" alt="ai" class="img-fluid rounded"
+        style="max-width: 150px; position: fixed; bottom: 0%; right: 0px" (click)="openModal()" />
+</body>
+
+</html>
+
+
+<!-- lecon.component.html -->
+<div *ngIf="opened" class="popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h2 class="main-title"><i class="fa-solid fa-robot"></i> EduKids-AI</h2>
+            <button class="close-icon" (click)="closeModal()">&times;</button>
+        </div>
+        <chat-bot></chat-bot>
+    </div>
+</div>
+
+<div *ngIf="openedEditCours" class="popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h2 class="main-title"><i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier leçon</h2>
+            <button class="close-icon" (click)="closeEditModal()">&times;</button>
+        </div>
+        <form [formGroup]="leconForm" class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom:</label>
+                <input type="text" class="form-control" id="nom" formControlName="nom" required />
+                <div *ngIf="leconForm.get('nom').invalid && leconForm.get('nom').touched" class="invalid-feedback">
+                    Le nom est requis.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="horaire" class="form-label">Horaire:</label>
+                <input type="text" class="form-control" id="horaire" formControlName="horaire" required />
+                <div *ngIf="leconForm.get('horaire').invalid && leconForm.get('horaire').touched"
+                    class="invalid-feedback">
+                    L'horaire est requis.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="descriptionContenu" class="form-label">Description du contenu:</label>
+                <input type="text" class="form-control" id="descriptionContenu" formControlName="descriptionContenu"
+                    required />
+                <div *ngIf="leconForm.get('descriptionContenu').invalid && leconForm.get('descriptionContenu').touched"
+                    class="invalid-feedback">
+                    La description du contenu est requise.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="planCours" class="form-label">Plan du cours:</label>
+                <input type="text" class="form-control" id="planCours" formControlName="planCours" required />
+                <div *ngIf="leconForm.get('planCours').invalid && leconForm.get('planCours').touched"
+                    class="invalid-feedback">
+                    Le plan du cours est requis.
+                </div>
+            </div>
+
+            <div class="file-upload mb-1">
+                <label for="doc" class="form-label">Documents:</label>
+                <div class="input-group">
+                    <input type="file" multiple (change)="selectFile($event)" class="form-control"
+                        formControlName="file" />
+                </div>
+                <div *ngIf="fileName" class="file-selected mt-2">
+                    <strong>Fichier sélectionné:</strong> {{ fileName }}
+                </div>
+            </div>
+
+            <!-- Affichage des documents existants -->
+            <div *ngIf="editCours && editCours.documents && editCours.documents.length > 0" class="mb-3">
+                <label for="existingDocs" class="form-label">Documents existants:</label>
+                <ul>
+                    <li *ngFor="let document of editCours.documents">
+                        <a href="http://localhost:3001/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
+                            }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" (click)="updateCours()" [disabled]="leconForm.invalid">
+                    Modifier
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

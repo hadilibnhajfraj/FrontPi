@@ -11,16 +11,26 @@
   <div class="container">
     <div class="chat-container">
       <div class="chat-history" id="chatHistory">
+        <!-- Example of displaying bot's initial message -->
         <div class="message bot-message">
           Bonjour! Comment puis-je vous aider aujourd'hui ?
+        </div>
+        <div *ngIf="question" class="message user-message">
+          {{ question }}
+        </div>
+        <div *ngIf="loading" class="message loading-message">
+          ...
+        </div>
+        <div *ngIf="response" class="message bot-message">
+          {{ response }}
         </div>
       </div>
     </div>
     <div class="input-container">
-      <input type="text" class="form-control input-message" id="userMessage" placeholder="Type your message...">
-      <button class="send-button" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+      <input type="text" class="form-control input-message" id="userMessage" placeholder="Type your message..."
+        [(ngModel)]="question">
+      <button class="send-button" (click)="submitQuestion()"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
-
 </body>
 </html>

@@ -268,26 +268,41 @@
         </div>
       </div>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const accordionItems = document.querySelectorAll(".accordion-item");
-
-        accordionItems.forEach((item) => {
-          const header = item.querySelector(".accordion-item-header");
-
-          header.addEventListener("click", () => {
-            const isOpen = item.classList.contains("active");
-
-            accordionItems.forEach((otherItem) => {
-              otherItem.classList.remove("active");
-            });
-
-            if (!isOpen) {
-              item.classList.add("active");
-            }
-          });
-        });
-      });
-    </script>
+  <img [src]="imagePath" alt="ai" class="img-fluid rounded"
+    style="max-width: 150px; position: fixed; bottom: 0%; right: 0px" (click)="openModal()" />
   </body>
 </html>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const accordionItems = document.querySelectorAll(".accordion-item");
+
+      accordionItems.forEach((item) => {
+        const header = item.querySelector(".accordion-item-header");
+
+        header.addEventListener("click", () => {
+          const isOpen = item.classList.contains("active");
+
+          accordionItems.forEach((otherItem) => {
+            otherItem.classList.remove("active");
+          });
+
+          if (!isOpen) {
+            item.classList.add("active");
+          }
+        });
+      });
+    });
+  </script>
+
+
+
+<div *ngIf="opened" class="popup">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h2 class="main-title"><i class="fa-solid fa-robot"></i> EduKids-AI</h2>
+      <button class="close-icon" (click)="closeModal()">&times;</button>
+    </div>
+    <chat-bot></chat-bot>
+  </div>
+</div>

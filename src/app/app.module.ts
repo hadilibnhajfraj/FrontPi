@@ -20,6 +20,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     AppRoutingModule,
     NgbModule,
     ToastrModule.forRoot(),
+    HttpClientModule
   ],
   declarations: [AppComponent, AdminLayoutComponent,],
   providers: [],

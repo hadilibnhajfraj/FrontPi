@@ -18,14 +18,8 @@ export const ROUTES: RouteInfo[] = [
     class: "",
     children: [
       {
-        path: "/cours/lecon",
-        title: "Gestion des leçons",
-        icon: "education_agenda-bookmark",
-        class: "",
-      },
-      {
         path: "/observation",
-        title: "Gestion des observations",
+        title: "Observations",
         icon: "education_paper",
         class: "",
       },

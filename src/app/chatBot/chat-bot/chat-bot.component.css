@@ -38,34 +38,49 @@
 .message {
     border-radius: 8px;
     padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);}
 
 .user-message {
+    margin-top: 15px;
     align-self: flex-end;
-    background-color: #007bff;
+    background-color: #51677e;
     color: #fff;
+    max-width: 350px;
 }
 
 .bot-message {
+        
+    margin-top: 15px;
     align-self: flex-start;
-    background-color: #6c757d;
+    background-color: #758ea5;
     color: #fff;
+    max-width: 450px;
 }
 
 .input-container {
     display: flex;
     align-items: center;
-    padding-top: 300px;
+    padding-top: 150px;
 }
 
 .input-message,
 .send-button {
     border-radius: 10px;
-    border: 1px solid #ced4da;
+    border: 1px solid #7596b8;
     outline: none;
 }
-
+.loading-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 5px 0;
+    font-style: italic;
+    font-size: 14px;
+    max-width: 70%;
+    margin-top: 15px;
+ 
+}
 .input-message {
     flex: 1;
     padding: 10px;
@@ -73,12 +88,13 @@
 }
 
 .send-button {
-    background-color: #007bff;
+    background-color: #618fc0;
     color: #fff;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     height: calc(100% - 2px);
+
 }
 
 .send-button:hover {

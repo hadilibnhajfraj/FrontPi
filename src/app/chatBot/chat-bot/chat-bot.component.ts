@@ -1,33 +1,32 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { ChatService } from '../../services/chatbot.service';
 
 @Component({
-  selector: "chat-bot",
-  templateUrl: "./chat-bot.component.html",
-  styleUrls: ["./chat-bot.component.css"],
+  selector: 'chat-bot',
+  templateUrl: './chat-bot.component.html',
+  styleUrls: ['./chat-bot.component.css'],
 })
-export class ChatBotComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  @ViewChild("chatHistory") chatHistory!: ElementRef;
+export class ChatBotComponent {
+  question: string = ''; 
+  response: string = ''; 
+  loading: boolean = false;
 
-  messages:any;
-  userMessage = "";
+  constructor(private chatService: ChatService) { }
 
-  sendMessage() {
-    if (this.userMessage.trim() !== "") {
-      this.messages.push({ content: this.userMessage, from: "user" });
-      this.userMessage = "";
-      // Simulate bot response
-      setTimeout(() => {
-        this.messages.push({ content: "This is a bot response.", from: "bot" });
-        this.scrollToBottom();
-      }, 500);
-    }
-  }
+  submitQuestion() {
+    this.loading = true;  // Start loading indicator
+    this.response = '';   // Clear the previous response
 
-  scrollToBottom() {
-    this.chatHistory.nativeElement.scrollTop =
-      this.chatHistory.nativeElement.scrollHeight;
+    this.chatService.postQuestion(this.question).subscribe(
+      (response: any) => {
+        this.loading = false; // Stop loading indicator
+        this.response = response.response;
+      },
+      (error) => {
+        this.loading = false; // Stop loading indicator on error
+        console.error('Erreur lors de la requête :', error);
+      }
+    );
   }
 }
+
