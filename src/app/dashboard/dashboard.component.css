@@ -1,0 +1,13 @@
+.fc .fc-timegrid-slot-label {
+  vertical-align: middle;
+  height: 180px;
+}
+.card {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px #9a9a9a;
+  border: 1px solid #9a9a9a;
+}

@@ -13,6 +13,9 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RepasComponent } from './repas/repas.component';
+import { RepasaffichageComponent } from './repasaffichage/repasaffichage.component';
+import { ModifRepasComponent } from './modif-repas/modif-repas.component';
+import { ModifcomponentComponent } from './modifcomponent/modifcomponent.component';
 
 @NgModule({
   imports: [
@@ -23,12 +26,16 @@ import { RepasComponent } from './repas/repas.component';
     RouterModule,
     AppRoutingModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    RepasComponent
+    RepasComponent,
+    RepasaffichageComponent,
+    ModifRepasComponent,
+    ModifcomponentComponent
 
   ],
   providers: [],

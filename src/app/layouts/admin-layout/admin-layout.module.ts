@@ -25,7 +25,8 @@ import interactionPlugin from '@fullcalendar/interaction';
     ChartsModule,
     NgbModule,
     ToastrModule.forRoot(),
-    FullCalendarModule
+    FullCalendarModule,
+    
   ],
   declarations: [
     DashboardComponent,

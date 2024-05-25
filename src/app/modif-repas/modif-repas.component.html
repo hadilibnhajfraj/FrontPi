@@ -9,7 +9,7 @@
           class="form-control"
           id="nomRepas"
           name="nomRepas"
-          ngModel
+          [(ngModel)]="repas.nomRepas"
           required
         />
       </div>
@@ -18,7 +18,7 @@
         <select
           name="tempsRepas"
           class="custom-select custom-select-sm"
-          ngModel
+          [(ngModel)]="repas.tempsRepas"
           required
         >
           <option value="petit dejeuner">Petit déjeuner</option>
@@ -33,12 +33,12 @@
         <div *ngFor="let allergie of allergies" class="boxmodif">
           <input
             type="checkbox"
-            id="{{ allergie._id }}"
+            id="{{ allergie.allergene }}"
             name="allergiesEleve"
             [value]="allergie.allergene"
             [(ngModel)]="allergie.selected"
           />
-          <label for="{{ allergie._id }}" class="nomallergene">{{ allergie.allergene }}</label>
+          <label for="{{ allergie.allergene }}" class="nomallergene">{{ allergie.allergene }}</label>
         </div>
       </div>
 
@@ -61,6 +61,3 @@
   </div>
   <button class="btn btn-link" (click)="ajouterAllergie()">Vous ne trouvez pas votre allergie? Cliquez ici pour l'ajouter.</button>
 </div>
-
-<!-- New allergy addition section -->
-
