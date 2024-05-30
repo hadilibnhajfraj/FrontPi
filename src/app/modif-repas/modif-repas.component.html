@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <form (ngSubmit)="onSubmit(repasForm)" #repasForm="ngForm">
-      <!-- Existing form fields -->
+      <!-- Nom du repas -->
       <div class="form-group">
         <label for="nomRepas">Nom repas</label>
         <input
@@ -13,6 +13,8 @@
           required
         />
       </div>
+
+      <!-- Temps du repas -->
       <div class="form-group">
         <label for="tempsRepas">Temps de Repas</label>
         <select
@@ -27,37 +29,38 @@
         </select>
       </div>
 
-      <!-- Existing allergies selection -->
-      <label for="allergiesEleve">Allergies</label>
-      <div class="form-group modification">
-        <div *ngFor="let allergie of allergies" class="boxmodif">
-          <input
+
+      <div>
+        <h2>Toutes les allergies :</h2>
+        <div class="form-group modification">
+          <div *ngFor="let allergene of allAllergies" class="boxmodif">
+            <input
             type="checkbox"
-            id="{{ allergie.allergene }}"
-            name="allergiesEleve"
-            [value]="allergie.allergene"
-            [(ngModel)]="allergie.selected"
+            [value]="allergene._id"
+            [(ngModel)]="allergene.selected"
+            (change)="toggleAllergeneSelection(allergene)"
+            [checked]="isAllergeneSelected(allergene)"
+            name="allergene_{{ allergene._id }}"
           />
-          <label for="{{ allergie.allergene }}" class="nomallergene">{{ allergie.allergene }}</label>
+            {{ allergene.allergene }}
+          </div>
         </div>
       </div>
 
-      <!-- Hidden date field -->
-      <input type="hidden" name="jour" [value]="selectedDate" ngModel />
+      <!-- Champ de date -->
+      <div class="form-group">
+        <label for="jour">Jour</label>
+        <input
+          type="date"
+          class="form-control"
+          id="jour"
+          name="jour"
+          [(ngModel)]="repas.jour"
+          required
+        />
+      </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-  <div *ngIf="ajoutAllergie">
-    <label for="nouvelleAllergie">Nouvelle Allergie</label>
-    <input
-      type="text"
-      class="form-control"
-      id="nouvelleAllergie"
-      [(ngModel)]="nouvelleAllergie"
-    />
-    <button class="btn btn-success" (click)="submitNouvelleAllergie()">Ajouter l'allergie</button>
-    <button class="btn btn-secondary" (click)="ajoutAllergie = false">Annuler</button>
-  </div>
-  <button class="btn btn-link" (click)="ajouterAllergie()">Vous ne trouvez pas votre allergie? Cliquez ici pour l'ajouter.</button>
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Repas } from "../model/repas/Repas";
+import { switchMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -23,10 +24,18 @@ export class RepasService {
   deleteRepas(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/deleteRepas/${id}`);
   }
-  updateRepas(id: string, repas: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/updatetRepas/${id}`, repas);
+  updateRepas(id: string, updatedRepas: any): Observable<any> {
+
+    return this.http.put(`${this.baseUrl}/updatetRepas/${id}`, updatedRepas)
   }
   getRepas(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/repas/${id}`);
   }
+  getRepasAllergie(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/repasallergie/${id}`);
+  }
+  updateRepasAllergies(id: string, allergiesEleve: string[]): Observable<any> {
+    return this.http.put(`${this.baseUrl}/updatetRepasallergie/${id}/allergies`, { allergiesEleve });
+  }
+
 }

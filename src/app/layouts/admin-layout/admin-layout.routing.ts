@@ -11,6 +11,7 @@ import { UpgradeComponent } from "../../upgrade/upgrade.component";
 import { RepasComponent } from "../../repas/repas.component";
 import { RepasaffichageComponent } from "../../repasaffichage/repasaffichage.component";
 import { ModifRepasComponent } from "../../modif-repas/modif-repas.component";
+import { BusComponent } from "../../bus/bus.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
@@ -19,7 +20,8 @@ export const AdminLayoutRoutes: Routes = [
   { path: "repas", component: RepasComponent },
   { path: "user-profile", component: UserProfileComponent },
   { path: "table-list", component: TableListComponent },
-  { path: "icons", component: IconsComponent },
+  { path: "bus", component: IconsComponent },
+  { path: "ajouterBus", component: BusComponent },
   { path: "maps", component: MapsComponent },
   { path: "notifications", component: NotificationsComponent },
   { path: "upgrade", component: UpgradeComponent },

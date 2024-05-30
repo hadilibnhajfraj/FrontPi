@@ -16,6 +16,7 @@ import { RepasComponent } from './repas/repas.component';
 import { RepasaffichageComponent } from './repasaffichage/repasaffichage.component';
 import { ModifRepasComponent } from './modif-repas/modif-repas.component';
 import { ModifcomponentComponent } from './modifcomponent/modifcomponent.component';
+import { BusComponent } from './bus/bus.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { ModifcomponentComponent } from './modifcomponent/modifcomponent.compone
     RepasComponent,
     RepasaffichageComponent,
     ModifRepasComponent,
-    ModifcomponentComponent
+    ModifcomponentComponent,
+    BusComponent
 
   ],
   providers: [],

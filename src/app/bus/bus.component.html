@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Ajouter un Bus</h2>
+  <form (ngSubmit)="onSubmit()" #busForm="ngForm">
+    <div class="form-group">
+      <label for="depart">Départ:</label>
+      <select id="depart" class="form-control" required [(ngModel)]="bus.itineraire.depart" name="depart">
+        <option *ngFor="let station of stations" [value]="station">{{ station }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="arrivee">Arrivée:</label>
+      <select id="arrivee" class="form-control" required [(ngModel)]="bus.itineraire.arrivee" name="arrivee">
+        <option *ngFor="let station of stations" [value]="station">{{ station }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="horaire">Horaire:</label>
+      <input type="text" id="horaire" class="form-control" required [(ngModel)]="bus.horaire" name="horaire" placeholder="HH:MM">
+    </div>
+    <div class="form-group">
+      <label for="matricule">Matricule:</label>
+      <input type="text" id="matricule" class="form-control" required [(ngModel)]="bus.matricule" name="matricule">
+    </div>
+    <div class="form-group">
+      <label for="chauffeur">Chauffeur:</label>
+      <select id="chauffeur" class="form-control" required [(ngModel)]="bus.chauffeur" name="chauffeur">
+        <option *ngFor="let chauffeur of chauffeurs" [ngValue]="chauffeur">{{ chauffeur.nom }} {{ chauffeur.prenom }}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+  </form>
+</div>
