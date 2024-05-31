@@ -90,83 +90,48 @@
      margin-top: 20px;
  }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
     margin-bottom: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+    width: 100%;
 }
 
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    min-width: 150px;
-    /* Ajustez selon vos besoins */
+.card-title {
+    font-size: 1.25rem;
 }
 
-td {
-    color: #666;
-    min-width: 150px;
-    /* Ajustez selon vos besoins */
+.card-subtitle {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-td>i {
-    font-size: 1.2em;
+.card-text {
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.list-group-item {
+    border: none;
+    padding: 5px;
+}
+
+.blue-icon,
+.red-icon {
+    color: inherit;
+    font-size: 1rem;
     cursor: pointer;
-    transition: color 0.3s ease-in-out;
 }
 
-td a {
-    color: #8ca1b8;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+.fa-pen-to-square {
+    width: 20px;
 }
-
-td a:hover {
-    color: #41658b;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f0f0f0;
-}
- h1 {
-     font-family: Arial, sans-serif;
-     text-align: center;
-     margin-bottom: 20px;
- }
-
- .container_table {
-     max-width: 100%;
-     overflow-x: auto;
- }
-
- .blue-icon {
-     color: blue;
-     cursor: pointer;
- }
-
- .red-icon {
-     color: red;
-     cursor: pointer;
- }
-
- .fa-pen-to-square {
-     width: 20px;
- }
 
  .fa-trash {
      width: 20px;
@@ -237,4 +202,86 @@ tr:hover {
 
  .popup-content i {
      color: #f39c12;
+ }
+
+ .form-control.modern-textarea {
+     border: 1px solid #ccc;
+     border-radius: 6px;
+     padding: 10px;
+     font-size: 16px;
+     resize: vertical;
+     min-height: 120px;
+     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+ }
+
+ .form-control.modern-textarea:focus {
+     border-color: #007bff;
+     outline: 0;
+     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+ }
+
+  .blue-icon {
+      color: blue;
+      cursor: pointer;
+  }
+
+  .red-icon {
+      color: red;
+      cursor: pointer;
+  }
+
+  .fa-pen-to-square {
+      width: 20px;
+  }
+   .label {
+       font-weight: 600;
+       color: #63865c;
+       font-size: 19px;
+   }
+   strong{
+    color: #4b534b;
+    font-size: 15px;
+   }
+
+
+
+  /* styles.scss */
+
+  /* Adjust table width */
+  .table {
+      width: 100%;
+      /* Ensure the table takes full width of its container */
+      margin-bottom: 1rem;
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.25rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Set specific column widths */
+  .table th {
+      white-space: nowrap;
+      /* Prevent line breaks in headers */
+  }
+
+  .table td,
+  .table th {
+      padding: 0.75rem;
+      vertical-align: middle;
+      text-align: center;
+      /* Adjust text alignment as needed */
+  }
+
+  /* Responsive table adjustments */
+  @media (max-width: 767.98px) {
+
+      .table td,
+      .table th {
+          font-size: 0.9rem;
+          /* Reduce font size on smaller screens */
+      }
+  }
+ .alert-danger {
+     background-color: #752121;
+     color: #800907;
  }

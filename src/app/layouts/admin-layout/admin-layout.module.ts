@@ -13,6 +13,7 @@ import { CoursComponent } from "../../courses/cours/cours.component";
 import { ObservationComponent } from "../../observation/observation/observation.component";
 import { EleveComponent } from "../../etudiant/eleve/eleve.component";
 import { ChatBotComponent } from "../../chatBot/chat-bot/chat-bot.component";
+import { MatiereComponent } from "../../matiere/matiere/matiere.component";
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { ChatBotComponent } from "../../chatBot/chat-bot/chat-bot.component";
     ObservationComponent,
     EleveComponent,
     ChatBotComponent,
+    MatiereComponent
   ],
 })
 export class AdminLayoutModule {}

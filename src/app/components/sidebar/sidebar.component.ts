@@ -29,7 +29,12 @@ export const ROUTES: RouteInfo[] = [
         icon: "users_circle-08",
         class: "",
       },
-      
+      {
+        path: "/matiere",
+        title: "Gestion des matières",
+        icon: "education_agenda-bookmark",
+        class: "",
+      },
     ],
   },
 ];

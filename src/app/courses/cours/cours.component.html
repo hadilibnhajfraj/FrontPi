@@ -21,6 +21,10 @@
             <div class="tab" [ngClass]="{ active: activeTab == 2 }" (click)="setActiveTab(2)">
                 <i class="fa-solid fa-list-check"></i> Révision
             </div>
+
+            <div class="tab" [ngClass]="{ active: activeTab == 3 }" (click)="setActiveTab(3)">
+                <i class="fa-solid fa-shapes"></i> Les exercices
+            </div>
         </div>
 
         <div class="tab-content" *ngIf="activeTab == 1">
@@ -28,9 +32,7 @@
                 <div class="mb-3">
                     <label for="nom" class="form-label">Nom:</label>
                     <input type="text" class="form-control" id="nom" formControlName="nom" required />
-                    <div *ngIf="
-                leconForm.get('nom').invalid && leconForm.get('nom').touched
-              " class="invalid-feedback">
+                    <div *ngIf="leconForm.get('nom').invalid && leconForm.get('nom').touched" class="invalid-feedback">
                         Le nom est requis.
                     </div>
                 </div>
@@ -38,113 +40,254 @@
                 <div class="mb-3">
                     <label for="horaire" class="form-label">Horaire:</label>
                     <input type="text" class="form-control" id="horaire" formControlName="horaire" required />
-                    <div *ngIf="
-                leconForm.get('horaire').invalid &&
-                leconForm.get('horaire').touched
-              " class="invalid-feedback">
+                    <div *ngIf="leconForm.get('horaire').invalid && leconForm.get('horaire').touched"
+                        class="invalid-feedback">
                         L'horaire est requis.
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="descriptionContenu" class="form-label">Description du contenu:</label>
-                    <input type="text" class="form-control" id="descriptionContenu" formControlName="descriptionContenu"
-                        required />
-                    <div *ngIf="
-                leconForm.get('descriptionContenu').invalid &&
-                leconForm.get('descriptionContenu').touched
-              " class="invalid-feedback">
+                    <label for="descriptionContenu" class="form-label">Description du contenu :</label>
+                    <textarea class="form-control modern-textarea" id="descriptionContenu"
+                        formControlName="descriptionContenu" required></textarea>
+                    <div *ngIf="leconForm.get('descriptionContenu').invalid && leconForm.get('descriptionContenu').touched"
+                        class="invalid-feedback">
                         La description du contenu est requise.
                     </div>
                 </div>
 
+
                 <div class="mb-3">
-                    <label for="planCours" class="form-label">Plan du cours:</label>
-                    <input type="text" class="form-control" id="planCours" formControlName="planCours" required />
-                    <div *ngIf="
-                leconForm.get('planCours').invalid &&
-                leconForm.get('planCours').touched
-              " class="invalid-feedback">
+                    <label for="planCours" class="form-label">Plan du cours :</label>
+                    <textarea class="form-control modern-textarea" id="planCours" formControlName="planCours"
+                        required></textarea>
+                    <div *ngIf="leconForm.get('planCours').invalid && leconForm.get('planCours').touched"
+                        class="invalid-feedback">
                         Le plan du cours est requis.
                     </div>
                 </div>
+
+
+                <div class="mb-3">
+                    <label for="classe" class="form-label">Classe:</label>
+                    <select class="form-select" id="classe" formControlName="classe" required>
+                        <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
+                    </select>
+                    <div *ngIf="leconForm.get('classe').invalid && leconForm.get('classe').touched"
+                        class="invalid-feedback">
+                        La classe est requise.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="matiere" class="form-label">Matière:</label>
+                    <select class="form-select" id="matiere" formControlName="matiere" required>
+                        <option *ngFor="let matiere of matieres" [value]="matiere._id">{{ matiere.nom }}</option>
+                    </select>
+                    <div *ngIf="leconForm.get('matiere').invalid && leconForm.get('matiere').touched"
+                        class="invalid-feedback">
+                        La matière est requise.
+                    </div>
+                </div>
+
                 <div class="file-upload mb-1">
                     <label for="doc" class="form-label">Documents:</label>
                     <div class="input-group">
                         <input type="file" multiple (change)="selectFile($event)" class="form-control"
                             formControlName="file" />
-
                     </div>
-
                     <div *ngIf="fileName" class="file-selected mt-2">
                         <strong>Fichier sélectionné:</strong> {{ fileName }}
                     </div>
                 </div>
 
-
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="leconForm.invalid">
-                        Sauvegarder
+                        <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
                     </button>
                 </div>
             </form>
         </div>
 
-
         <div class="tab-content" *ngIf="activeTab == 2">
-            <div class="container_table">
-                <h3>Tableau des Cours</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Horaire</th>
-                            <th>Description du contenu</th>
-                            <th>Plan du cours</th>
-                            <th>Documents</th>
-                            <th style="width: 70px">Modifier</th>
-                            <th style="width: 70px">Supprimer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cours of coursData">
-                            <td>{{ cours.nom }}</td>
-                            <td>{{ cours.horaire }}</td>
-                            <td>{{ cours.descriptionContenu }}</td>
-                            <td>{{ cours.planCours }}</td>
-                            <td>
-                                <ng-container *ngIf="cours.documents && cours.documents.length > 0">
-                                    <ul>
-                                        <li *ngFor="let document of cours.documents">
-                                            <a href="http://localhost:3001/{{ document }}" target="_blank">{{
-                                                getFileNameFromPath(document) }}</a>
-                                        </li>
-                                    </ul>
+            <div class="container">
+                <div class="text-center">
+                    <h3 class="mb-3"><i class="fa-solid fa-book-open-reader"></i> Liste des Cours</h3>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Rechercher par nom..." [(ngModel)]="searchTerm"
+                        (keyup)="searchCourses()" />
+                </div>
 
-                                </ng-container>
-                                <ng-container *ngIf="!cours.documents || cours.documents.length === 0">
-                                    Aucun document disponible
-                                </ng-container>
-                            </td>
-                            <td style="text-align: right">
-                                <i class="fa-solid fa-pen-to-square blue-icon" (click)="openEditModal(cours)"></i>
-                            </td>
-                            <td style="text-align: right">
-                                <i class="fa-solid fa-trash red-icon" (click)="deleteCours(cours._id)"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-md-6 mb-4" *ngFor="let cours of coursData">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="card-title"> <i class="fa-solid fa-book-open"></i> {{ cours.nom }}</h6>
+                                    <h6 class="card-title"><i class="fa-solid fa-school"></i> {{ cours.classe?.nom }}
+                                    </h6>
+                                </div>
+                                <p class="card-text">{{ cours.descriptionContenu }}</p>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <div class="d-flex justify-content-between  mb-3">
+                                        <strong class="label">Horaire:</strong>
+                                        <strong> {{ cours.horaire }}</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between  mb-3">
+                                        <strong class="label">Matière:</strong><strong> {{
+                                            cours.matiere?.nom }}</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between  mb-3">
+                                        <strong class="label">Chapitre(s):</strong>
+                                        <p class="card-text">{{
+                                            cours.planCours }}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between  mb-3">
+                                        <strong class="label">Documents:</strong>
+                                        <ng-container
+                                            *ngIf="cours.documents && cours.documents.length > 0; else noDocuments">
+                                            <ul>
+                                                <li *ngFor="let document of cours.documents">
+                                                    <a href="http://localhost:3001/{{ document }}" target="_blank">
+                                                        {{ getFileNameFromPath(document) }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </ng-container>
+                                    </div>
+                                    <ng-template #noDocuments>
+                                        Aucun document disponible
+                                    </ng-template>
+
+                                    <div class="card-footer text-end">
+                                        <i class="fa-solid fa-pen-to-square blue-icon mx-3 fs-3"
+                                            (click)="openEditModal(cours)"></i>
+                                        <i class="fa-solid fa-trash red-icon mx-3 fs-3"
+                                            (click)="deleteCours(cours._id)"></i>
+                                    </div>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-content" *ngIf="activeTab == 3">
+            <!-- Onglets -->
+            <ul class="nav nav-tabs mb-3">
+                <li class="nav-item">
+                    <a class="nav-link" [class.active]="currentTab === 'form'" (click)="currentTab = 'form'">Ajout
+                        exercise</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [class.active]="currentTab === 'history'"
+                        (click)="currentTab = 'history'">Historique des exercises</a>
+                </li>
+            </ul>
+
+            <!-- Contenu des onglets -->
+            <div [ngSwitch]="currentTab">
+                <div *ngSwitchCase="'form'" class="form-container">
+                    <form [formGroup]="exerciceForm" enctype="multipart/form-data" novalidate>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input id="description" formControlName="description" type="text" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateLimite">Date Limite</label>
+                            <input id="dateLimite" formControlName="dateLimite" type="date" class="form-control" />
+                        </div>
+
+                        <div class="file-upload mb-1">
+                            <label for="document" class="form-label">Documents:</label>
+                            <div class="input-group">
+                                <input type="file" multiple (change)="selectFile($event)" class="form-control"
+                                    formControlName="document" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="typeExercice">Type d'Exercice</label>
+                            <input id="typeExercice" formControlName="typeExercice" type="text" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cours" class="form-label">Cours:</label>
+                            <select class="form-select" id="cours" formControlName="cours" required>
+                                <option *ngFor="let cour of coursData" [value]="cour?._id">{{ cour.nom }}</option>
+                            </select>
+                            <div *ngIf="exerciceForm.get('cours').invalid && exerciceForm.get('cours').touched"
+                                class="invalid-feedback">
+                                Le cours est requis.
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary" (click)="saveExercice()"
+                                [disabled]="exerciceForm.invalid"><i class="fa-solid fa-floppy-disk"></i>
+                                Sauvegarder
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Onglet Historique -->
+                <div *ngSwitchCase="'history'">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">Date Limite</th>
+                                    <th style="width: 30%;">Description</th>
+                                    <th style="width: 15%;">Type d'Exercice</th>
+                                    <th style="width: 35%;">Documents</th>
+                                    <th style="width: 35%;">Modifier</th>
+                                    <th style="width: 35%;">Supprimer</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let exercise of exercises">
+                                    <td [class.alert-danger]="checkDeadlinePassed(exercise.dateLimite)">
+                                        <span class="label">{{ exercise.dateLimite | date:'dd-MM-yyyy' }}</span>
+                                    </td>
+                                    <td>
+                                        <p style="text-align: justify;">{{ exercise.description }}</p>
+                                    </td>
+                                    <td>{{ exercise.typeExercice }}</td>
+                                    <td>
+                                        <div *ngFor="let doc of exercise.documents">
+                                            <a href="http://localhost:3001/{{doc}}" target="_blank">
+                                                {{ getFileNameFromPath(doc) }}
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td><i class="fa-solid fa-pen-to-square blue-icon mx-3 fs-3"
+                                            (click)="openEditExercice(exercise)"></i>
+                                    </td>
+                                    <td><i class="fa-solid fa-trash red-icon mx-3 fs-3"
+                                            (click)="deleteExercise(exercise._id)"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
-
     <img [src]="imagePath" alt="ai" class="img-fluid rounded"
         style="max-width: 150px; position: fixed; bottom: 0%; right: 0px" (click)="openModal()" />
 </body>
 
 </html>
+
 
 
 <!-- lecon.component.html -->
@@ -200,6 +343,29 @@
                     Le plan du cours est requis.
                 </div>
             </div>
+            <!-- Dropdown pour Classe -->
+            <div class="mb-3">
+                <label for="classe" class="form-label">Classe:</label>
+                <select class="form-select" id="classe" formControlName="classe" required>
+                    <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
+                </select>
+                <div *ngIf="leconForm.get('classe').invalid && leconForm.get('classe').touched"
+                    class="invalid-feedback">
+                    La classe est requise.
+                </div>
+            </div>
+
+            <!-- Dropdown pour Matière -->
+            <div class="mb-3">
+                <label for="matiere" class="form-label">Matière:</label>
+                <select class="form-select" id="matiere" formControlName="matiere" required>
+                    <option *ngFor="let matiere of matieres" [value]="matiere._id">{{ matiere.nom }}</option>
+                </select>
+                <div *ngIf="leconForm.get('matiere').invalid && leconForm.get('matiere').touched"
+                    class="invalid-feedback">
+                    La matière est requise.
+                </div>
+            </div>
 
             <div class="file-upload mb-1">
                 <label for="doc" class="form-label">Documents:</label>
@@ -207,9 +373,7 @@
                     <input type="file" multiple (change)="selectFile($event)" class="form-control"
                         formControlName="file" />
                 </div>
-                <div *ngIf="fileName" class="file-selected mt-2">
-                    <strong>Fichier sélectionné:</strong> {{ fileName }}
-                </div>
+
             </div>
 
             <!-- Affichage des documents existants -->
@@ -225,7 +389,70 @@
 
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary" (click)="updateCours()" [disabled]="leconForm.invalid">
-                    Modifier
+                    <i class="fa-solid fa-floppy-disk"></i> Modifier
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div *ngIf="openedEditExercise" class="popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h2 class="main-title"><i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier exercise</h2>
+            <button class="close-icon" (click)="closeEditExercise()">&times;</button>
+        </div>
+        <form [formGroup]="exerciceForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input id="description" formControlName="description" type="text" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="dateLimite">Date Limite</label>
+                <input id="dateLimite" formControlName="dateLimite" type="date" class="form-control" />
+            </div>
+
+            <div class="file-upload mb-1">
+                <label for="document" class="form-label">Documents:</label>
+                <div class="input-group">
+                    <input type="file" multiple (change)="selectFile($event)" class="form-control"
+                        formControlName="document" />
+                </div>
+            </div>
+
+            <div *ngIf="editExercise && editExercise.documents && editExercise.documents.length > 0" class="mb-3">
+                <label for="existingDocs" class="form-label">Documents existants:</label>
+                <ul>
+                    <li *ngFor="let document of editExercise.documents">
+                        <a href="http://localhost:3001/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
+                            }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="typeExercice">Type d'Exercice</label>
+                <input id="typeExercice" formControlName="typeExercice" type="text" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="cours" class="form-label">Cours:</label>
+                <select class="form-select" id="cours" formControlName="cours" required>
+                    <option *ngFor="let cour of coursData" [value]="cour?._id">{{ cour.nom }}</option>
+                </select>
+                <div *ngIf="exerciceForm.get('cours').invalid && exerciceForm.get('cours').touched"
+                    class="invalid-feedback">
+                    Le cours est requis.
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" (click)="updateExercise()"
+                    [disabled]="exerciceForm.invalid">
+                    <i class="fa-solid fa-floppy-disk"></i> Modifier
                 </button>
             </div>
         </form>

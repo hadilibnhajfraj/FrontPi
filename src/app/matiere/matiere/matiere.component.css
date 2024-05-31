@@ -93,105 +93,7 @@
       border-color: #0056b3;
   }
 
-  /* Styles for student card */
-  /* Styles for student card */
-  .card {
-      border: 1px solid #ccc;
-      /* Border with a light gray color */
-      border-radius: 12px;
-      /* Rounded corners */
-      transition: box-shadow 0.3s ease;
-      overflow: hidden;
-      /* Ensure border-radius applies correctly */
-      box-shadow: 0 2px 4px rgba(98, 240, 162, 0.945);
-      /* Subtle shadow */
-  }
-
-  .card:hover {
-      box-shadow: 0 4px 8px rgba(255, 251, 251, 0.2);
-      /* Slightly stronger shadow on hover */
-  }
-
-  .student-image {
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 12px 0 0 12px;
-  }
-
-  .card-body {
-      padding: 1.5rem;
-  }
-
-  .card-title {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #74aa55;
-      font-weight: 600;
-  }
-
-  .card-text {
-      color: #96df84;
-      /* Slightly darker text color */
-  }
-
-  .detail-row {
-      margin-bottom: 0.75rem;
-      /* Increased spacing between rows */
-  }
-
-  .label {
-      font-weight: 600;
-      color: #63865c;
-  }
-
-  .value {
-      flex: 1;
-      margin-left: 1rem;
-      color: #60bd6d;
-  }
-
-  .card-actions {
-      font-size: 1.5rem;
-  }
-
-  .blue-icon,
-  .red-icon {
-      margin-right: 1rem;
-      cursor: pointer;
-  }
-
-  .blue-icon {
-      color: #007bff;
-  }
-
-  .red-icon {
-      color: #dc3545;
-  }
-
-  .fa-pen-to-square {
-      width: 20px;
-  }
-
-  .fa-trash {
-      width: 20px;
-  }
-
-
-  .radio-buttons {
-      display: flex;
-      gap: 10px;
-      /* Espacement entre les options de boutons radio */
-  }
-
-  .radio-option {
-      display: flex;
-      align-items: center;
-  }
-
-  .radio-option input[type="radio"] {
-      margin-right: 5px;
-      /* Espacement entre le bouton radio et le libellé */
-  }
+  
 
 
   .popup {
@@ -259,13 +161,69 @@
   .popup-content i {
       color: #f39c12;
   }
+ .form-control.modern-textarea {
+     border: 1px solid #ccc;
+     border-radius: 6px;
+     padding: 10px;
+     font-size: 16px;
+     resize: vertical;
+     min-height: 120px;
+     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+ }
 
-  .file-upload {
-      display: flex;
-      flex-direction: column;
-      border: 1px dashed #ccc;
-      padding: 20px;
-      border-radius: 5px;
-      background-color: #f8f9fa;
-      margin-bottom: 20px;
-  }
+ .form-control.modern-textarea:focus {
+     border-color: #007bff;
+     outline: 0;
+     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+ }
+ .table-modern {
+     border-collapse: separate;
+     border-spacing: 0 1rem;
+ }
+
+ .table-modern th {
+     background-color: #f8f8f8;
+     color: rgb(63, 61, 61);
+     text-align: center;
+     border: none;
+ }
+
+ .table-modern td {
+     background-color: #f8f9fa;
+     text-align: center;
+     border: none;
+ }
+
+ .table-modern tbody tr {
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease;
+ }
+
+ .table-modern tbody tr:hover {
+     transform: translateY(-5px);
+ }
+
+ .table-modern tbody tr td:first-child {
+     border-top-left-radius: 0.5rem;
+     border-bottom-left-radius: 0.5rem;
+ }
+
+ .table-modern tbody tr td:last-child {
+     border-top-right-radius: 0.5rem;
+     border-bottom-right-radius: 0.5rem;
+ }
+
+ .main-title-table {
+     color: #a5c2e0;
+     font-weight: bold;
+ }*
+
+   .blue-icon {
+       color: blue;
+       cursor: pointer;
+   }
+
+   .red-icon {
+       color: red;
+       cursor: pointer;
+   }

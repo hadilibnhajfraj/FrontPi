@@ -120,39 +120,10 @@ body {
 
 
 
-/* Style pour l'accordéon */
-.accordion {
-    max-width: 100%;
-}
-
-.accordion-item {
-    background-color: #f4f4f4;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.accordion-item-header {
-    padding: 15px;
-    cursor: pointer;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
-}
-
-.accordion-item-header:hover {
-    background-color: #e0e0e0;
-}
-
-.accordion-item-content {
-    padding: 15px;
-    background-color: #fff;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    display: none;
-}
-
 .accordion-item.active .accordion-item-content {
     display: block;
 }
+
 
 .popup {
     position: fixed;
@@ -218,4 +189,147 @@ body {
 
 .popup-content i {
     color: #f39c12;
+}
+/* Styles for accordion */
+.accordion {
+    width: 100%;
+}
+
+.accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.accordion-item.active {
+    border-color: #007bff;
+    /* Color when accordion is active */
+}
+
+.accordion-item-header {
+    background-color: #f0f0f0;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-item-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.accordion-item-header .accordion-toggle-icon {
+    font-size: 18px;
+    color: #555;
+    transition: transform 0.3s ease;
+}
+
+.accordion-item-header .accordion-toggle-icon.active {
+    transform: rotate(180deg);
+}
+
+.accordion-item-content {
+    padding: 15px;
+    background-color: #fff;
+}
+
+/* Modern and classy card styles */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #220897;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.detail-item label {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.detail-item span {
+    color: #555;
+}
+
+/* Icon container at the end of the card */
+.icon-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.blue-icon,
+.red-icon {
+    font-size: 24px;
+    /* Increase the size of the icons */
+    cursor: pointer;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.blue-icon {
+    color: #007bff;
+}
+
+.blue-icon:hover {
+    color: #0056b3;
+}
+
+.red-icon {
+    color: #dc3545;
+}
+
+.red-icon:hover {
+    color: #c82333;
+}
+
+/* Hover effect for accordion header */
+.accordion-item-header:hover {
+    background-color: #e0e0e0;
 }
