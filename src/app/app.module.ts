@@ -17,7 +17,11 @@ import { RepasaffichageComponent } from './repasaffichage/repasaffichage.compone
 import { ModifRepasComponent } from './modif-repas/modif-repas.component';
 import { ModifcomponentComponent } from './modifcomponent/modifcomponent.component';
 import { BusComponent } from './bus/bus.component';
-
+import { EditBusComponent } from './edit-bus/edit-bus.component';
+import { ChauffeurComponent } from './chauffeur/chauffeur.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ModifchauffeurComponent } from './modifchauffeur/modifchauffeur.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -28,7 +32,8 @@ import { BusComponent } from './bus/bus.component';
     AppRoutingModule,
     NgbModule,
     ToastrModule.forRoot(),
-    
+    MatRadioModule,
+    MatSlideToggleModule
   ],
   declarations: [
     AppComponent,
@@ -37,7 +42,10 @@ import { BusComponent } from './bus/bus.component';
     RepasaffichageComponent,
     ModifRepasComponent,
     ModifcomponentComponent,
-    BusComponent
+    BusComponent,
+    EditBusComponent,
+    ChauffeurComponent,
+    ModifchauffeurComponent
 
   ],
   providers: [],

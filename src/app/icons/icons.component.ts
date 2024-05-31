@@ -45,7 +45,7 @@ export class IconsComponent implements OnInit {
     );
   }
   edit(id: string) {
-
+    this.router.navigate(['/modiferBus', id]);
   }
 }
 

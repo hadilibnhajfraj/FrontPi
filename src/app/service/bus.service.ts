@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Repas } from "../model/repas/Repas";
 import { switchMap } from "rxjs/operators";
 import { Bus } from "../model/Bus";
+import { Chauffeur } from "../model/Chauffeur";
 
 @Injectable({
   providedIn: "root",
@@ -22,7 +23,25 @@ export class BusService {
   addBus(bus: Bus): Observable<Bus> {
     return this.http.post<Bus>(`${this.baseUrl}/add`,bus);
   }
+  getBusById(id: string): Observable<Bus> {
+    return this.http.get<Bus>(`${this.baseUrl}/getBusId/${id}`);
+  }
+  updateBus(bus: Bus): Observable<Bus> {
+    return this.http.put<Bus>(`${this.baseUrl}/updatetBus/${bus._id}`, bus);
+  }
+  addChauffeur(chauffeur: Chauffeur): Observable<Bus> {
+    return this.http.post<Bus>(`${this.baseUrl}/addChauffeur`,chauffeur);
+  }
   getAllChauffeur(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/getChauffeur`);
+  }
+  deleteChauffeur(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteChauffeur/${id}`);
+  }
+  getChauffeurById(id: string): Observable<Chauffeur> {
+    return this.http.get<Chauffeur>(`${this.baseUrl}/getChauffeurId/${id}`);
+  }
+  updateChauffeur(bus: Chauffeur): Observable<Chauffeur> {
+    return this.http.put<Chauffeur>(`${this.baseUrl}/updatetBus/${bus._id}`, bus);
   }
 }

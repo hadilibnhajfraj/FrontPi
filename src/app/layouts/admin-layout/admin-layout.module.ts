@@ -17,6 +17,7 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // Import the FullCa
 import dayGridPlugin from '@fullcalendar/daygrid'; // Optional: For month view
 import timeGridPlugin from '@fullcalendar/timegrid'; // For week view
 import interactionPlugin from '@fullcalendar/interaction';
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
   imports: [
     CommonModule,
@@ -26,7 +27,7 @@ import interactionPlugin from '@fullcalendar/interaction';
     NgbModule,
     ToastrModule.forRoot(),
     FullCalendarModule,
-    
+    MatRadioModule
   ],
   declarations: [
     DashboardComponent,

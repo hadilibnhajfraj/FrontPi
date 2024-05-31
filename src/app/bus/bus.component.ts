@@ -61,6 +61,7 @@ export class BusComponent implements OnInit {
     this.busService.addBus(this.bus).subscribe(
       (response) => {
         console.log('Bus added:', response);
+        alert('Bus ajouté avec succès');
         this.router.navigate(['/bus']);  // Adjust the route as needed
       },
       (error) => {
