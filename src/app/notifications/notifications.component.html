@@ -1,0 +1,77 @@
+<div class="container">
+  <h3>Liste des factures</h3>
+
+  <button class="btn btn-secondary mb-3" (click)="toggleFilterPanel()">
+    {{ showFilterPanel ? 'Cacher les filtres' : 'Afficher les filtres' }}
+  </button>
+
+  <div *ngIf="showFilterPanel" class="mb-3">
+    <form (ngSubmit)="searchFactures()">
+      <div class="form-group">
+        <label for="reference">Référence</label>
+        <input type="text" class="form-control" id="reference" [(ngModel)]="searchQuery.reference" name="reference">
+      </div>
+      <div class="form-group">
+        <label for="userName">Client</label>
+        <input type="text" class="form-control" id="userName" [(ngModel)]="searchQuery.userName" name="userName">
+      </div>
+      <div class="form-group">
+        <label for="montant">Montant</label>
+        <input type="number" class="form-control" id="montant" [(ngModel)]="searchQuery.montant" name="montant">
+      </div>
+      <button type="submit" class="btn btn-primary">Rechercher</button>
+      <button type="button" class="btn btn-danger" (click)="resetSearch()">Réinitialiser</button>
+    </form>
+  </div>
+
+  <div class="form-group">
+    <label for="statut">Statut de la facture</label>
+    <div>
+      <button class="btn btn-info mr-2" (click)="searchFacturesByStatut()">Rechercher par statut</button>
+      <label><input type="radio" name="statut" value="Tous" [(ngModel)]="searchQuery.statut" (ngModelChange)="onStatutChange()"> Tous</label>
+      <label><input type="radio" name="statut" value="encours" [(ngModel)]="searchQuery.statut"> En cours</label>
+      <label><input type="radio" name="statut" value="soldé" [(ngModel)]="searchQuery.statut"> Soldé</label>
+      <label><input type="radio" name="statut" value="non soldé" [(ngModel)]="searchQuery.statut"> Non soldé</label>
+    </div>
+  </div>
+  
+  
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Date</th>
+        <th>Montant</th>
+        <th>Statut</th>
+        <th>Client</th>
+        <th>Reste à payer</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let facture of filteredFactures">
+        <td>{{ facture.reference }}</td>
+        <td>{{ facture.date | date }}</td>
+        <td>{{ facture.montantApresRemise | currency }}</td>
+        <td>{{ facture.statut }}</td>
+        <td>{{ facture.userName }}</td>
+        <td>{{ facture.montantRestant | currency }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm mr-2" (click)="editFacture(facture)">
+            <i class="fas fa-pencil-alt"></i> Modifier
+          </button>
+          <button class="btn btn-danger btn-sm mr-2" (click)="deleteFacture(facture._id)">
+            <i class="fas fa-trash-alt"></i> Supprimer
+          </button>
+          <button class="btn btn-success btn-sm" (click)="payFacture(facture._id)">
+            <i class="fas fa-credit-card"></i> Payer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noFactures>
+    <p>Aucune facture disponible pour le moment.</p>
+  </ng-template>
+</div>

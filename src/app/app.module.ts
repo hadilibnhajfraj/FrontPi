@@ -12,6 +12,10 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ChequeComponent } from './cheque/cheque.component';
+import { OffreComponent } from './offre/offre.component';
+
+
 
 @NgModule({
   imports: [
@@ -26,7 +30,10 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    ChequeComponent,
+    OffreComponent,
+    
 
   ],
   providers: [],

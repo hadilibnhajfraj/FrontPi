@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Facture } from '../model/Facture';
+import { FactureService } from '../service/facture.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -7,63 +10,96 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
+  factures: Facture[] = [];
+  filteredFactures: Facture[] = [];
+  showFilterPanel = false;
+  searchQuery: any = {
+    reference: '',
+    userName: '',
+    montant: ''
+  };
 
-  constructor(private toastr: ToastrService) {}
-  showNotification(from, align){
+  constructor(private factureService: FactureService, private toastr: ToastrService, private router: Router) {}
 
-      const color = Math.floor((Math.random() * 5) + 1);
-
-      switch(color){
-        case 1:
-        this.toastr.info('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
-           closeButton: true,
-           enableHtml: true,
-           toastClass: "alert alert-info alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-        break;
-        case 2:
-        this.toastr.success('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
-           closeButton: true,
-           enableHtml: true,
-           toastClass: "alert alert-success alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-        break;
-        case 3:
-        this.toastr.warning('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
-           closeButton: true,
-           enableHtml: true,
-           toastClass: "alert alert-warning alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-        break;
-        case 4:
-        this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
-           enableHtml: true,
-           closeButton: true,
-           toastClass: "alert alert-danger alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-         break;
-         case 5:
-         this.toastr.show('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-            timeOut: 8000,
-            closeButton: true,
-            enableHtml: true,
-            toastClass: "alert alert-primary alert-with-icon",
-            positionClass: 'toast-' + from + '-' +  align
-          });
-        break;
-        default:
-        break;
-      }
-  }
   ngOnInit() {
+    this.loadFactures();
   }
 
+  toggleFilterPanel() {
+    this.showFilterPanel = !this.showFilterPanel;
+  }
+
+  loadFactures() {
+    this.factureService.getAll().subscribe(
+      (data: Facture[]) => {
+        this.factures = data;
+        this.filteredFactures = data;
+        console.log(data); // Vérifiez les données reçues dans la console du navigateur
+      },
+      error => {
+        this.toastr.error('Erreur lors du chargement des factures.');
+        console.error(error); // Affichage de l'erreur dans la console
+      }
+    );
+  }
+
+  searchFactures() {
+    const query = this.searchQuery;
+    if (query.statut === 'Tous') {
+      this.loadFactures();
+    } else {
+      this.searchFacturesByStatut();
+    }
+  }
+  
+
+  resetSearch() {
+    this.searchQuery = {
+      reference: '',
+      userName: '',
+      montant: ''
+    };
+    this.filteredFactures = this.factures;
+  }
+
+  editFacture(facture: Facture) {
+    this.toastr.info(`Modification de la facture ${facture.reference}`);
+  }
+
+  deleteFacture(id: string) {
+    this.factureService.delete(id).subscribe(
+      response => {
+        this.toastr.success('Facture supprimée avec succès.');
+        this.loadFactures();
+      },
+      error => {
+        this.toastr.error('Erreur lors de la suppression de la facture.');
+        console.error(error); // Affichage de l'erreur dans la console
+      }
+    );
+  }
+
+  payFacture(id: string) {
+    this.router.navigate(['/cheque', id]);
+  }
+
+  searchFacturesByStatut() {
+    const statut = this.searchQuery.statut;
+    this.factureService.searchFacturesByStatut(statut).subscribe(
+      (data: Facture[]) => {
+        this.filteredFactures = data;
+      },
+      error => {
+        this.toastr.error('Erreur lors de la recherche des factures par statut.');
+        console.error(error);
+      }
+    );
+  }
+  onStatutChange() {
+    if (this.searchQuery.statut === 'Tous') {
+      this.loadFactures();
+    }
+  }
 }
+  
+

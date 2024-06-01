@@ -1,0 +1,32 @@
+<div class="container">
+    <h3>Liste des factures</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Nom du client</th>
+          <th>Montant après remise</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let facture of filteredFactures">
+          <td>{{ facture.reference }}</td>
+          <td>{{ facture.userName }}</td>
+          <td>{{ facture.montantApresRemise | currency }}</td>
+          <td>
+            <button class="btn btn-info btn-sm mr-2" (click)="showDetail(facture._id)">
+              Afficher détails
+            </button>
+            <button class="btn btn-success btn-sm" (click)="downloadPDF(facture._id)">
+              Télécharger PDF
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noFactures>
+      <p>Aucune facture disponible pour le moment.</p>
+    </ng-template>
+  </div>
+  

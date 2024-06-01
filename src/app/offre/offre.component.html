@@ -1,0 +1,13 @@
+<div class="container">
+  <h3>Détails de l'offre</h3>
+  <div *ngIf="offre">
+    <p><strong>ID de l'offre:</strong> {{ offre._id }}</p>
+    <p><strong>Montant Total:</strong> {{ offre.montant }} TND</p>
+    <p><strong>Remise:</strong> {{ offre.remise }}%</p>
+    <p><strong>Montant après Remise:</strong> {{ offre.montantApresRemise }} TND</p>
+    <p><strong>Frais Sélectionnés:</strong></p>
+    <ul>
+      <li *ngFor="let frais of offre.frais">{{ frais.nom }}: {{ frais.prix }} TND</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="dashboard">
+  <h2>Tableau de bord</h2>
+  <div style="display: block;">
+    <canvas baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [legend]="pieChartLegend"
+      [plugins]="pieChartPlugins">
+    </canvas>
+  </div>
+</div>
