@@ -55,7 +55,9 @@ export class BusComponent implements OnInit {
       }
     );
   }
-
+  ajouterChauffeur() {
+    this.router.navigate(['/ajoutchauffeur']);
+  }
   onSubmit() {
     delete this.bus._id;
     this.busService.addBus(this.bus).subscribe(
