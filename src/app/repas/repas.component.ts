@@ -49,7 +49,7 @@ export class RepasComponent implements OnInit {
         alert('Repas ajouté avec succès');
 
         // Rediriger vers le tableau de bord
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/calendrier']);
       },
       (error) => {
         console.error("Erreur lors de l'ajout du repas", error);

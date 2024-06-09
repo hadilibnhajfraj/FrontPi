@@ -15,20 +15,28 @@ import { BusComponent } from "../../bus/bus.component";
 import { EditBusComponent } from "../../edit-bus/edit-bus.component";
 import { ChauffeurComponent } from "../../chauffeur/chauffeur.component";
 import { ModifchauffeurComponent } from "../../modifchauffeur/modifchauffeur.component";
+import { CalendrierComponent } from "../../calendrier/calendrier.component";
+import { AfficheChauffeurComponent } from "../../affiche-chauffeur/affiche-chauffeur.component";
+import { BusafficheComponent } from "../../busaffiche/busaffiche.component";
+import { ActiviteComponent } from "../../activite/activite.component";
 
 export const AdminLayoutRoutes: Routes = [
-  { path: "dashboard", component: DashboardComponent },
+  //{ path: "dashboard", component: DashboardComponent },
+  { path: "calendrier", component: CalendrierComponent },
   { path: "afficheRepas", component: RepasaffichageComponent },
   { path: "modifRepas/:id", component: ModifRepasComponent },
   { path: "repas", component: RepasComponent },
-  { path: "chauffeur", component: UserProfileComponent },
+  { path: "chauffeur", component: AfficheChauffeurComponent },
+  //{ path: "chauffeur", component: UserProfileComponent },
   { path: "ajoutchauffeur", component: ChauffeurComponent },
   { path: "modifChauffeur/:id", component: ModifchauffeurComponent },
   { path: "table-list", component: TableListComponent },
-  { path: "bus", component: IconsComponent },
+  //{ path: "bus", component: IconsComponent },
+  { path: "bus", component: BusafficheComponent },
   { path: "ajouterBus", component: BusComponent },
   { path: "modiferBus/:id", component: EditBusComponent },
-  { path: "activite", component: MapsComponent },
+  { path: "activite", component: ActiviteComponent },
+  //{ path: "activite", component: MapsComponent },
   { path: "notifications", component: NotificationsComponent },
   { path: "upgrade", component: UpgradeComponent },
 ];

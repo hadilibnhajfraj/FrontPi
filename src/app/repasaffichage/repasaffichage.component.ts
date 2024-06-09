@@ -20,7 +20,7 @@ export class RepasaffichageComponent implements OnInit {
     });
   }
   navigateToDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/calendrier']);
   }
   supp(id: string) {
     this.repasService.deleteRepas(id).subscribe(

@@ -22,6 +22,11 @@ import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ModifchauffeurComponent } from './modifchauffeur/modifchauffeur.component';
+import { AfficheChauffeurComponent } from './affiche-chauffeur/affiche-chauffeur.component';
+import { BusafficheComponent } from './busaffiche/busaffiche.component';
+import { ActiviteComponent } from './activite/activite.component';
+
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -45,7 +50,10 @@ import { ModifchauffeurComponent } from './modifchauffeur/modifchauffeur.compone
     BusComponent,
     EditBusComponent,
     ChauffeurComponent,
-    ModifchauffeurComponent
+    ModifchauffeurComponent,
+    AfficheChauffeurComponent,
+    BusafficheComponent,
+    ActiviteComponent
 
   ],
   providers: [],

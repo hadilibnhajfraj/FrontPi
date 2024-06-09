@@ -18,6 +18,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // Optional: For month view
 import timeGridPlugin from '@fullcalendar/timegrid'; // For week view
 import interactionPlugin from '@fullcalendar/interaction';
 import { MatRadioModule } from '@angular/material/radio';
+import { CalendrierComponent } from '../../calendrier/calendrier.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -37,6 +38,7 @@ import { MatRadioModule } from '@angular/material/radio';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    CalendrierComponent
   ]
 })
 
