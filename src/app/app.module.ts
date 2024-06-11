@@ -25,6 +25,7 @@ import { ModifchauffeurComponent } from './modifchauffeur/modifchauffeur.compone
 import { AfficheChauffeurComponent } from './affiche-chauffeur/affiche-chauffeur.component';
 import { BusafficheComponent } from './busaffiche/busaffiche.component';
 import { ActiviteComponent } from './activite/activite.component';
+import { AjoutAcctiviteComponent } from './ajout-acctivite/ajout-acctivite.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ActiviteComponent } from './activite/activite.component';
     ModifchauffeurComponent,
     AfficheChauffeurComponent,
     BusafficheComponent,
-    ActiviteComponent
+    ActiviteComponent,
+    AjoutAcctiviteComponent
 
   ],
   providers: [],

@@ -12,23 +12,25 @@ import * as bootstrap from 'bootstrap';
 export class ActiviteComponent implements OnInit {
   activite: Activite[] = [];
   selectedGallery: any[] = [];
+  temperature: string;
+  weatherCondition: string;
 
   constructor(private activiteService: ActiviteService, private router: Router) {}
 
   ngOnInit(): void {
-    this.activiteService.getAllActivite().subscribe((data: Activite[]) => {
-      this.activite = data;
+    this.activiteService.getAllActivite().subscribe((data: any) => {
+      this.activite = data.activites;
+      this.temperature = data.temperature;
+      this.weatherCondition = data.weatherCondition;
       console.log(data);
     });
   }
 
   navigateToDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/addActivite']);
   }
 
-  supp(id: string) {
-
-  }
+  supp(id: string) {}
 
   editRepas(id: string) {
     this.router.navigate(['/modifRepas', id]);
@@ -69,6 +71,15 @@ export class ActiviteComponent implements OnInit {
         // Initialize the carousel
         carouselElement.dispatchEvent(new Event('load'));
       }
+    }
+  }
+
+  getWeatherIcon() {
+    const temp = parseFloat(this.temperature); // Convert temperature to a float
+    if (temp > 25) {
+      return 'fas fa-sun text-warning'; // 'text-warning' is a Bootstrap class for yellow color
+    } else if(temp < 25){
+      return 'fas fa-cloud text-primary'; // 'text-primary' is a Bootstrap class for blue color
     }
   }
 }

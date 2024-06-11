@@ -19,6 +19,7 @@ import { CalendrierComponent } from "../../calendrier/calendrier.component";
 import { AfficheChauffeurComponent } from "../../affiche-chauffeur/affiche-chauffeur.component";
 import { BusafficheComponent } from "../../busaffiche/busaffiche.component";
 import { ActiviteComponent } from "../../activite/activite.component";
+import { AjoutAcctiviteComponent } from "../../ajout-acctivite/ajout-acctivite.component";
 
 export const AdminLayoutRoutes: Routes = [
   //{ path: "dashboard", component: DashboardComponent },
@@ -27,6 +28,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: "modifRepas/:id", component: ModifRepasComponent },
   { path: "repas", component: RepasComponent },
   { path: "chauffeur", component: AfficheChauffeurComponent },
+  { path: "addActivite", component: AjoutAcctiviteComponent },
   //{ path: "chauffeur", component: UserProfileComponent },
   { path: "ajoutchauffeur", component: ChauffeurComponent },
   { path: "modifChauffeur/:id", component: ModifchauffeurComponent },

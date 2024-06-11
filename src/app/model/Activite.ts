@@ -7,5 +7,5 @@ export class Activite {
   local: string;
   nblimite: number;
   galerie: { data: any; contentType: string }[];
-
+  temperature:string
 }

@@ -14,6 +14,7 @@
           <th>Localisation</th>
           <th>Galerie</th>
           <th>Nombre Personnes</th>
+          <th>Temparature</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -22,7 +23,7 @@
           <td>{{ repas.nom }}</td>
           <td>{{ repas.date_act | date }}</td>
           <td>{{ repas.description }}</td>
-          <td>{{ repas.localisation }}</td>
+          <td>{{ repas.local }}</td>
           <td>
             <i
             class="fas fa-eye"
@@ -31,6 +32,9 @@
           ></i>
           </td>
           <td>{{ repas.nblimite }}</td>
+          <td>  <div class="weather-info" style="font-size: 24px; margin-bottom: 20px;">
+            <i [class]="getWeatherIcon()"></i> {{ repas.temperature }}
+          </div></td>
           <td>
             <div class="row">
               <div class="col-md-6">
@@ -55,7 +59,6 @@
   </div>
 </div>
 
-<!-- Modal for Gallery -->
 <!-- Modal for Gallery -->
 <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">

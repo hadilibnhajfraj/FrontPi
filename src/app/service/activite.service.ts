@@ -18,5 +18,8 @@ export class ActiviteService {
   getAllActivite(): Observable<Activite[]> {
     return this.http.get<Activite[]>(`${this.baseUrl}/getActivite`);
   }
+  addActivite(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/add`, formData);
+  }
 
 }
