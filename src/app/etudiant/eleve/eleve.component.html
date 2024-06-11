@@ -177,10 +177,21 @@
       <div class="file-upload mb-1">
         <label for="doc" class="form-label">image:</label>
         <div class="input-group">
-          <input type="file" (change)="selectFile($event)" formControlName="image" accept="image/*">
+          <input type="file"  multiple (change)="selectFile($event)" formControlName="image">
 
         </div>
       </div>
+      <!-- Affichage des documents existants -->
+      <div *ngIf="editEtudiant && editEtudiant.image && editEtudiant.image.length > 0" class="mb-3">
+        <label for="existingDocs" class="form-label">Image existant:</label>
+        <ul>
+          <li *ngFor="let image of editEtudiant.image">
+            <a href="http://localhost:3001/{{ image }}" target="_blank">{{ getFileNameFromPath(image)
+              }}</a>
+          </li>
+        </ul>
+      </div>
+
       <div class="form-group">
         <label for="adresse">Adresse :</label>
         <input type="text" class="form-control" formControlName="adresse" id="adresse"

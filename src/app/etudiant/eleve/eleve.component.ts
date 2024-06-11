@@ -23,7 +23,7 @@ export class EleveComponent implements OnInit {
     date_de_naissance: ["", [Validators.required]],
     familialStatus: ["", [Validators.required]],
     classe: ['', Validators.required],
-    image: [null, Validators.required] 
+    image: [null] 
 
   });
 
@@ -34,6 +34,7 @@ export class EleveComponent implements OnInit {
   editEtudiant: any;
   dataFile: any | undefined;
   fileTitle: string | undefined;
+  fileName: string = "";
 
   ngOnInit(): void {
     this.allEtudiant();
@@ -111,6 +112,9 @@ export class EleveComponent implements OnInit {
 
 
 
+  getFileNameFromPath(filePath: string): string {
+    return filePath.split('/').pop();
+  }
 
 
   selectFile(event: any) {
@@ -225,13 +229,20 @@ export class EleveComponent implements OnInit {
       familialStatus: familialStatus,
       classe: etudiant.classe ? etudiant.classe._id : "" // Utilise classeObj._id s'il est défini
     });
+    if (etudiant.image && etudiant.image.length > 0) {
+      const documentNames = etudiant.image.map((document: string) => this.getFileNameFromPath(document));
+      this.fileName = documentNames.join(', ');
+    } else {
+      this.fileName = '';
+    }
+    this.dataFile = undefined;
+    this.fileTitle = undefined;
+
 
   }
 
   updateEtudiant(): void {
     if (this.studentForm.valid && this.editEtudiant) {
-      console.log('Updating student:', this.editEtudiant._id);
-
       const selectedClasse = this.classes.find(c => c._id === this.studentForm.value.classe);
 
       if (!selectedClasse) {
@@ -247,7 +258,7 @@ export class EleveComponent implements OnInit {
         adresse: this.studentForm.value.adresse,
         id_user: this.id_user,
         niveau: this.studentForm.value.niveau,
-        situation_familiale: this.mapFamilialStatus(this.studentForm.value.familialStatus), // Map to server value
+        situation_familiale: this.mapFamilialStatus(this.studentForm.value.familialStatus),
         classe: {
           _id: selectedClasse._id,
           nom: selectedClasse.nom
@@ -263,19 +274,17 @@ export class EleveComponent implements OnInit {
         }
       });
 
-      // Ajouter l'image à FormData si disponible
+      // Ajouter l'image mise à jour si elle existe
       if (this.dataFile) {
         formData.append('image', this.dataFile, this.dataFile.name); // Ajoute l'image avec son nom
       }
-
-      console.log('Updated student data:', updatedEtudiantData);
 
       this.etudiantService.updateEtudiant(formData).subscribe(
         (response) => {
           console.log('Service response:', response);
           this.toastr.success('Étudiant mis à jour avec succès!', 'Succès');
           this.allEtudiant();
-          this.closeEditModal(); // Fermer le modal après la mise à jour réussie
+          this.closeEditModal();
         },
         (error) => {
           console.error('Error updating student:', error);
@@ -287,6 +296,7 @@ export class EleveComponent implements OnInit {
       this.toastr.error('Veuillez remplir correctement le formulaire.', 'Erreur de validation');
     }
   }
+
 
   setActiveTab(tabNumber: number): void {
     this.activeTab = tabNumber;

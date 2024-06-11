@@ -380,7 +380,6 @@ export class CoursComponent implements OnInit {
           _id: selectedCours._id,
           nom: selectedCours.nom
         },
-        documents: this.dataFile || this.editExercise.documents,
         _id: this.editExercise._id
       };
 
@@ -392,7 +391,10 @@ export class CoursComponent implements OnInit {
           formData.append(key, updatedData[key]);
         }
       });
-
+      // Ajouter l'image mise à jour si elle existe
+      if (this.dataFile) {
+        formData.append('documents', this.dataFile, this.dataFile.name); // Ajoute l'image avec son nom
+      }
       this.coursService.updateExercice(formData).subscribe(
         (response) => {
           this.toastr.success('Exercice mis à jour avec succès', 'Succès');
