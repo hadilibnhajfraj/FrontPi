@@ -1,0 +1,41 @@
+<!-- src/app/reclamations/reclamations.component.html -->
+<div class="card">
+  <div class="card-body">
+    <div class="mybutton">
+      <button (click)="navigateToDashboard()" style="font-size:24px">Ajouter une reclamation<i class="material-icons"></i></button>
+    </div>
+    <div *ngIf="reclamations.length > 0; else noReclamations">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Body</th>
+            <th>Date</th>
+            <th>État</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reclamation of reclamations">
+            <td>{{ reclamation.type }}</td>
+            <td>{{ reclamation.body }}</td>
+            <td>{{ reclamation.date | date : "short" }}</td>
+            <td>{{ reclamation.etat }}</td>
+            <td>
+              <div class="row">
+                <div class="col-md-6">
+                  <i style="font-size: 24px" class="fas fa-edit" (click)="editRepas(reclamation._id)"></i>
+                </div>
+                <div class="col-md-6">
+                  <i class="fa fa-trash" style="font-size: 24px" (click)="supp(reclamation._id)"></i>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noReclamations>
+      <p>No reclamations found.</p>
+    </ng-template>
+  </div>
+</div>

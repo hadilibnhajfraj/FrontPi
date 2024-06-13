@@ -12,6 +12,9 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ReclamationsComponent } from './reclamations/reclamations.component';
+import { AddreclamationComponent } from './addreclamation/addreclamation.component';
+import { EditreclamationComponent } from './editreclamation/editreclamation.component';
 
 @NgModule({
   imports: [
@@ -26,7 +29,10 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    ReclamationsComponent,
+    AddreclamationComponent,
+    EditreclamationComponent
 
   ],
   providers: [],

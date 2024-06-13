@@ -1,0 +1,34 @@
+<!-- src/app/edit-reclamation/edit-reclamation.component.html -->
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #reclamationForm="ngForm">
+    <div class="form-group">
+      <label for="user">User ID</label>
+      <input type="text" id="user" class="form-control" [(ngModel)]="reclamation.user" name="user" required>
+    </div>
+    <div class="form-group">
+      <label for="type">Type</label>
+      <select id="type" class="form-control" [(ngModel)]="reclamation.type" name="type" required>
+        <option value="" disabled selected>Select type</option>
+        <option value="Probleme de transport">Problème de transport</option>
+        <option value="Probleme de repas">Problème de repas</option>
+        <option value="Probleme activite">Problème activité</option>
+        <option value="Probleme concernant un etudiant">Problème concernant un étudiant</option>
+        <option value="Probleme concernant un enseignant">Problème concernant un enseignant</option>
+        <option value="Autres">Autres</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="body">Body</label>
+      <textarea id="body" class="form-control" [(ngModel)]="reclamation.body" name="body" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="etat">État</label>
+      <select id="etat" class="form-control" [(ngModel)]="reclamation.etat" name="etat" required>
+        <option value="lu">Lu</option>
+        <option value="non lu">Non lu</option>
+        <option value="traite">Traité</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Reclamation</button>
+  </form>
+</div>

@@ -1,3 +1,4 @@
+import { ReclamationsComponent } from './../../reclamations/reclamations.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -8,9 +9,13 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { AddreclamationComponent } from '../../addreclamation/addreclamation.component';
+import { EditreclamationComponent } from '../../editreclamation/editreclamation.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
+    { path: 'dashboard',      component: ReclamationsComponent },
+    { path: 'addReclamation',      component: AddreclamationComponent },
+    { path: 'editReclamation/:id',      component: EditreclamationComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'icons',          component: IconsComponent },
