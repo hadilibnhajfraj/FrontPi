@@ -16,6 +16,10 @@ export class FraisService {
     return this.http.get<Frais[]>(`${this.baseUrl}/show`);
   }
 
+  get(id: string): Observable<Frais> {  // Méthode pour récupérer un frais par ID
+    return this.http.get<Frais>(`${this.baseUrl}/show/${id}`);
+  }
+
   add(frais: Frais): Observable<Frais> {
     return this.http.post<Frais>(`${this.baseUrl}/addfrais`, frais);
   }

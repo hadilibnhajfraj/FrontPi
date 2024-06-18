@@ -13,7 +13,7 @@
         <tr *ngFor="let facture of filteredFactures">
           <td>{{ facture.reference }}</td>
           <td>{{ facture.userName }}</td>
-          <td>{{ facture.montantApresRemise | currency }}</td>
+          <td>{{ facture.montantApresRemise | number:'1.0-0' }} TND</td>
           <td>
             <button class="btn btn-info btn-sm mr-2" (click)="showDetail(facture._id)">
               Afficher détails

@@ -23,7 +23,7 @@
       <tr *ngFor="let cheque of cheques">
         <td>{{ cheque.reference }}</td>
         <td>{{ cheque.proprietaire }}</td>
-        <td>{{ cheque.montant | currency }}</td>
+        <td>{{ cheque.montant | number:'1.0-0' }} TND</td>
         <td>{{ cheque.echeance | date }}</td>
         <td>{{ cheque.statut }}</td>
         <td>{{ cheque.paiement }}</td>

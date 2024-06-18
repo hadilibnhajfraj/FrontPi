@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChequeService } from '../service/cheque.service'; // Assurez-vous de l'importer correctement
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { ChartOptions, ChartType } from 'chart.js';
+import { Label, SingleDataSet, Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,15 +26,15 @@ export class DashboardComponent implements OnInit {
   };
 
   public pieChartLabels: Label[] = ['Total Cheques', 'Cheques Echu'];
-  public pieChartData: number[] = [];
+  public pieChartData: SingleDataSet = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
 
-  public pieChartColors: any[] = [
+  public pieChartColors: Color[] = [
     {
-      backgroundColor: ['green', 'red']
-    }
+      backgroundColor: ['green', 'red'],
+    },
   ];
 
   constructor(private chequeService: ChequeService) {}

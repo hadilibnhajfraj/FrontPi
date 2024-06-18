@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ChequeComponent } from './cheque/cheque.component';
 import { OffreComponent } from './offre/offre.component';
+import { FraisComponent } from './frais/frais.component';
 
 
 
@@ -33,6 +34,7 @@ import { OffreComponent } from './offre/offre.component';
     AdminLayoutComponent,
     ChequeComponent,
     OffreComponent,
+    FraisComponent,
     
 
   ],

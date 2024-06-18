@@ -35,7 +35,7 @@
     <tbody>
       <tr *ngFor="let frais of fraisList">
         <td>{{ frais.nom }}</td>
-        <td>{{ frais.prix | currency }}</td>
+        <td>{{ frais.prix | number:'1.0-0' }} TND</td>
         <td>
           <button 
             class="btn btn-warning btn-sm mr-2" 

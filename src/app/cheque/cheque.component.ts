@@ -4,6 +4,8 @@ import { ChequeService } from '../service/cheque.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-cheque',
   templateUrl: './cheque.component.html',
@@ -18,6 +20,7 @@ export class ChequeComponent implements OnInit {
     echeance: '',
     factureId: ''
   };
+  selectedFile: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +34,13 @@ export class ChequeComponent implements OnInit {
       this.cheque.factureId = params['id'];
       console.log('Facture ID:', this.cheque.factureId);  // Log to ensure the ID is being set
     });
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      console.log('Fichier sélectionné:', this.selectedFile);
+    }
   }
 
   addCheque() {

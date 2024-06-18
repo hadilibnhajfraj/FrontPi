@@ -53,10 +53,10 @@
       <tr *ngFor="let facture of filteredFactures">
         <td>{{ facture.reference }}</td>
         <td>{{ facture.date | date }}</td>
-        <td>{{ facture.montantApresRemise | currency }}</td>
+        <td>{{ facture.montantApresRemise | number:'1.0-0' }} TND</td>
         <td>{{ facture.statut }}</td>
         <td>{{ facture.userName }}</td>
-        <td>{{ facture.montantRestant | currency }}</td>
+        <td>{{ facture.montantRestant | number:'1.0-0' }} TND</td>
         <td>
           <button class="btn btn-warning btn-sm mr-2" (click)="editFacture(facture)">
             <i class="fas fa-pencil-alt"></i> Modifier
@@ -64,7 +64,7 @@
           <button class="btn btn-danger btn-sm mr-2" (click)="deleteFacture(facture._id)">
             <i class="fas fa-trash-alt"></i> Supprimer
           </button>
-          <button class="btn btn-success btn-sm" (click)="payFacture(facture._id)">
+          <button class="btn btn-success btn-sm" (click)="payFacture(facture._id)" [disabled]="facture.montantRestant === 0">
             <i class="fas fa-credit-card"></i> Payer
           </button>
         </td>

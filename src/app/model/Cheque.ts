@@ -7,4 +7,5 @@ export interface Cheque {
   statut?: string;
   paiement?: string;
   factureId: string;
+  imageText?: string;
 }

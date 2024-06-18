@@ -11,9 +11,15 @@ export class FactureService {
   private baseUrl = 'http://localhost:3000/facture'; // Replace with your API URL
 
   constructor(private http: HttpClient) { }
+  addFacture(facture: Facture): Observable<any> {
+    return this.http.post(`${this.baseUrl}/addfacture`, facture);
+  }
 
   getAll(): Observable<Facture[]> {
     return this.http.get<Facture[]>(`${this.baseUrl}/show`);
+  }
+  get(id: string): Observable<Facture> {  // Méthode pour récupérer un frais par ID
+    return this.http.get<Facture>(`${this.baseUrl}/show/${id}`);
   }
 
   update(id: string, facture: Facture): Observable<any> {

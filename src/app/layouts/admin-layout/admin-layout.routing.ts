@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { ChequeComponent } from '../../cheque/cheque.component';
 import { OffreComponent } from '../../offre/offre.component';
+import { FraisComponent } from '../../frais/frais.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -20,5 +21,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent }
+    { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'frais/:id', component: FraisComponent },
+
 ];

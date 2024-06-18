@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Frais } from '../model/Frais';
 import { FraisService } from '../service/frais.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-maps',
@@ -10,9 +12,9 @@ import { FraisService } from '../service/frais.service';
 export class MapsComponent implements OnInit {
 
   fraisList: Frais[] = [];
-  newFrais: Frais = { nom: '', prix: null }; // Nouvelle instance de frais pour l'ajout, prix initialisé à null
+  newFrais: Frais = { nom: '', prix: null };
 
-  constructor(private fraisService: FraisService) {}
+  constructor(private fraisService: FraisService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadFrais();
@@ -27,26 +29,27 @@ export class MapsComponent implements OnInit {
   addFrais(): void {
     if (this.isFormValid()) {
       this.fraisService.add(this.newFrais).subscribe(() => {
-        alert('Frais ajouté avec succès!');
-        this.newFrais = { nom: '', prix: null }; // Réinitialise le formulaire après l'ajout
-        window.location.reload(); // Actualise la page
+        this.toastr.success('Frais ajouté avec succès!');
+        this.newFrais = { nom: '', prix: null };
+        this.loadFrais(); // Recharge la liste des frais
+      }, error => {
+        this.toastr.error('Une erreur s\'est produite lors de l\'ajout du frais.');
       });
     } else {
-      alert('Veuillez saisir un prix valide.');
+      this.toastr.warning('Veuillez saisir un prix valide.');
     }
   }
 
   editFrais(frais: Frais): void {
-    this.fraisService.update(frais).subscribe(() => {
-      alert('Frais modifié avec succès!');
-      window.location.reload(); // Actualise la page
-    });
+    this.router.navigate(['/frais', frais._id]);
   }
 
   deleteFrais(fraisId: string): void {
     this.fraisService.delete(fraisId).subscribe(() => {
-      alert('Frais supprimé avec succès!');
-      window.location.reload(); // Actualise la page
+      this.toastr.success('Frais supprimé avec succès!');
+      this.loadFrais(); // Recharge la liste des frais après suppression
+    }, error => {
+      this.toastr.error('Une erreur s\'est produite lors de la suppression du frais.');
     });
   }
 
