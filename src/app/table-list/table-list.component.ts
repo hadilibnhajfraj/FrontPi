@@ -19,6 +19,8 @@ export class TableListComponent implements OnInit {
     userName: '',
     montant: ''
   };
+  qrCodeUrl: string | null = null;
+  selectedFacture: Facture | null = null;
 
   constructor(private factureService: FactureService, private toastr: ToastrService, private router: Router) {}
 
@@ -44,12 +46,19 @@ export class TableListComponent implements OnInit {
   }
 
   showDetail(id: string) {
-    // Vous pouvez rediriger vers une autre page pour afficher les détails ou utiliser une boîte de dialogue modale
-    this.router.navigate(['/detail-facture', id]); // À adapter selon votre structure de routes
+    this.factureService.generateQrCode(id).subscribe(
+      (data: any) => {
+        this.qrCodeUrl = data.qrCodeUrl;
+      },
+      error => {
+        this.toastr.error('Erreur lors de la génération du QR code.');
+        console.error(error);
+      }
+    );
+   
   }
 
   downloadPDF(id: string) {
-    // Appel à votre service Angular pour télécharger le PDF
     this.factureService.downloadPDF(id).subscribe(
       () => {
         this.toastr.success('Le PDF a été téléchargé avec succès.');

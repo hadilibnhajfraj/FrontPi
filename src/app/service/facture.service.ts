@@ -49,7 +49,12 @@ export class FactureService {
       responseType: 'blob' // Spécifie le type de réponse attendu
     });
   }
+
+  generateQrCode(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/generateQrCode/${id}`);
+  }
+}
   
   
 
-}
+

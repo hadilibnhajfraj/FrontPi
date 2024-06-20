@@ -1,0 +1,70 @@
+<div class="container">
+  <h3>Détails de la facture</h3>
+
+  <div *ngIf="facture">
+      <div class="card mb-3">
+          <div class="card-header">
+              <h5>Facture {{ facture.reference }}</h5>
+          </div>
+          <div class="card-body">
+              <div class="form-group">
+                  <label for="reference"><strong>Référence:</strong></label>
+                  <input type="text" id="reference" [(ngModel)]="facture.reference" class="form-control" />
+              </div>
+              <p><strong>Date:</strong> {{ facture.date | date }}</p>
+              <div class="form-group">
+                  <label for="client"><strong>Client:</strong></label>
+                  <input type="text" id="client" [(ngModel)]="facture.userName" class="form-control" />
+              </div>
+              <p><strong>Montant après remise:</strong> {{ facture.montantApresRemise | number:'1.0-0' }} TND</p>
+              <p><strong>Montant payé par chèque:</strong> {{ facture.montantCheque | number:'1.0-0' }} TND</p>
+              <p><strong>Montant restant:</strong> {{ facture.montantRestant | number:'1.0-0' }} TND</p>
+              <p><strong>Statut:</strong> {{ facture.statut }}</p>
+              <button class="btn btn-primary" (click)="enregistrer()">Enregistrer</button>
+              <button class="btn btn-secondary" (click)="retour()">Retour</button>
+          </div>
+      </div>
+
+      <div *ngIf="offre">
+          <div class="card mb-3">
+              <div class="card-header">
+                  <h5>Offre</h5>
+              </div>
+              <div class="card-body">
+                  <h6>Frais:</h6>
+                  <ul>
+                      <li *ngFor="let frais of offre.frais">
+                          {{ frais.nom }}: {{ frais.prix | number:'1.0-0' }} TND
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <div *ngIf="cheques && cheques.length > 0">
+          <div class="card">
+              <div class="card-header">
+                  <h5>Chèques</h5>
+              </div>
+              <div class="card-body">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th>Référence</th>
+                              <th>Montant</th>
+                              <th>Échéance</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let cheque of cheques">
+                              <td>{{ cheque.reference }}</td>
+                              <td>{{ cheque.montant | number:'1.0-0' }} TND</td>
+                              <td>{{ cheque.echeance | date }}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

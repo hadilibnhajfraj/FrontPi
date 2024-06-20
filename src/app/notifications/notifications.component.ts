@@ -63,7 +63,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   editFacture(facture: Facture) {
-    this.toastr.info(`Modification de la facture ${facture.reference}`);
+    this.router.navigate(['/facture', facture._id]);
   }
 
   deleteFacture(id: string) {
