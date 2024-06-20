@@ -12,6 +12,13 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { ListeUserComponent } from './liste-user/liste-user.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { GeneratecodeComponent } from './generatecode/generatecode.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 @NgModule({
   imports: [
@@ -22,14 +29,22 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     RouterModule,
     AppRoutingModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LoginComponent,
+    RegisterComponent,
+    ListeUserComponent,
+    ResetPasswordComponent,
+    GeneratecodeComponent,
+    UpdatePasswordComponent
 
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

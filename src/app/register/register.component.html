@@ -1,0 +1,128 @@
+
+<div class="auth-page-wrapper pt-5">
+  <div class="auth-page-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card mt-4">
+            <div class="card-body p-4">
+              <div class="text-center mt-2">
+                <h5 class="text-primary">Content de te revoir !</h5>
+                <p class="text-muted">
+                  Connectez-vous pour continuer à EduKids.
+                </p>
+              </div>
+              <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+                <div class="form-group">
+                  <label for="login">Login</label>
+                  <input
+                    type="text"
+                    id="login"
+                    name="login"
+                    [(ngModel)]="user.login"
+                    required
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    [(ngModel)]="user.password"
+                    required
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    [(ngModel)]="user.firstName"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    [(ngModel)]="user.lastName"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    [(ngModel)]="user.email"
+                    required
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="tel">Phone Number</label>
+                  <input
+                    type="text"
+                    id="tel"
+                    name="tel"
+                    [(ngModel)]="user.tel"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="countryCode">Country Code</label>
+                  <input
+                    type="text"
+                    id="countryCode"
+                    name="countryCode"
+                    [(ngModel)]="user.countryCode"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="authorities">Authorities</label>
+                  <select
+                    id="authorities"
+                    name="authorities"
+                    [(ngModel)]="user.authorities"
+                    class="form-control"
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="enseignant">Enseignant</option>
+                    <option value="parent">Parent</option>
+                  </select>
+                </div>
+
+                <div class="les_boutons">
+                  <button type="submit" class="btn btn-primary w-100">Register</button>
+                  <div class="social_bouton">
+                    <div class="row mt-4">
+
+                        <button type="button" class="btn btn-block color-white bgc-fb mb-0 w-100">
+                          <i class="fab fa-facebook float-start mt-1 me-2"></i> Facebook
+                        </button>
+
+
+
+                        <button type="button" class="btn btn-block color-white bgc-google mb-0 w-100">
+                          <i class="fab fa-google float-start mt-1 me-2"></i> Google
+                        </button>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
