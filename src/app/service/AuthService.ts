@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+<<<<<<< HEAD
 import { Observable, from } from 'rxjs';
+=======
+import { Observable } from 'rxjs';
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -18,22 +22,31 @@ export class AuthService {
       tap(response => {
         if (response.token) {
           localStorage.setItem('token', response.token);
+<<<<<<< HEAD
           localStorage.setItem('role', response.role);
+=======
+          this.loggedIn = true;
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
         }
       })
     );
   }
 
   isLoggedIn(): boolean {
+<<<<<<< HEAD
     return !!localStorage.getItem('token');
   }
 
   getUserRole(): string {
     return localStorage.getItem('role');
+=======
+    return this.loggedIn;
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
   }
 
   logout() {
     localStorage.removeItem('token');
+<<<<<<< HEAD
     localStorage.removeItem('role');
   }
   register(user: any): Observable<any> {
@@ -54,5 +67,8 @@ export class AuthService {
   }
   updatePassword(email: string, password: string): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/resetpassword/${email}`, { password });
+=======
+    this.loggedIn = false;
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
   }
 }

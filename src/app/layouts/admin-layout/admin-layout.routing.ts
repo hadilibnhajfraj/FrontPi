@@ -12,6 +12,7 @@ import { ListeUserComponent } from '../../liste-user/liste-user.component';
 import { RoleGuard } from './role.guard';
 import { AuthGuard } from '../../auth.guard';
 
+
 export const AdminLayoutRoutes: Routes = [
   {
     path: 'listUser',

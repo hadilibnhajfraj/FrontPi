@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <div class="auth-page-wrapper pt-5">
   <div class="auth-page-content">
@@ -125,4 +126,45 @@
       </div>
     </div>
   </div>
+=======
+<div class="auth-page-wrapper pt-5">
+    <div class="auth-page-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mt-4">
+                        <div class="card-body p-4">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">Créer un compte</h5>
+                                <p class="text-muted">Inscrivez-vous pour accéder à EduKids.</p>
+                            </div>
+                            <div class="p-2 mt-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email" [(ngModel)]="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Enter password" [(ngModel)]="password">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" [(ngModel)]="firstName">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" [(ngModel)]="lastName">
+                                </div>
+                                <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+                                <div class="mt-4">
+                                    <button class="btn btn-primary w-100" (click)="register()">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
 </div>

@@ -15,11 +15,14 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+<<<<<<< HEAD
 import { ListeUserComponent } from './liste-user/liste-user.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { GeneratecodeComponent } from './generatecode/generatecode.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 
+=======
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -36,11 +39,15 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+<<<<<<< HEAD
     RegisterComponent,
     ListeUserComponent,
     ResetPasswordComponent,
     GeneratecodeComponent,
     UpdatePasswordComponent
+=======
+    RegisterComponent
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
 
   ],
   providers: [

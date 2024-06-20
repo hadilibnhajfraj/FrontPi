@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/AuthService';
@@ -16,19 +19,28 @@ export class LoginComponent implements OnInit {
   year = new Date().getFullYear();
 
   constructor(private authService: AuthService, private router: Router) {}
+<<<<<<< HEAD
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       this.redirectByRole();
     }
   }
+=======
+  ngOnInit(): void {}
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
 
   login() {
     this.authService.login(this.email, this.password).subscribe(
       response => {
         if (response.token) {
+<<<<<<< HEAD
           alert("Login réussi");
           this.redirectByRole();
+=======
+          alert("login avec succées")
+          this.router.navigate(['/dashboard']); // Redirigez vers le tableau de bord après une authentification réussie
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
         }
       },
       error => {
@@ -37,6 +49,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
 
   private redirectByRole() {
     const role = this.authService.getUserRole();
@@ -59,3 +72,6 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/register']); // Assurez-vous que la route /register existe dans votre configuration de route
   }
 }
+=======
+}
+>>>>>>> 9ade91583598619c03863e7257b4529a2e386e00
