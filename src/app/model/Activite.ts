@@ -8,4 +8,8 @@ export class Activite {
   nblimite: number;
   galerie: { data: any; contentType: string }[];
   temperature:string
+
+  constructor(init?: Partial<Activite>) {
+    Object.assign(this, init);
+  }
 }

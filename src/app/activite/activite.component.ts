@@ -30,10 +30,12 @@ export class ActiviteComponent implements OnInit {
     this.router.navigate(['/addActivite']);
   }
 
-  supp(id: string) {}
+  supp(id: string) {
+
+  }
 
   editRepas(id: string) {
-    this.router.navigate(['/modifRepas', id]);
+    this.router.navigate(['/ActiviteModifie', id]);
   }
 
   arrayBufferToBase64(buffer: ArrayBuffer): string {

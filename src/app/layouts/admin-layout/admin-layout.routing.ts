@@ -20,6 +20,8 @@ import { AfficheChauffeurComponent } from "../../affiche-chauffeur/affiche-chauf
 import { BusafficheComponent } from "../../busaffiche/busaffiche.component";
 import { ActiviteComponent } from "../../activite/activite.component";
 import { AjoutAcctiviteComponent } from "../../ajout-acctivite/ajout-acctivite.component";
+import { ActiviteModifieComponent } from "../../activite-modifie/activite-modifie.component";
+import { EnvoiEmailComponent } from "../../envoi-email/envoi-email.component";
 
 export const AdminLayoutRoutes: Routes = [
   //{ path: "dashboard", component: DashboardComponent },
@@ -29,16 +31,13 @@ export const AdminLayoutRoutes: Routes = [
   { path: "repas", component: RepasComponent },
   { path: "chauffeur", component: AfficheChauffeurComponent },
   { path: "addActivite", component: AjoutAcctiviteComponent },
+  { path: "ActiviteModifie/:id", component: ActiviteModifieComponent },
   //{ path: "chauffeur", component: UserProfileComponent },
   { path: "ajoutchauffeur", component: ChauffeurComponent },
   { path: "modifChauffeur/:id", component: ModifchauffeurComponent },
-  { path: "table-list", component: TableListComponent },
-  //{ path: "bus", component: IconsComponent },
   { path: "bus", component: BusafficheComponent },
   { path: "ajouterBus", component: BusComponent },
   { path: "modiferBus/:id", component: EditBusComponent },
   { path: "activite", component: ActiviteComponent },
-  //{ path: "activite", component: MapsComponent },
-  { path: "notifications", component: NotificationsComponent },
-  { path: "upgrade", component: UpgradeComponent },
+  { path: "email", component: EnvoiEmailComponent },
 ];
