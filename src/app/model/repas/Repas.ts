@@ -6,4 +6,5 @@ export class Repas {
   nomRepas!: string;
   tempsRepas!: string;
   allergiesEleve: Allergie[];
+  favoriteCount: number;
 }

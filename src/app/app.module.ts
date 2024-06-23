@@ -31,6 +31,10 @@ import { ActiviteModifieComponent } from "./activite-modifie/activite-modifie.co
 import { EnvoiEmailComponent } from './envoi-email/envoi-email.component';
 import { LoginComponent } from './login/login.component';
 import { AfficherepasParentComponent } from './afficherepas-parent/afficherepas-parent.component';
+import { AffichebusParentComponent } from './affichebus-parent/affichebus-parent.component';
+import { FetchNotificationComponent } from './fetch-notification/fetch-notification.component';
+import { FetchActiviteComponent } from './fetch-activite/fetch-activite.component';
+import { InscriptionComponent } from './inscription/inscription.component';
 
 @NgModule({
   imports: [
@@ -66,6 +70,10 @@ import { AfficherepasParentComponent } from './afficherepas-parent/afficherepas-
     EnvoiEmailComponent,
       LoginComponent,
       AfficherepasParentComponent,
+      AffichebusParentComponent,
+      FetchNotificationComponent,
+      FetchActiviteComponent,
+      InscriptionComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -18,6 +18,9 @@ export const ROUTES: RouteInfo[] = [
     class: "",
   },
   { path: "/activite", title: "ACTIVITES", icon: "location_map-big", class: "" },
+  { path: "/repasAffichage", title: "Repas", icon: "design_app", class: "" },
+  { path: "/busaffichage", title: "Bus", icon: "education_atom", class: "" },
+  { path: "/fetchActivite", title: "Activites", icon: "location_map-big", class: "" },
 ];
 
 @Component({
@@ -40,12 +43,17 @@ export class SidebarComponent implements OnInit {
 
     // Example logic to filter menu items based on role
     if (role === 'admin') {
-      // Show all menu items
-      filteredMenuItems = ROUTES;
-    } else if (role === 'enseignant' || role === 'parent') {
+      filteredMenuItems = ROUTES.filter(item =>
+        item.path !== '/repasAffichage' && item.path!=='/busaffichage'
+       &&  item.path !== '/fetchActivite' 
+       // Exclude 'listUser' from menu for enseignant and parent
+      );
+    } else if ( role === 'parent') {
       // Show specific menu items for enseignant and parent
       filteredMenuItems = ROUTES.filter(item =>
-        item.path !== '/afficheRepas' // Exclude 'listUser' from menu for enseignant and parent
+        item.path !== '/afficheRepas' && item.path!=='/bus'
+       &&  item.path !== '/chauffeur' && item.path!=='/activite'
+       // Exclude 'listUser' from menu for enseignant and parent
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)

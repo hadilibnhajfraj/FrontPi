@@ -17,6 +17,11 @@ import { ActiviteModifieComponent } from "../../activite-modifie/activite-modifi
 import { EnvoiEmailComponent } from "../../envoi-email/envoi-email.component";
 import { AuthGuard } from "../../auth.guard";
 import { RoleGuard } from "./role.guard";
+import { AfficherepasParentComponent } from "../../afficherepas-parent/afficherepas-parent.component";
+import { AffichebusParentComponent } from "../../affichebus-parent/affichebus-parent.component";
+import { FetchNotificationComponent } from "../../fetch-notification/fetch-notification.component";
+import { FetchActiviteComponent } from "../../fetch-activite/fetch-activite.component";
+import { InscriptionComponent } from "../../inscription/inscription.component";
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -102,5 +107,29 @@ export const AdminLayoutRoutes: Routes = [
     component: EnvoiEmailComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "repasAffichage",
+    component:AfficherepasParentComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['parent'] }
+  },
+  {
+    path: "busaffichage",
+    component:AffichebusParentComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['parent'] }
+  },
+  {
+    path: "fetchActivite",
+    component:FetchActiviteComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['parent'] }
+  },
+  {
+    path: "inscrire/:id",
+    component:InscriptionComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['parent'] }
   },
 ];

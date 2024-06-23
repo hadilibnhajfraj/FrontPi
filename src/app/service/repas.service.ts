@@ -37,5 +37,7 @@ export class RepasService {
   updateRepasAllergies(id: string, allergiesEleve: string[]): Observable<any> {
     return this.http.put(`${this.baseUrl}/updatetRepasallergie/${id}/allergies`, { allergiesEleve });
   }
-
+  marquerRepasFavori(repasId: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/repas/${repasId}/favori`, {});
+  }
 }

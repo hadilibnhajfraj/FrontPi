@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Notifications</h2>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let notification of notifications">
+          <p><strong>Message: </strong>{{ notification.message }}</p>
+          <p><strong>Date: </strong>{{ notification.date | date }}</p>
+          <p><strong>Statut: </strong>{{ notification.statut }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

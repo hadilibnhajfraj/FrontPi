@@ -55,4 +55,10 @@ export class AuthService {
   updatePassword(email: string, password: string): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/resetpassword/${email}`, { password });
   }
+
+  getCurrentUser(email: string): Observable<any> {
+    const headers = new HttpHeaders().set('Email', email);
+    return this.http.get<any>(`${this.baseUrl}/me`, { headers });
+  }
+
 }

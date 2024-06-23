@@ -1,0 +1,44 @@
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+hr.rounded {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
+}
+.card-body {
+  padding: 20px;
+}
+.container {
+  padding: 16px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 16px;
+}
+i.fa.fa-heart {
+  margin-left: 120px;
+}
+i.fa.fa-heart-o {
+  margin-left: 120px;
+}
+i.fa.fa-heart{
+  color: black !important;
+}
+.list-group-item {
+  font-size: 14px;
+}

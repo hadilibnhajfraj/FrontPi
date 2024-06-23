@@ -1,0 +1,12 @@
+<div class="container">
+  <h2>Inscription à une Activité</h2>
+  <form (ngSubmit)="onSubmit()" #inscriptionForm="ngForm">
+    <div class="mb-3">
+      <label for="id_user" class="form-label">Votre ID Utilisateur</label>
+      <input type="text" id="id_user" class="form-control" name="id_user" [(ngModel)]="id_user" required>
+    </div>
+    <!-- Utilisation de la variable repas_id pour conserver l'ID de l'activité sélectionnée -->
+    <input type="hidden" name="repas_id" [(ngModel)]="repas_id">
+    <button type="submit" class="btn btn-primary" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+  </form>
+</div>
