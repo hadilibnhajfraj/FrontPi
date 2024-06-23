@@ -31,7 +31,16 @@ export class ActiviteComponent implements OnInit {
   }
 
   supp(id: string) {
-
+    this.activiteService.deleteActivite(id).subscribe(
+      response => {
+        console.log('Activite supprimé avec succès:', response);
+        window.location.reload(); // Recharge la page pour refléter les changements
+        alert('Activite supprimé avec succès');
+      },
+      error => {
+        console.error('Erreur lors de la suppression du Activite:', error);
+      }
+    );
   }
 
   editRepas(id: string) {

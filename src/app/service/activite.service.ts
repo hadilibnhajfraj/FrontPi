@@ -22,7 +22,9 @@ export class ActiviteService {
   getActiviteById(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/getActiviteId/${id}`);
   }
-
+  deleteActivite(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteActivite/${id}`);
+  }
   updateActivite(id: string, updatedActivite: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/updatetActivite/${id}`, updatedActivite);
   }
