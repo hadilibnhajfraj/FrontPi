@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "../../service/AuthService";
 
 declare interface RouteInfo {
   path: string;
@@ -24,17 +26,41 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ["./sidebar.component.css"],
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+  menuItems: RouteInfo[];
 
-  constructor() {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter((menuItem) => menuItem);
+    this.menuItems = this.getMenuItemsBasedOnRole();
   }
-  isMobileMenu() {
-    if (window.innerWidth > 991) {
-      return false;
+
+  getMenuItemsBasedOnRole(): RouteInfo[] {
+    const role = this.authService.getUserRole();
+    let filteredMenuItems: RouteInfo[] = [];
+
+    // Example logic to filter menu items based on role
+    if (role === 'admin') {
+      // Show all menu items
+      filteredMenuItems = ROUTES;
+    } else if (role === 'enseignant' || role === 'parent') {
+      // Show specific menu items for enseignant and parent
+      filteredMenuItems = ROUTES.filter(item =>
+        item.path !== '/afficheRepas' // Exclude 'listUser' from menu for enseignant and parent
+      );
+    } else {
+      // Default case (handle other roles or unexpected scenarios)
+      filteredMenuItems = [];
     }
-    return true;
+
+    return filteredMenuItems;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  isMobileMenu() {
+    return window.innerWidth <= 991;
   }
 }

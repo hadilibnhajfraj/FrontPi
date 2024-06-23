@@ -29,6 +29,8 @@ import { AjoutAcctiviteComponent } from "./ajout-acctivite/ajout-acctivite.compo
 import { ActiviteModifieComponent } from "./activite-modifie/activite-modifie.component";
 
 import { EnvoiEmailComponent } from './envoi-email/envoi-email.component';
+import { LoginComponent } from './login/login.component';
+import { AfficherepasParentComponent } from './afficherepas-parent/afficherepas-parent.component';
 
 @NgModule({
   imports: [
@@ -62,6 +64,8 @@ import { EnvoiEmailComponent } from './envoi-email/envoi-email.component';
     ActiviteModifieComponent,
 
     EnvoiEmailComponent,
+      LoginComponent,
+      AfficherepasParentComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

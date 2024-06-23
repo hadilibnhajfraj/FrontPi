@@ -1,5 +1,9 @@
 
-<div class="logo">
+<!-- admin-layout.component.html -->
+
+<!-- Header with Logo and Logout Button -->
+<div class="header">
+  <div class="logo">
     <a href="https://www.creative-tim.com" class="simple-text logo-mini">
       <div class="logo-img">
           <img src="../../../assets/img/Image1.jpg"/>
@@ -8,14 +12,20 @@
     <a href="https://www.creative-tim.com" class="simple-text logo-normal">
         EduKids
     </a>
+  </div>
+
 </div>
+
+<!-- Sidebar Navigation -->
 <div class="sidebar-wrapper">
-    <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a [routerLink]="[menuItem.path]">
-                <i class="now-ui-icons {{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
-            </a>
-        </li>
-    </ul>
+  <ul class="nav">
+    <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+      <a [routerLink]="[menuItem.path]">
+        <i class="now-ui-icons {{menuItem.icon}}"></i>
+        <p>{{menuItem.title}}</p>
+      </a>
+    </li>
+  </ul>
+  <button *ngIf="authService.isLoggedIn()" class="btn btn-danger" (click)="logout()">Logout</button>
 </div>
+

@@ -1,13 +1,6 @@
 import { Routes } from "@angular/router";
 
-import { DashboardComponent } from "../../dashboard/dashboard.component";
-import { UserProfileComponent } from "../../user-profile/user-profile.component";
-import { TableListComponent } from "../../table-list/table-list.component";
 
-import { IconsComponent } from "../../icons/icons.component";
-import { MapsComponent } from "../../maps/maps.component";
-import { NotificationsComponent } from "../../notifications/notifications.component";
-import { UpgradeComponent } from "../../upgrade/upgrade.component";
 import { RepasComponent } from "../../repas/repas.component";
 import { RepasaffichageComponent } from "../../repasaffichage/repasaffichage.component";
 import { ModifRepasComponent } from "../../modif-repas/modif-repas.component";
@@ -22,22 +15,92 @@ import { ActiviteComponent } from "../../activite/activite.component";
 import { AjoutAcctiviteComponent } from "../../ajout-acctivite/ajout-acctivite.component";
 import { ActiviteModifieComponent } from "../../activite-modifie/activite-modifie.component";
 import { EnvoiEmailComponent } from "../../envoi-email/envoi-email.component";
+import { AuthGuard } from "../../auth.guard";
+import { RoleGuard } from "./role.guard";
 
 export const AdminLayoutRoutes: Routes = [
-  //{ path: "dashboard", component: DashboardComponent },
-  { path: "calendrier", component: CalendrierComponent },
-  { path: "afficheRepas", component: RepasaffichageComponent },
-  { path: "modifRepas/:id", component: ModifRepasComponent },
-  { path: "repas", component: RepasComponent },
-  { path: "chauffeur", component: AfficheChauffeurComponent },
-  { path: "addActivite", component: AjoutAcctiviteComponent },
-  { path: "ActiviteModifie/:id", component: ActiviteModifieComponent },
-  //{ path: "chauffeur", component: UserProfileComponent },
-  { path: "ajoutchauffeur", component: ChauffeurComponent },
-  { path: "modifChauffeur/:id", component: ModifchauffeurComponent },
-  { path: "bus", component: BusafficheComponent },
-  { path: "ajouterBus", component: BusComponent },
-  { path: "modiferBus/:id", component: EditBusComponent },
-  { path: "activite", component: ActiviteComponent },
-  { path: "email", component: EnvoiEmailComponent },
+  {
+    path: "calendrier",
+    component: CalendrierComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "afficheRepas",
+    component: RepasaffichageComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "modifRepas/:id",
+    component: ModifRepasComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "repas",
+    component: RepasComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "chauffeur",
+    component: AfficheChauffeurComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "addActivite",
+    component: AjoutAcctiviteComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "ActiviteModifie/:id",
+    component: ActiviteModifieComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "ajoutchauffeur",
+    component: ChauffeurComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "modifChauffeur/:id",
+    component: ModifchauffeurComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "bus",
+    component: BusafficheComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "ajouterBus",
+    component: BusComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "modiferBus/:id",
+    component: EditBusComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "activite",
+    component: ActiviteComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
+  {
+    path: "email",
+    component: EnvoiEmailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ["admin"] },
+  },
 ];
