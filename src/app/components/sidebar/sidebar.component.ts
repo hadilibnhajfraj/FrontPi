@@ -17,10 +17,20 @@ export const ROUTES: RouteInfo[] = [
     icon: "users_single-02",
     class: "",
   },
-  { path: "/activite", title: "ACTIVITES", icon: "location_map-big", class: "" },
+  {
+    path: "/activite",
+    title: "ACTIVITES",
+    icon: "location_map-big",
+    class: "",
+  },
   { path: "/repasAffichage", title: "Repas", icon: "design_app", class: "" },
   { path: "/busaffichage", title: "Bus", icon: "education_atom", class: "" },
-  { path: "/fetchActivite", title: "Activites", icon: "location_map-big", class: "" },
+  {
+    path: "/fetchActivite",
+    title: "Activites",
+    icon: "location_map-big",
+    class: "",
+  },
 ];
 
 @Component({
@@ -42,18 +52,23 @@ export class SidebarComponent implements OnInit {
     let filteredMenuItems: RouteInfo[] = [];
 
     // Example logic to filter menu items based on role
-    if (role === 'admin') {
-      filteredMenuItems = ROUTES.filter(item =>
-        item.path !== '/repasAffichage' && item.path!=='/busaffichage'
-       &&  item.path !== '/fetchActivite' 
-       // Exclude 'listUser' from menu for enseignant and parent
+    if (role === "admin") {
+      filteredMenuItems = ROUTES.filter(
+        (item) =>
+          item.path !== "/repasAffichage" &&
+          item.path !== "/busaffichage" &&
+          item.path !== "/fetchActivite"
+        // Exclude 'listUser' from menu for enseignant and parent
       );
-    } else if ( role === 'parent') {
+    } else if (role === "parent") {
       // Show specific menu items for enseignant and parent
-      filteredMenuItems = ROUTES.filter(item =>
-        item.path !== '/afficheRepas' && item.path!=='/bus'
-       &&  item.path !== '/chauffeur' && item.path!=='/activite'
-       // Exclude 'listUser' from menu for enseignant and parent
+      filteredMenuItems = ROUTES.filter(
+        (item) =>
+          item.path !== "/afficheRepas" &&
+          item.path !== "/bus" &&
+          item.path !== "/chauffeur" &&
+          item.path !== "/activite"
+        // Exclude 'listUser' from menu for enseignant and parent
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)
@@ -65,7 +80,7 @@ export class SidebarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(["/login"]);
   }
 
   isMobileMenu() {
