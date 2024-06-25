@@ -16,6 +16,8 @@ import { ChequeComponent } from './cheque/cheque.component';
 import { OffreComponent } from './offre/offre.component';
 import { FraisComponent } from './frais/frais.component';
 import { FactureComponent } from './facture/facture.component';
+import { VirementComponent } from './virement/virement.component';
+import { UpdatechequeComponent } from './updatecheque/updatecheque.component';
 
 
 
@@ -37,6 +39,8 @@ import { FactureComponent } from './facture/facture.component';
     OffreComponent,
     FraisComponent,
     FactureComponent,
+    VirementComponent,
+    UpdatechequeComponent,
     
 
   ],

@@ -60,4 +60,7 @@ export class OffreComponent implements OnInit {
       }
     );
   }
+  retour(): void {
+    this.router.navigate(['/icons']);
+  }
 }

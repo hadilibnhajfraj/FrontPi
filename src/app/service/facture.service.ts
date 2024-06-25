@@ -53,6 +53,10 @@ export class FactureService {
   generateQrCode(id: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/generateQrCode/${id}`);
   }
+
+  countFraisByType(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/countFraisByType`);
+  }
 }
   
   

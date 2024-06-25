@@ -1,12 +1,32 @@
 <div class="container">
   <h3>Liste des chèques</h3>
 
-  <div class="filter-buttons">
-    <button (click)="loadAllCheques()">Tous les chèques</button>
-    <button (click)="loadNonPaidCheques()">Chèques dans le coffre</button>
+  <div class="form-group">
+    <label for="filter">Filtrer les chèques</label>
+    <div>
+      <button class="btn btn-info btn-sm mr-2" (click)="loadAllCheques()" data-toggle="tooltip" data-placement="top" title="Tous les chèques">
+        <i class="fas fa-list"></i> Tous
+      </button>
+      <button class="btn btn-info btn-sm" (click)="loadNonPaidCheques()" data-toggle="tooltip" data-placement="top" title="Chèques non payés">
+        <i class="fas fa-lock"></i> Non payés
+      </button>
+    </div>
   </div>
-  
-  
+
+  <!-- Champ de recherche avec bouton pour effacer le contenu -->
+  <div class="form-group">
+    <label for="filter">Filtrer les chèques</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="filter" placeholder="Rechercher par référence, propriétaire ou montant"
+             [(ngModel)]="searchText" (ngModelChange)="applyFilter()" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()" title="Effacer la recherche">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -14,35 +34,48 @@
         <th>Propriétaire</th>
         <th>Montant</th>
         <th>Échéance</th>
-        <th>Statut</th>
-        <th>Paiement</th>
+        <th>Échu</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cheque of cheques">
+      <tr *ngFor="let cheque of sortedCheques()">
         <td>{{ cheque.reference }}</td>
         <td>{{ cheque.proprietaire }}</td>
         <td>{{ cheque.montant | number:'1.0-0' }} TND</td>
         <td>{{ cheque.echeance | date }}</td>
-        <td>{{ cheque.statut }}</td>
+        <td>
+          <button class="btn btn-sm btn-radio"
+                  [ngClass]="{'btn-danger': isChequeOverdue(cheque)}"
+                  disabled>
+            <i class="fas fa-lightbulb"></i>
+          </button>
+        </td>
+   
         <td>{{ cheque.paiement }}</td>
         <td>
-          <button 
-            class="btn btn-warning btn-sm mr-2" 
-            (click)="editCheque(cheque)">
-            <i class="fas fa-pencil-alt"></i> Modifier
-          </button>
-          <button 
-            class="btn btn-danger btn-sm mr-2" 
-            (click)="deleteCheque(cheque._id)">
-            <i class="fas fa-trash-alt"></i> Supprimer
-          </button>
-          <button 
-            class="btn btn-success btn-sm" 
-            (click)="encashCheque(cheque)">
-            <i class="fas fa-credit-card"></i> Encaisser
-          </button>
+          <div class="btn-group">
+            <button class="btn btn-warning btn-sm" (click)="editCheque(cheque)" data-toggle="tooltip" data-placement="top" title="Modifier">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteCheque(cheque._id)" data-toggle="tooltip" data-placement="top" title="Supprimer">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button 
+              class="btn btn-success btn-sm" 
+              (click)="encashCheque(cheque)" 
+              [disabled]="cheque.paiement === 'oui'" 
+              data-toggle="tooltip" 
+              data-placement="top" 
+              title="Encaisser">
+              <i class="fas fa-credit-card"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="cheques.length === 0">
+        <td colspan="8">
+          <ng-container *ngTemplateOutlet="noCheques"></ng-container>
         </td>
       </tr>
     </tbody>

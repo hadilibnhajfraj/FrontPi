@@ -52,8 +52,7 @@
       <label>Montant après Remise: <span>{{ montantApresRemise | number:'1.0-0' }} TND</span></label>
     </div>
     <div class="d-flex justify-content-between mt-3">
-      <button type="submit" class="btn btn-primary" >Confirmer</button>
-      <button type="button" class="btn btn-secondary" >Passer à la facture</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isAtLeastOneChecked()">Confirmer</button>
     </div>
     <div *ngIf="showNotification" class="alert alert-warning mt-3">
       Les frais de scolarité et d'assurance doivent être sélectionnés.

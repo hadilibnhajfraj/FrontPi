@@ -114,4 +114,8 @@ export class IconsComponent implements OnInit {
 
     this.montantApresRemise = this.totalMontant * (1 - this.remise / 100);
   }
+
+  isAtLeastOneChecked(): boolean {
+    return this.checklist.some(item => item.checked);
+  }
 }

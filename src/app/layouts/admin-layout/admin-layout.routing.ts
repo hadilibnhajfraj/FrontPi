@@ -12,6 +12,8 @@ import { ChequeComponent } from '../../cheque/cheque.component';
 import { OffreComponent } from '../../offre/offre.component';
 import { FraisComponent } from '../../frais/frais.component';
 import { FactureComponent } from '../../facture/facture.component';
+import { UpdatechequeComponent } from '../../updatecheque/updatecheque.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -25,5 +27,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'frais/:id', component: FraisComponent },
     { path: 'facture/:id', component: FactureComponent },
+    { path: 'updatecheque/:id', component: UpdatechequeComponent },
 
 ];

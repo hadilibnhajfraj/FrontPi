@@ -11,38 +11,39 @@ export class ChequeService {
 
   constructor(private http: HttpClient) {}
 
-  // Add a new cheque
   addCheque(cheque: Cheque): Observable<any> {
     return this.http.post(`${this.baseUrl}/${cheque.factureId}/addcheque`, cheque, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
 
-  // Get all cheques
   getCheques(): Observable<Cheque[]> {
     return this.http.get<Cheque[]>(`${this.baseUrl}/show`);
   }
 
-  // Update a cheque
+  getChequeById(id: string): Observable<Cheque> {
+    return this.http.get<Cheque>(`${this.baseUrl}/${id}`);
+  }
+
   updateCheque(id: string, cheque: Cheque): Observable<any> {
     return this.http.put(`${this.baseUrl}/update/${id}`, cheque, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
 
-  // Delete a cheque
   deleteCheque(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${id}`);
   }
 
-  // Check cheque echeance
-  checkChequeEcheance(): Observable<Cheque[]> {
-    return this.http.get<Cheque[]>(`${this.baseUrl}/checkecheance`);
+  checkChequeEcheance(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/checkecheance`);
   }
 
-  // Get non-paid cheques
-getNonPaidCheques(): Observable<Cheque[]> {
-  return this.http.get<Cheque[]>(`${this.baseUrl}/show/nonpaid`);
-}
+  getNonPaidCheques(): Observable<Cheque[]> {
+    return this.http.get<Cheque[]>(`${this.baseUrl}/show/nonpaid`);
+  }
 
+  getMontantRestant(factureId: string): Observable<{ montantRestant: number }> {
+    return this.http.get<{ montantRestant: number }>(`${this.baseUrl}/factures/${factureId}/montantRestant`);
+  }
 }
