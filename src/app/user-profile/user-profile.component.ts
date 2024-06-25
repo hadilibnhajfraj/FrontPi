@@ -14,7 +14,7 @@ export class UserProfileComponent implements OnInit {
   cheques: Cheque[] = [];
   today: Date = new Date();
   searchText: string = '';
-  currentFilter: 'all' | 'nonPaid' = 'all'; // Ajout de la variable currentFilter
+  
 
   constructor(
     private chequeService: ChequeService,
@@ -31,7 +31,8 @@ export class UserProfileComponent implements OnInit {
     this.chequeService.getCheques().subscribe(
       (data: Cheque[]) => {
         this.cheques = data;
-        this.sortCheques(); // Appliquer le tri initial
+        console.log(data);
+        this.cheques.sort((a, b) => new Date(a.echeance).getTime() - new Date(b.echeance).getTime());
       },
       error => {
         this.toastr.error('Erreur lors du chargement des chèques.');
@@ -48,7 +49,7 @@ export class UserProfileComponent implements OnInit {
     this.chequeService.deleteCheque(id).subscribe(
       response => {
         this.toastr.success('Chèque supprimé avec succès.');
-        this.loadCheques(); // Recharger les chèques après la suppression
+        this.loadCheques();
       },
       error => {
         this.toastr.error('Erreur lors de la suppression du chèque.');
@@ -61,7 +62,7 @@ export class UserProfileComponent implements OnInit {
     this.banqueService.addBanque(cheque._id).subscribe(
       response => {
         this.toastr.success(`Encaissement du chèque ${cheque._id} réussi.`);
-        this.loadCheques(); // Recharger les chèques après l'encaissement
+        this.loadCheques();
       },
       error => {
         this.toastr.error('Erreur lors de l\'encaissement du chèque.');
@@ -71,24 +72,57 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadAllCheques() {
-    this.currentFilter = 'all'; // Mettre à jour le filtre actuel
-    this.loadCheques(); // Recharger les chèques avec le filtre "Tous"
-  }
-
-  loadNonPaidCheques() {
-    this.currentFilter = 'nonPaid'; // Mettre à jour le filtre actuel
-    this.loadCheques(); // Recharger les chèques avec le filtre "Non payés"
+    this.chequeService.getCheques().subscribe(
+      (data: Cheque[]) => {
+        this.cheques = data;
+        console.log(data);
+        this.cheques.sort((a, b) => new Date(a.echeance).getTime() - new Date(b.echeance).getTime());
+      },
+      error => {
+        this.toastr.error('Erreur lors du chargement des chèques.');
+        console.error(error);
+      }
+    );
   }
 
   sortedCheques(): Cheque[] {
-    // Filtrer et trier les chèques en fonction du filtre actuel
-    const filteredCheques = this.currentFilter === 'nonPaid' ?
-      this.cheques.filter(cheque => !cheque.paiement || cheque.paiement !== 'oui') :
-      this.cheques;
+    if (!this.searchText.trim()) {
+      return this.cheques;
+    }
 
-    return filteredCheques.sort((a, b) => new Date(a.echeance).getTime() - new Date(b.echeance).getTime());
+    const searchTextLower = this.searchText.toLowerCase().trim();
+    return this.cheques.filter(cheque =>
+      (cheque.reference && cheque.reference.toString().toLowerCase().includes(searchTextLower)) ||
+      (cheque.proprietaire && cheque.proprietaire.toLowerCase().includes(searchTextLower)) ||
+      (cheque.montant && cheque.montant.toString().toLowerCase().includes(searchTextLower)) ||
+      (cheque.echeance && this.formatDate(cheque.echeance).includes(searchTextLower))
+    );
   }
 
+  private formatDate(date: any): string {
+    if (date instanceof Date) {
+      const day = ('0' + date.getDate()).slice(-2);
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`; // Format DD/MM/YYYY
+    } else {
+      return ''; // Gérer le cas où date n'est pas une instance de Date (par exemple, une chaîne ou autre)
+    }
+  }
+
+  loadNonPaidCheques() {
+    this.chequeService.getNonPaidCheques().subscribe(
+      (data: Cheque[]) => {
+        this.cheques = data;
+        console.log(data);
+        this.cheques.sort((a, b) => new Date(a.echeance).getTime() - new Date(b.echeance).getTime());
+      },
+      error => {
+        this.toastr.error('Erreur lors du chargement des chèques impayés.');
+        console.error(error);
+      }
+    );
+  }
   isChequeOverdue(cheque: Cheque): boolean {
     return new Date(cheque.echeance) < this.today && cheque.paiement !== 'oui';
   }
@@ -98,12 +132,9 @@ export class UserProfileComponent implements OnInit {
     this.applyFilter();
   }
 
+
   applyFilter() {
     // Appeler sortedCheques() à chaque changement de valeur dans searchText
     this.sortedCheques();
-  }
-
-  private sortCheques() {
-    this.cheques.sort((a, b) => new Date(a.echeance).getTime() - new Date(b.echeance).getTime());
   }
 }
