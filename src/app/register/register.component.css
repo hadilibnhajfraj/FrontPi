@@ -1,0 +1,8 @@
+.les_boutons {
+  display: grid;
+}
+
+.social_bouton {
+  display: flex;
+  justify-content: center;
+}

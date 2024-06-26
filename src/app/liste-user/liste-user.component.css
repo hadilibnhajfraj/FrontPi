@@ -1,0 +1,31 @@
+.card-body {
+  margin-top: 50px;
+}
+.mybutton {
+  text-align: end;
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #f96332;
+  color: #fff;
+}
+i.fa.fa-check {
+  background: green;
+  padding: 15px;
+  color: #fff;
+}
+.validated {
+  background-color: green;
+  color: #fff;
+}
+
+.not-validated {
+  background-color: red;
+  color: #fff;
+}
+i.fa.fa-trash {
+  background: red;
+  color: #fff;
+  padding: 15px;
+}

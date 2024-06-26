@@ -15,6 +15,11 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { ListeUserComponent } from './liste-user/liste-user.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { GeneratecodeComponent } from './generatecode/generatecode.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -31,10 +36,15 @@ import { RegisterComponent } from './register/register.component';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ListeUserComponent,
+    ResetPasswordComponent,
+    GeneratecodeComponent,
+    UpdatePasswordComponent
 
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

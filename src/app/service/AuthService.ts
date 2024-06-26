@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -18,18 +18,52 @@ export class AuthService {
       tap(response => {
         if (response.token) {
           localStorage.setItem('token', response.token);
-          this.loggedIn = true;
+          localStorage.setItem('role', response.role);
         }
       })
     );
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn;
+    return !!localStorage.getItem('token');
+  }
+
+  getUserRole(): string {
+    return localStorage.getItem('role');
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.loggedIn = false;
+    localStorage.removeItem('role');
+  }
+  register(user: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/`, user);
+  }
+  getAll(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/listeuser`);
+  }
+  validateUser(userId: string): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/validate/${userId}`, {});
+  }
+
+  sendResetCodeByEmail(email: string): Observable<{ resetCode: string }> {
+    return this.http.post<{ resetCode: string }>(`${this.baseUrl}/forgetPassword`, { email });
+  }
+  verifyResetCode(email: string, enteredCode: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/resetCode/${email}`, { enteredCode });
+  }
+  updatePassword(email: string, password: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/resetpassword/${email}`, { password });
+  }
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteUser/${id}`);
+  }
+  updateUser(id: string, updatedUser: any): Observable<any> {
+
+    return this.http.put(`${this.baseUrl}/updateUser/${id}`, updatedUser)
+  }
+
+  getUser(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getUser/${id}`);
   }
 }
