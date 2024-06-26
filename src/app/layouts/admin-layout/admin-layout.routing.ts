@@ -20,7 +20,9 @@ export const AdminLayoutRoutes: Routes = [
     data: { expectedRoles: ['admin'] }
   },
   {
+
     path: 'user-profile/:id',
+
     component: UserProfileComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: ['admin', 'enseignant', 'parent'] }

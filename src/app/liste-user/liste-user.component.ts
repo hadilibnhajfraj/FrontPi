@@ -36,6 +36,7 @@ export class ListeUserComponent implements OnInit {
       }
     );
   }
+
   supp(id: string) {
     this.authService.deleteUser(id).subscribe(
       response => {
@@ -54,4 +55,5 @@ export class ListeUserComponent implements OnInit {
   editUser(id: string) {
     this.router.navigate(['/user-profile', id]);
   }
+
 }
