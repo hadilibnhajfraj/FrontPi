@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Modifier un user</h2>
+  <form (ngSubmit)="onSubmit()" #chauffeurForm="ngForm">
+    <div class="form-group">
+      <label for="login">login:</label>
+      <input type="text" id="login" class="form-control" required [(ngModel)]="user.login" name="login">
+    </div>
+    <div class="form-group">
+      <label for="firstName">firstName:</label>
+      <input type="text" id="firstName" class="form-control" required [(ngModel)]="user.firstName" name="firstName">
+    </div>
+    <div class="form-group">
+      <label for="lastName">lastName:</label>
+      <input type="text" id="lastName" class="form-control" required [(ngModel)]="user.lastName" name="lastName">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="form-control" required [(ngModel)]="user.email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="tel">tel:</label>
+      <input type="text" id="tel" class="form-control" required [(ngModel)]="user.tel" name="tel">
+    </div>
+    <div class="form-group">
+      <label for="countryCode">countryCode:</label>
+      <input type="text" id="countryCode" class="form-control" required [(ngModel)]="user.countryCode" name="countryCode">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Modifier</button>
+  </form>
+</div>

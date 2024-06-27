@@ -1,0 +1,18 @@
+.container {
+  padding: 16px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-body-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+h4.card-title-matricule {
+  background: black;
+  color: #fff;
+  padding: 10px;
+}

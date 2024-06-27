@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let repas of repasList">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{ repas.nomRepas }}</h4>
+          <p class="card-text">Repas: {{ repas.tempsRepas }}</p>
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let allergie of repas.allergiesEleve">
+              {{ allergie.allergene }}
+            </li>
+          </ul>
+
+          <hr class="rounded" />
+
+          <div class="row icon">
+            <div class="col-md-6">
+              <p class="card-text"><strong>Date: </strong>{{ repas.jour | date }}</p>
+            </div>
+            <div class="col-md-6">
+              <i
+                class="fa"
+                [ngClass]="{ 'fa-heart': repas.favori, 'fa-heart-o': !repas.favori }"
+                style="font-size: 26px; cursor: pointer;"
+                (click)="marquerFavori(repas._id)"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

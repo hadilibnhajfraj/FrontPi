@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit(repasForm)" #repasForm="ngForm">
+      <!-- Nom du repas -->
+      <div class="form-group">
+        <label for="nomRepas">Nom repas</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomRepas"
+          name="nomRepas"
+          [(ngModel)]="repas.nomRepas"
+          required
+        />
+      </div>
+
+      <!-- Temps du repas -->
+      <div class="form-group">
+        <label for="tempsRepas">Temps de Repas</label>
+        <select
+          name="tempsRepas"
+          class="custom-select custom-select-sm"
+          [(ngModel)]="repas.tempsRepas"
+          required
+        >
+          <option value="petit dejeuner">Petit déjeuner</option>
+          <option value="dejeuner">Déjeuner</option>
+          <option value="diner">Dîner</option>
+        </select>
+      </div>
+
+
+      <div>
+        <h2>Toutes les allergies :</h2>
+        <div class="form-group modification">
+          <div *ngFor="let allergene of allAllergies" class="boxmodif">
+            <input
+            type="checkbox"
+            [value]="allergene._id"
+            [(ngModel)]="allergene.selected"
+            (change)="toggleAllergeneSelection(allergene)"
+            [checked]="isAllergeneSelected(allergene)"
+            name="allergene_{{ allergene._id }}"
+          />
+            {{ allergene.allergene }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Champ de date -->
+      <div class="form-group">
+        <label for="jour">Jour</label>
+        <input
+          type="date"
+          class="form-control"
+          id="jour"
+          name="jour"
+          [(ngModel)]="repas.jour"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

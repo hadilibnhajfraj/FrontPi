@@ -1,0 +1,48 @@
+/* Styles for the form group with the "modification" class */
+.form-group.modification {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Styles for the select element with specific classes */
+select.custom-select.custom-select-sm.ng-untouched.ng-pristine.ng-invalid {
+  border-radius: 30px;
+  background-color: transparent;
+  border: 1px solid #e3e3e3;
+  box-shadow: none;
+}
+
+/* Styles for the box with the "boxmodif" class */
+.boxmodif {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Styles for the label with the "nomallergene" class */
+label.nomallergene {
+  color: #000;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+/* Styles for the card element */
+.card {
+  width: 70%;
+  margin: 167px;
+  text-align: center;
+  padding: 100px;
+  margin-bottom: 20px;
+  margin-top: 140px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px #9a9a9a;
+  border: 1px solid #9a9a9a;
+}
+
+/* General label styles */
+label {
+  font-size: 20px !important;
+  color: #000 !important;
+  font-weight: 600;
+}

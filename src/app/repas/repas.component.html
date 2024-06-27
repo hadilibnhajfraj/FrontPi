@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit(repasForm)" #repasForm="ngForm">
+      <!-- Existing form fields -->
+      <div class="form-group">
+        <label for="nomRepas">Nom repas</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomRepas"
+          name="nomRepas"
+          ngModel
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="tempsRepas">Temps de Repas</label>
+        <select
+          name="tempsRepas"
+          class="custom-select custom-select-sm"
+          ngModel
+          required
+        >
+          <option value="petit dejeuner">Petit déjeuner</option>
+          <option value="dejeuner">Déjeuner</option>
+          <option value="diner">Dîner</option>
+        </select>
+      </div>
+
+      <!-- Existing allergies selection -->
+      <label for="allergiesEleve">Allergies</label>
+      <div class="form-group modification">
+        <div *ngFor="let allergie of allergies" class="boxmodif">
+          <input
+            type="checkbox"
+            id="{{ allergie._id }}"
+            name="allergiesEleve"
+            [value]="allergie.allergene"
+            [(ngModel)]="allergie.selected"
+          />
+          <label for="{{ allergie._id }}" class="nomallergene">{{ allergie.allergene }}</label>
+        </div>
+      </div>
+
+      <!-- Hidden date field -->
+      <input type="hidden" name="jour" [value]="selectedDate" ngModel />
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <div *ngIf="ajoutAllergie">
+    <label for="nouvelleAllergie">Nouvelle Allergie</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nouvelleAllergie"
+      [(ngModel)]="nouvelleAllergie"
+    />
+    <button class="btn btn-success" (click)="submitNouvelleAllergie()">Ajouter l'allergie</button>
+    <button class="btn btn-secondary" (click)="ajoutAllergie = false">Annuler</button>
+  </div>
+  <button class="btn btn-link" (click)="ajouterAllergie()">Vous ne trouvez pas votre allergie? Cliquez ici pour l'ajouter.</button>
+</div>
+
+<!-- New allergy addition section -->
+
