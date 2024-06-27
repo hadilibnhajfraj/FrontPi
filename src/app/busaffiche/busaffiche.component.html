@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body">
+    <div class="mybutton">
+      <button (click)="navigateToDashboard()" style="font-size:24px"> <i class="material-icons">create</i></button>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Départ</th>
+          <th>Arrivée</th>
+          <th>Horaire</th>
+          <th>Matricule</th>
+          <th>Chauffeur</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bus of busList">
+          <td>{{ bus['itineraire']?.depart }}</td>
+          <td>{{ bus['itineraire']?.arrivee }}</td>
+          <td>{{ bus.horaire }}</td>
+          <td>{{ bus.matricule }}</td>
+          <td>{{ bus.chauffeur?.nom }} {{ bus.chauffeur?.prenom }}</td>
+          <td>
+            <div class="row">
+              <div class="col-md-6">
+                <i style="font-size: 24px" class="fas fa-edit" (click)="edit(bus._id)"></i>
+              </div>
+              <div class="col-md-6">
+                <i class="fa fa-trash" style="font-size: 24px" (click)="supp(bus._id)"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -55,6 +55,7 @@ export class AuthService {
   updatePassword(email: string, password: string): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/resetpassword/${email}`, { password });
   }
+
   deleteUser(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/deleteUser/${id}`);
   }
@@ -66,4 +67,12 @@ export class AuthService {
   getUser(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/getUser/${id}`);
   }
+
+
+  getCurrentUser(email: string): Observable<any> {
+    const headers = new HttpHeaders().set('Email', email);
+    return this.http.get<any>(`${this.baseUrl}/me`, { headers });
+  }
+
+
 }

@@ -1,0 +1,33 @@
+.card-body {
+  margin-top: 50px;
+}
+.mybutton {
+  text-align: end;
+  margin-bottom: 10px;
+}
+
+button {
+  background: #f96332;
+}
+i.fas.fa-edit {
+
+  color: green;
+}
+.text-sun {
+  color: #ffd700 !important; /* Gold color for sun icon */
+}
+
+.text-cloud {
+  color: #b0c4de !important; /* Light Steel Blue color for cloud icon */
+}
+i.fas.fa-edit {
+  background: green;
+  padding: 10px;
+  color: #fff;
+}
+
+i.fa.fa-trash {
+  background: red;
+  color: #fff;
+  padding: 10px;
+}

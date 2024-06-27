@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Modifier une Activité</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom">Nom:</label>
+      <input type="text" id="nom" class="form-control" required [(ngModel)]="activite.nom" name="nom">
+    </div>
+    <div class="form-group">
+      <label for="localisation">Localisation:</label>
+      <select id="localisation" class="form-control" required [(ngModel)]="activite.localisation" name="localisation">
+        <option value="interieur">Intérieur</option>
+        <option value="exterieur">Extérieur</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="date_act">Date Activité:</label>
+      <input type="date" id="date_act" class="form-control" required [value]="formatDate(activite.date_act)" (change)="activite.date_act = $event.target.valueAsDate" name="date_act">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" class="form-control" required [(ngModel)]="activite.description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="local">Local:</label>
+      <input type="text" id="local" class="form-control" [(ngModel)]="activite.local" name="local">
+    </div>
+    <div class="form-group">
+      <label for="nblimite">Nombre Limite:</label>
+      <input type="number" id="nblimite" class="form-control" [(ngModel)]="activite.nblimite" name="nblimite">
+    </div>
+    <div class="form-group">
+      <label for="temperature">Température:</label>
+      <input type="text" id="temperature" class="form-control" [(ngModel)]="activite.temperature" name="temperature">
+    </div>
+    <div class="form-group">
+      <label for="galerie">Galerie:</label>
+      <input type="file" id="galerie" (change)="onFileSelected($event)" name="galerie" multiple class="">
+    </div>
+    <div class="form-group">
+      <label>Images Actuelles:</label>
+      <div *ngFor="let image of galerie">
+        <img [src]="getImageSrc(image)" alt="galerie image" class="img-thumbnail" style="max-width: 150px; margin: 5px;">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Modifier</button>
+  </form>
+</div>

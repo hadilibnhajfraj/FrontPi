@@ -15,6 +15,11 @@ i.fa.fa-check {
   padding: 15px;
   color: #fff;
 }
+i.fas.fa-edit {
+  background: green;
+  padding: 15px;
+  color: #fff;
+}
 .validated {
   background-color: green;
   color: #fff;

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let bus of busList">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="fa fa-bus" style="font-size: 48px; color: #e8d630"></i>
+            <h4 class="card-title-matricule">{{ bus.matricule }}</h4>
+          </div>
+          <hr class="rounded" />
+          <h4 class="card-title">
+            <strong>Itineraire Départ: </strong>{{ bus["itineraire"]?.depart }}
+          </h4>
+          <h4 class="card-title">
+            <strong>Itineraire Arrivée: </strong
+            >{{ bus["itineraire"]?.arrivee }}
+          </h4>
+          <h5 class="card-text">Horaire: {{ bus.horaire }}</h5>
+          <h6 class="card-text">
+            Chauffeur: {{ bus.chauffeur?.nom }} {{ bus.chauffeur?.prenom }}
+          </h6>
+          <hr class="rounded" />
+          <i
+            class="far fa-bell"
+            style="
+              font-size: 48px;
+              color: #000;
+              display: flex;
+              justify-content: end;
+            "
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

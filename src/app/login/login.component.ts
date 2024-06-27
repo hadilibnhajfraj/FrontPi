@@ -43,11 +43,13 @@ export class LoginComponent implements OnInit {
 
     switch (role) {
       case 'admin':
+
         this.router.navigate(['/listUser']);
         break;
       case 'enseignant':
       case 'parent':
-        this.router.navigate(['/icons']); // Redirection vers la page principale
+        this.router.navigate(['/repasAffichage']); // Redirection vers la page principale
+
         break;
       default:
         this.router.navigate(['/login']); // Redirection vers la page de connexion si le rôle n'est pas reconnu

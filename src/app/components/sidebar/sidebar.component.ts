@@ -10,6 +10,7 @@ declare interface RouteInfo {
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
+
   { path: "/listUser", title: "Liste User", icon: "design_app", class: "" },
   { path: "/icons", title: "Icons", icon: "education_atom", class: "" },
   { path: "/maps", title: "Maps", icon: "location_map-big", class: "" },
@@ -22,19 +23,30 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "/user-profile",
     title: "User Profile",
+    icon: "",
+    class: ""
+  }
+
+,  { path: "/afficheRepas", title: "Repas", icon: "design_app", class: "" },
+  { path: "/bus", title: "Bus", icon: "education_atom", class: "" },
+  {
+    path: "/chauffeur",
+    title: "Chauffeurs",
     icon: "users_single-02",
     class: "",
   },
   {
-    path: "/table-list",
-    title: "Table List",
-    icon: "design_bullet-list-67",
+    path: "/activite",
+    title: "ACTIVITES",
+    icon: "location_map-big",
     class: "",
   },
+  { path: "/repasAffichage", title: "Repas", icon: "design_app", class: "" },
+  { path: "/busaffichage", title: "Bus", icon: "education_atom", class: "" },
   {
-    path: "/typography",
-    title: "Typography",
-    icon: "text_caps-small",
+    path: "/fetchActivite",
+    title: "Activites",
+    icon: "location_map-big",
     class: "",
   },
 ];
@@ -57,14 +69,32 @@ export class SidebarComponent implements OnInit {
     const role = this.authService.getUserRole();
     let filteredMenuItems: RouteInfo[] = [];
 
-    // Example logic to filter menu items based on role
-    if (role === 'admin') {
-      // Show all menu items
-      filteredMenuItems = ROUTES;
-    } else if (role === 'enseignant' || role === 'parent') {
+    if (role === "admin") {
+      filteredMenuItems = ROUTES.filter(
+        (item) =>
+          item.path !== "/repasAffichage" &&
+          item.path !== "/busaffichage" &&
+          item.path !== "/fetchActivite" &&
+          item.path !== "/icons" &&
+          item.path !== "/maps" &&
+          item.path !== "/notifications"&&
+          item.path !== "/user-profile"
+        // Exclude 'listUser' from menu for enseignant and parent
+      );
+    } else if (role === "parent"||role === 'enseignant') {
       // Show specific menu items for enseignant and parent
-      filteredMenuItems = ROUTES.filter(item =>
-        item.path !== '/listUser' // Exclude 'listUser' from menu for enseignant and parent
+      filteredMenuItems = ROUTES.filter(
+        (item) =>
+          item.path !== "/afficheRepas" &&
+          item.path !== "/bus" &&
+          item.path !== "/chauffeur" &&
+          item.path !== "/activite" &&
+           item.path !== '/listUser' &&
+           item.path !== "/icons" &&
+           item.path !== "/maps" &&
+           item.path !== "/notifications"&&
+           item.path !== "/user-profile"
+
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)
@@ -77,6 +107,7 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+
   }
 
   isMobileMenu() {
