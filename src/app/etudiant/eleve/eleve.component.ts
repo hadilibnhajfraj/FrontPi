@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EtudiantService } from '../../services/etudiant.service';
 import { ToastrService } from 'ngx-toastr';
+import { CoursService } from '../../services/cours.service';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: "app-eleve",
@@ -9,8 +11,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ["./eleve.component.css"],
 })
 export class EleveComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder, private etudiantService: EtudiantService, private toastr: ToastrService) { }
+  notificationsList=[];
+  constructor(private notificationsService:NotificationsService,private formBuilder: FormBuilder, private coursService: CoursService, private etudiantService: EtudiantService, private toastr: ToastrService) {
+    this.notificationsService.currentNotificationsList.subscribe(data => this.notificationsList=data)
+   }
 
   activeTab = 1;
   id_user = '664677115eb942fdc85aa230';
@@ -23,22 +27,43 @@ export class EleveComponent implements OnInit {
     date_de_naissance: ["", [Validators.required]],
     familialStatus: ["", [Validators.required]],
     classe: ['', Validators.required],
-    image: [null] 
+    image: [null]
 
   });
 
+
+  devoirForm = this.formBuilder.group({
+    nom: ["", Validators.required],
+    matiere: ['', Validators.required],
+    classe: ['', Validators.required],
+    etudiant: ['', Validators.required],
+    file: [null],
+
+  });
+
+
   classes: any[] = [];
   etudiants: any[] = [];
+  devoirs: any[] = [];
+  matieres: any[] = [];
 
   openedEditEtudiant: boolean = false;
+  openedEditDevoir: boolean = false;
+
   editEtudiant: any;
+  editDevoir: any;
+
   dataFile: any | undefined;
   fileTitle: string | undefined;
   fileName: string = "";
 
+  searchTerm: string | undefined;
+
   ngOnInit(): void {
     this.allEtudiant();
     this.loadClasses();
+    this.loadMatieres();
+    this.allDevoirs();
   }
 
   loadClasses(): void {
@@ -141,17 +166,33 @@ export class EleveComponent implements OnInit {
     }
   }
 
+
+  loadMatieres(): void {
+    this.coursService.getMatiere().subscribe(
+      (data) => {
+        this.matieres = data;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des matières:', error);
+      }
+    );
+  }
+
+
   allEtudiant(): void {
     this.etudiantService.getEtudiants().subscribe(
       (etudiant) => {
         etudiant.forEach(etudiant => {
-        
+
           if (typeof etudiant.classe == 'string') {
             etudiant.classe = JSON.parse(etudiant.classe);
           }
+
         });
+        // Filter students by id_user
+        this.etudiants = etudiant.filter(et => et.id_user == this.id_user);
         this.etudiants = etudiant;
-        console.log('etudiant', this.etudiants)
+
 
       },
       (error) => {
@@ -176,14 +217,17 @@ export class EleveComponent implements OnInit {
 
   resetForm(): void {
     this.studentForm.reset();
-
   }
+
+
   openEditModal(etudiant: any) {
     this.editEtudiant = etudiant;
     this.populateForm(etudiant);
 
     this.openedEditEtudiant = true;
   }
+
+
   private mapServerFamilialStatus(status: string): string {
     switch (status) {
       case 'Célibataire':
@@ -212,6 +256,7 @@ export class EleveComponent implements OnInit {
 
     return [year, month, day].join('-');
   }
+
   populateForm(etudiant: any): void {
     // Map server familial status to form value
     const familialStatus = this.mapServerFamilialStatus(etudiant.situation_familiale);
@@ -298,13 +343,228 @@ export class EleveComponent implements OnInit {
   }
 
 
+
+  saveDevoir() {
+    if (this.devoirForm.valid) {
+
+      const selectedClasse = this.classes.find(c => c._id == this.devoirForm.value.classe);
+      const selectedMatiere = this.matieres.find(m => m._id == this.devoirForm.value.matiere);
+      const selectedEtudiant = this.etudiants.find(m => m._id == this.devoirForm.value.etudiant);
+
+      const devoirData = {
+        nom: this.devoirForm.value.nom,
+        id_user: this.id_user,
+        matiere: {
+          _id: selectedMatiere._id,
+          nom: selectedMatiere.nom
+        },
+        classe: {
+          _id: selectedClasse._id,
+          nom: selectedClasse.nom
+        },
+        etudiant: {
+          _id: selectedEtudiant._id,
+          nom: selectedEtudiant.nom
+        }
+      };
+
+
+      const formData = new FormData();
+      Object.keys(devoirData).forEach(key => {
+        if (typeof devoirData[key] == 'object' && devoirData[key] != null) {
+          formData.append(key, JSON.stringify(devoirData[key]));
+        } else {
+          formData.append(key, devoirData[key]);
+        }
+      });
+
+      // Append the file to the FormData
+      if (this.dataFile) {
+        formData.append('documents', this.dataFile);
+      }
+
+      this.etudiantService.addDevoir(formData).subscribe(
+        (response) => {
+          // Après avoir sauvegardé avec succès, envoyez un e-mail
+          this.etudiantService.sendMail('mimibhaj@gmail.com', 'Nouveau devoir ajouté', 'Un nouveau devoir a été ajouté.').subscribe(
+            () => {
+              this.toastr.success('Devoir ajouté avec succès et e-mail envoyé', 'Succès');
+              this.notificationsService.updateNotifications([...this.notificationsList,{seen:false}])
+              this.allDevoirs();
+              this.resetDevoirForm();
+            },
+            (error) => {
+              console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
+              this.toastr.error('Erreur lors de l\'envoi de l\'e-mail', 'Erreur');
+            }
+          );
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout du devoir:', error);
+          this.toastr.error('Erreur lors de l\'ajout du devoir', 'Erreur');
+        }
+      );
+    }
+  }
+
+
+
+  updateDevoir(): void {
+    if (this.devoirForm.valid && this.editDevoir) {
+      const selectedClasse = this.classes.find(c => c._id == this.devoirForm.value.classe);
+      const selectedMatiere = this.matieres.find(m => m._id == this.devoirForm.value.matiere);
+      const selectedEtudiant = this.etudiants.find(e => e._id == this.devoirForm.value.etudiant);
+
+      const updatedDevoirData = {
+        _id: this.editDevoir._id,
+        nom: this.devoirForm.value.nom,
+        id_user: this.id_user,
+        classe: {
+          _id: selectedClasse._id,
+          nom: selectedClasse.nom
+        },
+        matiere: {
+          _id: selectedMatiere._id,
+          nom: selectedMatiere.nom
+        },
+        etudiant: {
+          _id: selectedEtudiant._id,
+          nom: selectedEtudiant.nom
+        }
+      };
+
+      const formData = new FormData();
+      Object.keys(updatedDevoirData).forEach(key => {
+        if (typeof updatedDevoirData[key] === 'object' && updatedDevoirData[key] !== null) {
+          formData.append(key, JSON.stringify(updatedDevoirData[key]));
+        } else {
+          formData.append(key, updatedDevoirData[key]);
+        }
+      });
+
+      // Ajouter l'image mise à jour si elle existe
+      if (this.dataFile) {
+        formData.append('image', this.dataFile, this.dataFile.name); // Ajoute l'image avec son nom
+      }
+
+      this.etudiantService.updateDevoir(formData).subscribe(
+        (response) => {
+          this.etudiantService.sendMail('mimibhaj@gmail.com', 'Nouveau devoir ajouté', 'Un nouveau devoir a été ajouté.').subscribe(
+            () => {
+              console.log('Service response:', response);
+              this.toastr.success('Étudiant mis à jour avec succès!', 'Succès');
+              this.allDevoirs();
+              this.closeEditModal();
+            },
+            (error) => {
+              console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
+              this.toastr.error('Erreur lors de l\'envoi de l\'e-mail', 'Erreur');
+            }
+          );
+        }
+      )
+    } else {
+      console.log('Invalid form or missing edit student data.');
+      this.toastr.error('Veuillez remplir correctement le formulaire.', 'Erreur de validation');
+    }
+  }
+
+
+
+  resetDevoirForm() {
+    this.devoirForm.reset();
+  }
+
+  openEditDevoir(devoir: any) {
+    this.editDevoir = devoir;
+    this.populateDevoirForm(devoir);
+
+    this.openedEditDevoir = true;
+  }
+
+
+  populateDevoirForm(devoir: any): void {
+    if (typeof devoir.classe == 'string') {
+      devoir.classe = JSON.parse(devoir.classe);
+    }
+
+    if (typeof devoir.matiere == 'string') {
+      devoir.matiere = JSON.parse(devoir.matiere);
+    }
+    if (typeof devoir.etudiant == 'string') {
+      devoir.etudiant = JSON.parse(devoir.etudiant);
+    }
+    // Populate the form with the student's data
+    this.devoirForm.patchValue({
+      nom: devoir.nom,
+      matiere: devoir.matiere ? devoir.matiere._id : "",
+      createdAt: this.formatDate(devoir.createdAt),
+      classe: devoir.classe ? devoir.classe._id : "",
+      etudiant: devoir.etudiant ? devoir.etudiant._id : "",
+    });
+    if (devoir.image && devoir.image.length > 0) {
+      const documentNames = devoir.image.map((document: string) => this.getFileNameFromPath(document));
+      this.fileName = documentNames.join(', ');
+    } else {
+      this.fileName = '';
+    }
+    this.dataFile = undefined;
+    this.fileTitle = undefined;
+
+
+  }
+
+  allDevoirs(): void {
+    this.etudiantService.getDevoirs().subscribe(
+      (devoirs) => {
+        devoirs.forEach(devoirs => {
+          if (typeof devoirs.matiere == 'string') {
+            devoirs.matiere = JSON.parse(devoirs.matiere);
+          }
+          if (typeof devoirs.classe == 'string') {
+            devoirs.classe = JSON.parse(devoirs.classe);
+          }
+          if (typeof devoirs.etudiant == 'string') {
+            devoirs.etudiant = JSON.parse(devoirs.etudiant);
+          }
+        });
+        this.devoirs = devoirs;
+        console.log('devoirs', devoirs)
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des cours:', error);
+      }
+    );
+  }
+
   setActiveTab(tabNumber: number): void {
     this.activeTab = tabNumber;
   }
-  
+
   closeEditModal() {
     this.openedEditEtudiant = false;
     this.resetForm();
 
+  }
+
+  closeEditModalDevoir() {
+    this.openedEditDevoir = false;
+    this.resetDevoirForm();
+
+  }
+
+
+  deleteDevoir(id: any): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce devoir ?')) {
+      this.etudiantService.deleteDevoir(id).subscribe(
+        () => {
+          this.toastr.success('Devoir supprimé avec succès', 'Succès');
+          this.allDevoirs();
+        },
+        (error) => {
+          this.toastr.error('Erreur lors de la suppression du ce devoir', 'Erreur');
+        }
+      );
+    }
   }
 }

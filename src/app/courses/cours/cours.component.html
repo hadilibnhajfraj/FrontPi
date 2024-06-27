@@ -200,7 +200,7 @@
 
                         <div class="form-group">
                             <label for="dateLimite">Date Limite</label>
-                            <input id="dateLimite" formControlName="dateLimite" type="date" class="form-control" />
+                            <input id="dateLimite" [min]="currentDate" formControlName="dateLimite" type="date" class="form-control" />
                         </div>
 
                         <div class="file-upload mb-1">

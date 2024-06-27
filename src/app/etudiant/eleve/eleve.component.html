@@ -21,6 +21,9 @@
       <div class="tab" [ngClass]="{ active: activeTab === 2 }" (click)="setActiveTab(2)">
         <i class="fa-solid fa-rectangle-list"></i> Historique des élèves
       </div>
+      <div class="tab" [ngClass]="{ active: activeTab === 3 }" (click)="setActiveTab(3)">
+        <i class="fa-solid fa-rectangle-list"></i> Exercice rendu
+      </div>
     </div>
 
     <div class="tab-content" *ngIf="activeTab == 1">
@@ -90,8 +93,8 @@
           </div>
         </div>
         <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid"
-            (click)="saveStudent()"><i class="fa-solid fa-floppy-disk"></i> Sauvegarder</button>
+          <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid" (click)="saveStudent()"><i
+              class="fa-solid fa-floppy-disk"></i> Sauvegarder</button>
         </div>
       </form>
     </div>
@@ -146,7 +149,122 @@
         </div>
       </div>
     </div>
+
+    <div class="tab-content" *ngIf="activeTab == 3">
+      <div class="container">
+        <div class="text-center">
+          <h3 class="mb-3"><i class="fa-solid fa-file-alt"></i> Devoirs rendus</h3>
+        </div>
+        <div class="row">
+          <!-- Espace pour ajouter un devoir -->
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Ajouter un devoir</h5>
+                <form [formGroup]="devoirForm" enctype="multipart/form-data" novalidate>
+                  <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input id="nom" formControlName="nom" type="text" class="form-control" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="etudiant" class="form-label">Étudiant:</label>
+                    <select class="form-select" id="etudiant" formControlName="etudiant" required>
+                      <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">{{ etudiant.nom }} {{
+                        etudiant.prenom }}</option>
+                    </select>
+                    <div *ngIf="devoirForm.get('etudiant').invalid && devoirForm.get('etudiant').touched"
+                      class="invalid-feedback">
+                      L'étudiant est requis.
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="matiere" class="form-label">Matière:</label>
+                    <select class="form-select" id="matiere" formControlName="matiere" required>
+                      <option *ngFor="let matiere of matieres" [value]="matiere._id">{{ matiere.nom }}</option>
+                    </select>
+                    <div *ngIf="devoirForm.get('matiere').invalid && devoirForm.get('matiere').touched"
+                      class="invalid-feedback">
+                      La matière est requise.
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="classe" class="form-label">Classe:</label>
+                    <select class="form-select" id="classe" formControlName="classe" required>
+                      <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
+                    </select>
+                    <div *ngIf="devoirForm.get('classe').invalid && devoirForm.get('classe').touched"
+                      class="invalid-feedback">
+                      La classe est requise.
+                    </div>
+                  </div>
+                  <div class="file-upload mb-1">
+                    <label for="document" class="form-label">Documents:</label>
+                    <div class="input-group">
+                      <input type="file" multiple (change)="selectFile($event)" class="form-control"
+                        formControlName="file" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary" (click)="saveDevoir()"
+                      [disabled]="devoirForm.invalid">
+                      <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data grid pour afficher les détails des devoirs -->
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Détails des devoirs</h5>
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Etudiant</th>
+                        <th scope="col">Matière</th>
+                        <th scope="col">Classe</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Date de rendu</th>
+                        <th scope="col">Document</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let devoir of devoirs">
+                        <td>{{ devoir.etudiant.nom }}</td>
+                        <td>{{ devoir.matiere.nom }}</td>
+                        <td>{{ devoir.classe.nom }}</td>
+                        <td>{{ devoir.nom}}</td>
+                        <td>{{ devoir.createdAt | date:'dd-MM-yyyy'}}</td>
+
+                        <td>
+                          <div *ngFor="let doc of devoir.documents">
+                            <a href="http://localhost:3001/{{doc}}" target="_blank">
+                              {{ getFileNameFromPath(doc) }}
+                            </a>
+                          </div>
+                        </td>
+                        <td><i class="fa-solid fa-pen-to-square blue-icon mx-3 fs-3"
+                            (click)="openEditDevoir(devoir)"></i>
+                        </td>
+                        <td><i class="fa-solid fa-trash red-icon mx-3 fs-3" (click)="deleteDevoir(devoir._id)"></i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+
 </body>
 
 </html>
@@ -177,7 +295,7 @@
       <div class="file-upload mb-1">
         <label for="doc" class="form-label">image:</label>
         <div class="input-group">
-          <input type="file"  multiple (change)="selectFile($event)" formControlName="image">
+          <input type="file" multiple (change)="selectFile($event)" formControlName="image">
 
         </div>
       </div>
@@ -237,6 +355,74 @@
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid" (click)="updateEtudiant()">
           <i class="fa-solid fa-floppy-disk"></i> Modifier
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="openedEditDevoir" class="popup">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h2 class="main-title"><i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier de devoir</h2>
+      <button class="close-icon" (click)="closeEditModalDevoir()">&times;</button>
+    </div>
+    <form [formGroup]="devoirForm" enctype="multipart/form-data" novalidate>
+      <div class="form-group">
+        <label for="nom">Nom:</label>
+        <input id="nom" formControlName="nom" type="text" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="etudiant" class="form-label">Étudiant:</label>
+        <select class="form-select" id="etudiant" formControlName="etudiant" required>
+          <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">{{ etudiant.nom }} {{
+            etudiant.prenom }}</option>
+        </select>
+        <div *ngIf="devoirForm.get('etudiant').invalid && devoirForm.get('etudiant').touched" class="invalid-feedback">
+          L'étudiant est requis.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="matiere" class="form-label">Matière:</label>
+        <select class="form-select" id="matiere" formControlName="matiere" required>
+          <option *ngFor="let matiere of matieres" [value]="matiere._id">{{ matiere.nom }}</option>
+        </select>
+        <div *ngIf="devoirForm.get('matiere').invalid && devoirForm.get('matiere').touched" class="invalid-feedback">
+          La matière est requise.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="classe" class="form-label">Classe:</label>
+        <select class="form-select" id="classe" formControlName="classe" required>
+          <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
+        </select>
+        <div *ngIf="devoirForm.get('classe').invalid && devoirForm.get('classe').touched" class="invalid-feedback">
+          La classe est requise.
+        </div>
+      </div>
+      <div class="file-upload mb-1">
+        <label for="document" class="form-label">Documents:</label>
+        <div class="input-group">
+          <input type="file" multiple (change)="selectFile($event)" class="form-control" formControlName="file" />
+        </div>
+      </div>
+
+      <div *ngIf="editDevoir && editDevoir.documents && editDevoir.documents.length > 0" class="mb-3">
+        <label for="existingDocs" class="form-label">Documents existants:</label>
+        <ul>
+          <li *ngFor="let document of editDevoir.documents">
+            <a href="http://localhost:3001/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
+              }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" (click)="updateDevoir()" [disabled]="devoirForm.invalid">
+          <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
         </button>
       </div>
     </form>

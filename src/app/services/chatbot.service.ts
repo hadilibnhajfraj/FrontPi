@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ChatService {
   
-  private apiUrl = 'http://localhost:3001/cours/chat';
+  private apiUrl = 'http://localhost:3000/cours/chat';
 
   constructor(private http: HttpClient) { }
 

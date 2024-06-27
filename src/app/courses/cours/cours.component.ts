@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CoursComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private coursService: CoursService, private toastr: ToastrService) { }
-
+  currentDate=this.formatDate(new Date())
   imagePath: string = "/assets/img/ai.jpg";
   id_user = '664677115eb942fdc85aa230';
   fileName: string = "";

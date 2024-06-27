@@ -14,10 +14,10 @@ export class MatiereService {
     }),
   };
 
-  private matiereUrl = 'http://localhost:3001/matiere/all';
-  private AddMatiereUrl = 'http://localhost:3001/matiere/add';
-  private deleteMatiereUrl = 'http://localhost:3001/matiere/drop';
-  private updateMatiereUrl = 'http://localhost:3001/matiere/update';
+  private matiereUrl = 'http://localhost:3000/matiere/all';
+  private AddMatiereUrl = 'http://localhost:3000/matiere/add';
+  private deleteMatiereUrl = 'http://localhost:3000/matiere/drop';
+  private updateMatiereUrl = 'http://localhost:3000/matiere/update';
   
 
 

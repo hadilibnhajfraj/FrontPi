@@ -6,18 +6,19 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 })
 export class CoursService {
 
-  private apiUrl = 'http://localhost:3001/cours/all';
-  private AddCoursUrl = 'http://localhost:3001/cours/add';
-  private deleteCoursUrl = 'http://localhost:3001/cours/drop';
-  private updateCoursUrl = 'http://localhost:3001/cours/update';
-  private apiUrlclasse = 'http://localhost:3001/classes/all';
-  private apiUrlMatiere = 'http://localhost:3001/matiere/all';
-  private apiUrlsearch = 'http://localhost:3001/cours/search';
+  private apiUrl = 'http://localhost:3000/cours/all';
+  private AddCoursUrl = 'http://localhost:3000/cours/add';
+  private deleteCoursUrl = 'http://localhost:3000/cours/drop';
+  private updateCoursUrl = 'http://localhost:3000/cours/update';
+  private apiUrlclasse = 'http://localhost:3000/classes/all';
+  private apiUrlMatiere = 'http://localhost:3000/matiere/all';
+  private apiUrlsearch = 'http://localhost:3000/cours/search';
 
-  private AddExerciceUrl = 'http://localhost:3001/exercice/add';
-  private deleteExerciceUrl = 'http://localhost:3001/exercice/drop';
-  private updateExerciceUrl = 'http://localhost:3001/exercice/update'
-  private allExerciceUrl = 'http://localhost:3001/exercice/all'
+  private AddExerciceUrl = 'http://localhost:3000/exercice/add';
+  private deleteExerciceUrl = 'http://localhost:3000/exercice/drop';
+  private updateExerciceUrl = 'http://localhost:3000/exercice/update'
+  private allExerciceUrl = 'http://localhost:3000/exercice/all'
+
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -32,6 +33,7 @@ export class CoursService {
   getCours() {
     return this._httpClient.get<any[]>(this.apiUrl);
   }
+  
   getExercice() {
     return this._httpClient.get<any[]>(this.allExerciceUrl);
   }
@@ -75,4 +77,7 @@ export class CoursService {
   updateExercice(formData: FormData) {
     return this._httpClient.put<any>(`${this.updateExerciceUrl}/${formData.get('_id')}`, formData);
   }
+
+
+ 
 }
