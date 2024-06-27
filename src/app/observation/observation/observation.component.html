@@ -1,0 +1,420 @@
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2 class="main-title mb-4">
+      <i class="fa-solid fa-eye"></i> GESTION D'OBSERVATION
+    </h2>
+
+    <div class="tabs">
+      <div class="tab" [ngClass]="{ active: activeTab === 1 }" (click)="setActiveTab(1)">
+        <i class="fa-solid fa-plus"></i> Ajouter observation
+      </div>
+      <div class="tab" [ngClass]="{ active: activeTab === 2 }" (click)="setActiveTab(2)">
+        <i class="fa-solid fa-rectangle-list"></i> Historique des observations
+      </div>
+    </div>
+
+    <div class="tab-content" *ngIf="activeTab == 1">
+      <form [formGroup]="observationForm" class="observation-form mt-4">
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Description :</label>
+          <input type="text" class="form-control" id="description" formControlName="description" />
+          <div *ngIf="
+                observationForm.get('description').errors &&
+                observationForm.get('description').touched
+              " class="invalid-feedback">
+            La description est requise.
+          </div>
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label for="date">Date :</label>
+          <input type="date" class="form-control" id="date" formControlName="date" />
+          <div *ngIf="
+                observationForm.get('date').errors &&
+                observationForm.get('date').touched
+              " class="invalid-feedback">
+            La date est requise.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="etudiant">Étudiant :</label>
+          <select class="form-select" id="etudiant" formControlName="etudiant">
+            <option value="" disabled selected>Sélectionnez un étudiant</option>
+            <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">
+              {{ etudiant.nom }} {{ etudiant.prenom }}
+            </option>
+          </select>
+          <div *ngIf="observationForm.get('etudiant').errors && observationForm.get('etudiant').touched"
+            class="invalid-feedback">
+            Veuillez sélectionner un étudiant.
+          </div>
+        </div>
+
+        <!-- Heure -->
+        <div class="form-group">
+          <label for="heure">Heure :</label>
+          <input type="time" class="form-control" id="heure" formControlName="heure" />
+          <div *ngIf="
+                observationForm.get('heure').errors &&
+                observationForm.get('heure').touched
+              " class="invalid-feedback">
+            L'heure est requise.
+          </div>
+        </div>
+
+        <!-- Repas -->
+        <div class="form-group">
+          <label>Repas :</label>
+          <div class="meal-options">
+            <div *ngFor="let repas of repasEnumValues" class="meal-option">
+              <input type="radio" formControlName="repas" [value]="repas" id="{{ repas }}" class="form-check-input" />
+              <label for="{{ repas }}" class="radio-label">{{ repas }}</label>
+            </div>
+          </div>
+          <div *ngIf="
+                observationForm.get('repas').errors &&
+                observationForm.get('repas').touched
+              " class="invalid-feedback">
+            Le repas est requis.
+          </div>
+        </div>
+
+        <!-- Santé -->
+        <div class="form-group">
+          <label for="sante">Santé :</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="margin-right: 15px">
+                <i class="fas fa-heartbeat"></i>
+              </span>
+            </div>
+            <select class="custom-select" id="sante" formControlName="sante">
+              <option value="" disabled selected hidden>
+                Sélectionnez l'état de santé
+              </option>
+              <option value="good">Bonne</option>
+              <option value="bad">Moyenne</option>
+              <option value="average">Mauvaise</option>
+            </select>
+          </div>
+          <div *ngIf="
+                observationForm.get('sante').errors &&
+                observationForm.get('sante').touched
+              " class="invalid-feedback">
+            La santé est requise.
+          </div>
+        </div>
+
+        <!-- Humeur -->
+        <div class="form-group">
+          <label for="humeur">Humeur :</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="margin-right: 15px">
+                <i class="fas fa-smile"></i>
+              </span>
+            </div>
+            <select class="custom-select" id="humeur" formControlName="humeur">
+              <option value="" disabled selected hidden>Sélectionnez l'humeur</option>
+              <option value="happy">Heureux</option>
+              <option value="sad">Triste</option>
+              <option value="neutral">Stressé</option>
+            </select>
+          </div>
+          <div *ngIf="observationForm.get('humeur').errors && observationForm.get('humeur').touched"
+            class="invalid-feedback">
+            L'humeur est requise.
+          </div>
+        </div>
+
+
+        <!-- Communication -->
+        <div class="form-group">
+          <label for="communication">Communication :</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="margin-right: 15px">
+                <i class="fas fa-comments"></i>
+              </span>
+            </div>
+            <select class="custom-select" id="communication" formControlName="communication">
+              <option value="" disabled selected hidden>
+                Sélectionnez le niveau de communication
+              </option>
+              <option value="excellent">Bonne</option>
+              <option value="poor">Moyenne</option>
+              <option value="average">Mauvaise</option>
+            </select>
+          </div>
+          <div *ngIf="
+                observationForm.get('communication').errors &&
+                observationForm.get('communication').touched
+              " class="invalid-feedback">
+            La communication est requise.
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary" [disabled]="observationForm.invalid"
+            (click)="saveObservation()"><i class="fa-solid fa-floppy-disk"></i> Sauvegarder</button>
+        </div>
+
+      </form>
+    </div>
+    <div class="tab-content" *ngIf="activeTab == 2">
+      <div class="accordion">
+        <div class="accordion-item" *ngFor="let o of observations" [ngClass]="{ 'active': activeAccordion === o._id }">
+          <div class="accordion-item-header" (click)="toggleAccordion(o._id)">
+            <h3>{{ o.etudiant?.nom }} {{o.etudiant?.prenom}}</h3>
+            <span class="accordion-toggle-icon" [ngClass]="{ 'active': activeAccordion === o._id }">&#x25BC;</span>
+          </div>
+          <div class="accordion-item-content" *ngIf="activeAccordion === o._id">
+            <div class="card">
+              <div class="card-header">
+                <h3>{{ o.description }}</h3>
+              </div>
+              <div class="card-body">
+                <div class="accordion-details">
+                  <div class="detail-item">
+                    <label>Date:</label>
+                    <span>{{ o.date | date:'dd-MM-yyyy' }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <label>Heure:</label>
+                    <span>{{ o.heure }}<sup>H</sup></span>
+                  </div>
+                  <div class="detail-item">
+                    <label>Repas:</label>
+                    <span>{{ o.repas }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <label>Humeur:</label>
+                    <span>{{ o.humeur }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <label>Santé:</label>
+                    <span>{{ o.sante }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <label>Communication:</label>
+                    <span>{{ o.communication }}</span>
+                  </div>
+                </div>
+                <div class="icon-container">
+                  <i class="fa-solid fa-pen-to-square blue-icon" (click)="openEditModal(o)"></i>
+                  <i class="fa-solid fa-trash red-icon" (click)="deleteObservation(o._id)"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <img [src]="imagePath" alt="ai" class="img-fluid rounded"
+    style="max-width: 150px; position: fixed; bottom: 0%; right: 0px" (click)="openModal()" />
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const accordionItems = document.querySelectorAll(".accordion-item");
+
+    accordionItems.forEach((item) => {
+      const header = item.querySelector(".accordion-item-header");
+
+      header.addEventListener("click", () => {
+        const isOpen = item.classList.contains("active");
+
+        accordionItems.forEach((otherItem) => {
+          otherItem.classList.remove("active");
+        });
+
+        if (!isOpen) {
+          item.classList.add("active");
+        }
+      });
+    });
+  });
+</script>
+
+
+
+<div *ngIf="opened" class="popup">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h2 class="main-title"><i class="fa-solid fa-robot"></i> EduKids-AI</h2>
+      <button class="close-icon" (click)="closeModal()">&times;</button>
+    </div>
+    <chat-bot></chat-bot>
+  </div>
+</div>
+
+
+<div *ngIf="openedEditObservation" class="popup">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h2 class="main-title"><i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier l'observation</h2>
+      <button class="close-icon" (click)="closeEditModal()">&times;</button>
+    </div>
+    <form [formGroup]="observationForm" class="observation-form mt-4">
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <input type="text" class="form-control" id="description" formControlName="description" />
+        <div *ngIf="
+                observationForm.get('description').errors &&
+                observationForm.get('description').touched
+              " class="invalid-feedback">
+          La description est requise.
+        </div>
+      </div>
+
+      <!-- Date -->
+      <div class="form-group">
+        <label for="date">Date :</label>
+        <input type="date" class="form-control" id="date" formControlName="date" />
+        <div *ngIf="
+                observationForm.get('date').errors &&
+                observationForm.get('date').touched
+              " class="invalid-feedback">
+          La date est requise.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="etudiant">Étudiant :</label>
+        <select class="form-select" id="etudiant" formControlName="etudiant">
+          <option value="" disabled selected>Sélectionnez un étudiant</option>
+          <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">
+            {{ etudiant.nom }} {{ etudiant.prenom }}
+          </option>
+        </select>
+        <div *ngIf="observationForm.get('etudiant').errors && observationForm.get('etudiant').touched"
+          class="invalid-feedback">
+          Veuillez sélectionner un étudiant.
+        </div>
+      </div>
+
+      <!-- Heure -->
+      <div class="form-group">
+        <label for="heure">Heure :</label>
+        <input type="time" class="form-control" id="heure" formControlName="heure" />
+        <div *ngIf="
+                observationForm.get('heure').errors &&
+                observationForm.get('heure').touched
+              " class="invalid-feedback">
+          L'heure est requise.
+        </div>
+      </div>
+
+      <!-- Repas -->
+      <div class="form-group">
+        <label>Repas :</label>
+        <div class="meal-options">
+          <div *ngFor="let repas of repasEnumValues" class="meal-option">
+            <input type="radio" formControlName="repas" [value]="repas" id="{{ repas }}" class="form-check-input" />
+            <label for="{{ repas }}" class="radio-label">{{ repas }}</label>
+          </div>
+        </div>
+        <div *ngIf="
+                observationForm.get('repas').errors &&
+                observationForm.get('repas').touched
+              " class="invalid-feedback">
+          Le repas est requis.
+        </div>
+      </div>
+
+      <!-- Santé -->
+      <div class="form-group">
+        <label for="sante">Santé :</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="margin-right: 15px">
+              <i class="fas fa-heartbeat"></i>
+            </span>
+          </div>
+          <select class="custom-select" id="sante" formControlName="sante">
+            <option value="" disabled selected hidden>
+              Sélectionnez l'état de santé
+            </option>
+            <option value="good">Bonne</option>
+            <option value="bad">Moyenne</option>
+            <option value="average">Mauvaise</option>
+          </select>
+        </div>
+        <div *ngIf="
+                observationForm.get('sante').errors &&
+                observationForm.get('sante').touched
+              " class="invalid-feedback">
+          La santé est requise.
+        </div>
+      </div>
+
+      <!-- Humeur -->
+      <div class="form-group">
+        <label for="humeur">Humeur :</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="margin-right: 15px">
+              <i class="fas fa-smile"></i>
+            </span>
+          </div>
+          <select class="custom-select" id="humeur" formControlName="humeur">
+            <option value="" disabled selected hidden>Sélectionnez l'humeur</option>
+            <option value="happy">Heureux</option>
+            <option value="sad">Triste</option>
+            <option value="neutral">Stressé</option>
+          </select>
+        </div>
+        <div *ngIf="observationForm.get('humeur').errors && observationForm.get('humeur').touched"
+          class="invalid-feedback">
+          L'humeur est requise.
+        </div>
+      </div>
+
+
+      <!-- Communication -->
+      <div class="form-group">
+        <label for="communication">Communication :</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="margin-right: 15px">
+              <i class="fas fa-comments"></i>
+            </span>
+          </div>
+          <select class="custom-select" id="communication" formControlName="communication">
+            <option value="" disabled selected hidden>
+              Sélectionnez le niveau de communication
+            </option>
+            <option value="excellent">Bonne</option>
+            <option value="poor">Moyenne</option>
+            <option value="average">Mauvaise</option>
+          </select>
+        </div>
+        <div *ngIf="
+                observationForm.get('communication').errors &&
+                observationForm.get('communication').touched
+              " class="invalid-feedback">
+          La communication est requise.
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" [disabled]="observationForm.invalid"
+          (click)="updateObservation()"><i class="fa-solid fa-floppy-disk"></i> Modifier</button>
+      </div>
+
+    </form>
+  </div>
+</div>

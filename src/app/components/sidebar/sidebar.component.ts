@@ -2,15 +2,46 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../../service/AuthService";
+import { NotificationsService } from "../../services/notifications.service";
 
 declare interface RouteInfo {
   path: string;
   title: string;
   icon: string;
   class: string;
+  showNotification?:boolean
+  selected?: boolean; // Définir la propriété selected comme optionnelle
+  children?: RouteInfo[];
 }
-export const ROUTES: RouteInfo[] = [
 
+export const ROUTES: RouteInfo[] = [
+  {
+    path: "/cours",
+    title: "Gestion des cours",
+    showNotification: true,
+    icon: "education_atom",
+    class: "",
+    children: [
+      {
+        path: "/observation",
+        title: "Observations",
+        icon: "education_paper",
+        class: "",
+      },
+      {
+        path: "/etudiant",
+        title: "Gestion des élèves",
+        icon: "users_circle-08",
+        class: "",
+      },
+      {
+        path: "/matiere",
+        title: "Gestion des matières",
+        icon: "education_agenda-bookmark",
+        class: "",
+      },
+    ],
+  },
   { path: "/listUser", title: "Liste User", icon: "design_app", class: "" },
   { path: "/icons", title: "Icons", icon: "education_atom", class: "" },
   { path: "/maps", title: "Maps", icon: "location_map-big", class: "" },
@@ -58,12 +89,17 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: RouteInfo[];
-
-  constructor(public authService: AuthService, private router: Router) {}
-
-  ngOnInit() {
-    this.menuItems = this.getMenuItemsBasedOnRole();
+  selectedMenuItem: any;
+  selectedChildItem: any;
+  notificationsList: any[];
+  constructor(private notificationsService: NotificationsService, public authService: AuthService, private router: Router) {
+    this.notificationsService.currentNotificationsList.subscribe(data => this.notificationsList = data)
   }
+
+  readAllNotifications() {
+    this.notificationsService.updateNotifications([])
+  }
+
 
   getMenuItemsBasedOnRole(): RouteInfo[] {
     const role = this.authService.getUserRole();
@@ -108,6 +144,35 @@ export class SidebarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
 
+  }
+
+  ngOnInit() {
+    this.menuItems = this.getMenuItemsBasedOnRole();
+    this.menuItems = this.menuItems.map((item) => {
+      return {
+        ...item,
+        showChildren: false,
+        selected: false,
+      };
+    });
+  }
+
+  toggleSubMenu(menuItem: any): void {
+    this.selectedMenuItem = menuItem;
+    if (menuItem.children && menuItem.children.length > 0) {
+      menuItem.showChildren = true;
+    }
+  }
+
+  toggleChildItem(childItem: any): void {
+    this.selectedChildItem = childItem;
+    this.menuItems.forEach((menuItem) => {
+      if (menuItem.children && menuItem.children.length > 0) {
+        menuItem.children.forEach((child) => {
+          child.selected = child === childItem;
+        });
+      }
+    });
   }
 
   isMobileMenu() {

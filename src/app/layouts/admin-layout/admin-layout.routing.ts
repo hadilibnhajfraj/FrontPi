@@ -26,7 +26,15 @@ import { FetchNotificationComponent } from "../../fetch-notification/fetch-notif
 import { FetchActiviteComponent } from "../../fetch-activite/fetch-activite.component";
 import { InscriptionComponent } from "../../inscription/inscription.component";
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
+import { CoursComponent } from '../../courses/cours/cours.component';
+import { EleveComponent } from '../../etudiant/eleve/eleve.component';
+import { MatiereComponent } from '../../matiere/matiere/matiere.component';
+import { ObservationComponent } from '../../observation/observation/observation.component';
 export const AdminLayoutRoutes: Routes = [
+  { path: "cours", component: CoursComponent },
+  { path: "observation", component: ObservationComponent },
+  { path: "etudiant", component: EleveComponent },
+  { path: "matiere", component: MatiereComponent },
   {
     path: 'listUser',
     component: ListeUserComponent,

@@ -3581,6 +3581,10 @@ Created using IcoMoon - icomoon.io
 .now-ui-icons.ui-1_zoom-bold:before {
   content: "\ea64";
 }
+.now-ui-icons.ui-robot:before {
+  content: "\f6a8";
+}
+
 
 .now-ui-icons.ui-2_chat-round:before {
   content: "\ea20";
@@ -3603,11 +3607,14 @@ Created using IcoMoon - icomoon.io
 }
 
 .now-ui-icons.users_circle-08:before {
-  content: "\ea23";
+  content: "\e6b7";
 }
 
 .now-ui-icons.users_single-02:before {
   content: "\ea51";
+}
+.now-ui-icons.business_badge:before {
+  content: "\ea73";
 }
 
 .all-icons .font-icon-detail {

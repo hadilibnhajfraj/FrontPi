@@ -267,9 +267,12 @@
         z-index: 3;
     }
 
-    &[data-color="blue"]{
-      @include sidebar-color($info-color);
-    }
+     $blue-royal:#FF3636; // Définir la couleur bleu roi
+  
+     
+     &[data-color="blue"] {
+       @include sidebar-color($blue-royal);
+     }
     &[data-color="green"]{
       @include sidebar-color($success-color);
     }
@@ -335,7 +338,7 @@
 .perfect-scrollbar-on{
   .sidebar,
   .main-panel{
-      height: 100%;
+      
       max-height: 100%;
   }
 }
