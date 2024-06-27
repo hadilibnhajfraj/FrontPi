@@ -1,0 +1,7 @@
+.auth-page-content h5 {
+  color: #f96332 !important;
+}
+
+.auth-page-content a.text-primary:focus, a.text-primary:hover {
+  color: #f96332 !important;
+}
