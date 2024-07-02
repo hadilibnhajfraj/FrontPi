@@ -7,7 +7,6 @@ import { Virement } from '../model/Virement';
   providedIn: 'root'
 })
 export class VirementService {
-
   private baseUrl = 'http://localhost:3000'; // Remplacez par l'URL de votre serveur Node.js
 
   constructor(private http: HttpClient) { }
