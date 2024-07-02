@@ -1,24 +1,24 @@
-.dropdown-menu{
+.dropdown-menu {
     border: 0;
     box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.2);
     border-radius: $border-radius-extra-small;
     @include transition($fast-transition-time, $transition-linear);
     font-size: $font-size-base;
 
-    &.dropdown-menu-right{
-        &:before{
-            left:auto;
+    &.dropdown-menu-right {
+        &:before {
+            left: auto;
             right: 10px;
         }
     }
 
-    i{
+    i {
         margin-right: 5px;
         position: relative;
         top: 1px;
     }
 
-    .now-ui-icons{
+    .now-ui-icons {
         margin-right: 10px;
         position: relative;
         top: 4px;
@@ -27,19 +27,20 @@
         opacity: .5;
     }
 
-    .dropdown-item{
+    .dropdown-item {
+
         &.active,
-        &:active{
+        &:active {
             color: inherit;
         }
     }
 
-    .dropup &{
-        &:before{
+    .dropup & {
+        &:before {
             display: none;
         }
 
-        &:after{
+        &:after {
             display: inline-block;
             position: absolute;
             width: 0;
@@ -56,8 +57,8 @@
             border-left: .4em solid transparent;
         }
 
-        &.dropdown-menu-right{
-            &:after{
+        &.dropdown-menu-right {
+            &:after {
                 right: 10px;
                 left: auto;
             }
@@ -65,7 +66,7 @@
 
     }
 
-    &:before{
+    &:before {
         display: inline-block;
         position: absolute;
         width: 0;
@@ -81,13 +82,13 @@
         border-left: .4em solid transparent;
     }
 
-    &.dropdown-menu-right{
-      right: 0 !important;
-      left: auto !important;
+    &.dropdown-menu-right {
+        right: 0 !important;
+        left: auto !important;
     }
 
     .dropdown-item,
-    .bootstrap-select &.inner li a{
+    .bootstrap-select &.inner li a {
         font-size: $font-size-small;
         padding-top: .6rem;
         padding-bottom: .6rem;
@@ -95,58 +96,58 @@
         @include transition($fast-transition-time, $transition-linear);
 
         &:hover,
-        &:focus{
+        &:focus {
             background-color: $opacity-gray-3;
         }
 
         &.disabled,
-        &:disabled{
+        &:disabled {
             color: $default-color-opacity;
 
             &:hover,
-            &:focus{
+            &:focus {
                 background-color: transparent;
             }
         }
     }
 
 
-    .dropdown-divider{
+    .dropdown-divider {
         background-color: $opacity-gray-5;
     }
 
-    .dropdown-header:not([href]):not([tabindex]){
+    .dropdown-header:not([href]):not([tabindex]) {
         color: $default-color-opacity;
         font-size: $font-size-mini;
         text-transform: uppercase;
         font-weight: $font-weight-bold;
     }
 
-    &.dropdown-primary{
-        @include dropdown-colors(darken($primary-color, 3%),$opacity-8,$white-color, $opacity-2);
+    &.dropdown-primary {
+        @include dropdown-colors(darken($primary-color, 3%), $opacity-8, $white-color, $opacity-2);
     }
 
-    &.dropdown-info{
-        @include dropdown-colors(darken($info-color, 3%),$opacity-8,$white-color, $opacity-2);
+    &.dropdown-info {
+        @include dropdown-colors(darken($info-color, 3%), $opacity-8, $white-color, $opacity-2);
     }
 
-    &.dropdown-danger{
-        @include dropdown-colors(darken($danger-color, 3%),$opacity-8,$white-color, $opacity-2);
+    &.dropdown-danger {
+        @include dropdown-colors(darken($danger-color, 3%), $opacity-8, $white-color, $opacity-2);
     }
 
-    &.dropdown-success{
-        @include dropdown-colors(darken($success-color, 3%),$opacity-8,$white-color, $opacity-2);
+    &.dropdown-success {
+        @include dropdown-colors(darken($success-color, 3%), $opacity-8, $white-color, $opacity-2);
     }
 
-    &.dropdown-warning{
-        @include dropdown-colors(darken($warning-color, 3%),$opacity-8,$white-color, $opacity-2);
+    &.dropdown-warning {
+        @include dropdown-colors(darken($warning-color, 3%), $opacity-8, $white-color, $opacity-2);
     }
 
     .dropdown &,
     .dropup:not(.bootstrap-select) &,
     .bootstrap-select &:not(.inner),
     &.bootstrap-datetimepicker-widget.top,
-    &.bootstrap-datetimepicker-widget.bottom{
+    &.bootstrap-datetimepicker-widget.bottom {
         @include transform-translate-y-dropdown(-20px);
         visibility: hidden;
         display: block;
@@ -155,15 +156,15 @@
     }
 
     &.bootstrap-datetimepicker-widget.top,
-    &.bootstrap-datetimepicker-widget.bottom{
+    &.bootstrap-datetimepicker-widget.bottom {
         @include transform-translate-y-dropdown(-20px);
     }
 
-    .bootstrap-select.dropup &:not(.inner){
+    .bootstrap-select.dropup &:not(.inner) {
         @include transform-translate-y-dropdown(25px);
     }
 
-    .dropup:not(.bootstrap-select) &{
+    .dropup:not(.bootstrap-select) & {
         @include transform-translate-y-dropdown(20px);
         top: auto !important;
         bottom: 100%;
@@ -174,32 +175,32 @@
     &.bootstrap-datetimepicker-widget.top.open,
     &.bootstrap-datetimepicker-widget.bottom.open,
     .dropup.show:not(.bootstrap-select) &,
-    .navbar .dropdown.show &{
+    .navbar .dropdown.show & {
         @include opacity(1);
         visibility: visible;
         @include transform-translate-y-dropdown(1px);
     }
 
     &.bootstrap-datetimepicker-widget.top.open,
-    &.bootstrap-datetimepicker-widget.bottom.open{
+    &.bootstrap-datetimepicker-widget.bottom.open {
         @include transform-translate-y-dropdown(0px);
     }
 
-    .dropup.show:not(.bootstrap-select) &{
+    .dropup.show:not(.bootstrap-select) & {
         @include transform-translate-y-dropdown(-2px);
     }
 }
 
-.button-dropdown{
+.button-dropdown {
     padding-right: $padding-base-horizontal;
     cursor: pointer;
 
-    & .dropdown-toggle{
+    & .dropdown-toggle {
         padding-top: $padding-base-vertical;
         padding-bottom: $padding-base-vertical;
         display: block;
 
-        &:after{
+        &:after {
             display: none;
         }
     }

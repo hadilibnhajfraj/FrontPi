@@ -1,0 +1,22 @@
+/* Ajoutez des styles pour afficher/masquer les sous-modules */
+
+.sub-menu {
+    padding-left: 35px;
+
+}
+
+.sub-menu a {
+    color: rgb(192, 192, 192);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.selected {
+    background: #f55151;
+    color: rgb(255, 245, 245);
+    border-left: 4px solid #ff7636;
+    padding-left: 16px;
+    margin-right: 8px;
+    margin-top: 5px;
+
+}

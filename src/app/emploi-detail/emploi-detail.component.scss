@@ -1,0 +1,96 @@
+.non-clickable {
+    cursor: default; /* Assure que le curseur ne change pas pour indiquer qu'il n'est pas cliquable */
+}
+
+.clickable-cell {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    position: relative; /* Nécessaire pour le positionnement absolu des boutons */
+}
+
+.clickable-cell:hover {
+    background-color: #e0e0e0;
+}
+
+.emploi-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.emploi-table th,
+.emploi-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle; /* Assure l'alignement vertical du contenu */
+}
+
+.emploi-table th {
+    background-color: #f4f4f4;
+}
+
+.card-header-buttons {
+    display: flex;
+    justify-content: space-between; /* Espacement automatique entre les boutons */
+}
+
+.card-header-buttons button {
+    min-width: 100px; /* Largeur minimale pour les boutons */
+    margin-right: 10px; /* Espacement entre les boutons */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Transition fluide pour les propriétés */
+    border: none; /* Suppression de la bordure par défaut */
+    border-radius: 4px; /* Coins arrondis */
+    padding: 8px 16px; /* Espacement intérieur */
+}
+
+.card-header-buttons button:hover {
+    background-color: #1976d2; /* Couleur de fond au survol */
+    color: white; /* Couleur du texte au survol */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère au survol */
+}
+
+.cell-buttons {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    box-sizing: border-box; /* Assure que le padding est inclus dans la taille */
+    text-align: center;
+    white-space: nowrap;
+    align-items: center; /* Centre verticalement les éléments */
+    justify-content: center; /* Centre horizontalement les éléments */
+}
+
+.clickable-cell:hover .cell-buttons {
+    display: flex;
+}
+
+/* Styles globaux pour les listes déroulantes */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="none" stroke="currentColor" stroke-linecap="round" d="M0 0l2 2 2-2"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1em;
+    padding-right: 1.5rem;
+    height: 2rem; /* Minimise la hauteur */
+    line-height: 1.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  /* Pour s'assurer que la flèche ne cache pas le texte */
+  select option {
+    padding-right: 2rem;
+  }
+
+  .form-group .form-control, .input-group .form-control {
+    padding: 2px;
+}
+  

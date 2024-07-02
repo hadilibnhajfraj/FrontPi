@@ -1,0 +1,120 @@
+<!-- class.component.html -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<div class="container">
+  <h2>Gestion des classes</h2>
+  <div class="button-group">
+    <button (click)="toggleForm()" class="btn btn-primary" *ngIf="!isFormVisible">Ajouter une classe</button>
+    <button (click)="toggleForm()" class="btn btn-secondary" *ngIf="isFormVisible">Fermer le formulaire</button>
+  </div>
+
+  <div [ngClass]="{'form-container': true, 'visible': isFormVisible}">
+    <form [formGroup]="classForm" (ngSubmit)="addOrUpdateClass()">
+      <input type="hidden" formControlName="_id">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="name">Nom de la classe:</label>
+          <input type="text" id="name" formControlName="name" class="form-control">
+          <div
+            *ngIf="classForm.controls['name'].invalid && (classForm.controls['name'].dirty || classForm.controls['name'].touched)">
+            <small class="text-danger">Le nom de la classe est requis.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="level">Niveau:</label>
+          <select id="level" formControlName="level" class="form-control">
+            <option *ngFor="let level of levels" [value]="level">{{ level }}</option>
+          </select>
+          <div
+            *ngIf="classForm.controls['level'].invalid && (classForm.controls['level'].dirty || classForm.controls['level'].touched)">
+            <small class="text-danger">Le niveau est requis.</small>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="classForm.invalid">
+        {{ isEditMode ? 'Mettre à jour' : 'Ajouter une classe' }}
+      </button>
+    </form>
+  </div>
+
+  <table class="table table-striped mt-4">
+    <thead class="thead-dark">
+      <tr>
+        <th>Nom</th>
+        <th>Niveau</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let classe of classes">
+        <tr (click)="toggleDetails(classe._id)">
+          <td>{{ classe.name }}</td>
+          <td>{{ classe.level }}</td>
+          <td>
+            <button (click)="editClass(classe, $event)" class="btn btn-warning">Modifier</button>
+            <button (click)="deleteClass(classe._id, $event)" class="btn btn-danger">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngIf="expandedClassId === classe._id">
+          <td colspan="3">
+            <div class="details">
+              <div *ngIf="classe.students && classe.students.length">
+                <h4>Étudiants</h4>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let student of classe.students">{{ student.prenom }} {{ student.nom }}
+                    <button class="btn btn-info float-right" (click)="openChangeClassModal(student, classe._id, changeClassModal)">Changer de classe</button>
+                  </li>
+                </ul>
+              </div>
+              <div *ngIf="classe.teachers && classe.teachers.length">
+                <h4>Enseignants</h4>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let teacher of classe.teachers">{{ teacher.firstName }} {{ teacher.lastName }}</li>
+                </ul>
+              </div>
+              <div *ngIf="classe.emploies && classe.emploies.length">
+                <h4>Emplois</h4>
+                <ul class="list-group">
+                  <ng-container *ngFor="let emploi of classe.emploies">
+                    <li class="list-group-item" *ngIf="emploi.file">
+                      <a [href]="getFileUrl(emploi.file)" target="_blank" class="emploi-link">{{ emploi.file }}</a>
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<ng-template #changeClassModal let-modal style="opacity: 0 !important;">
+  <div class="modal-header">
+    <h5 class="modal-title" id="changeClassModalLabel">Changer la classe de l'étudiant</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="changeStudentClass()">
+      <div class="form-group">
+        <label>Étudiant:</label>
+        <input type="text" class="form-control" [value]="selectedStudent?.prenom + ' ' + selectedStudent?.nom" disabled>
+      </div>
+      <div class="form-group">
+        <label for="newClass">Nouvelle classe:</label>
+        <select id="newClass" class="form-control" [(ngModel)]="selectedNewClass" name="newClass" required>
+          <option *ngFor="let classe of availableClasses" [value]="classe._id">{{ classe.name }}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Changer</button>
+    </form>
+  </div>
+</ng-template>

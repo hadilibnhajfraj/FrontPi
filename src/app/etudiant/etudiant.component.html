@@ -1,0 +1,135 @@
+<div class="container">
+  <h2>Gestion des étudiants</h2>
+  <div class="button-group">
+    <button (click)="toggleForm()" class="btn btn-primary" *ngIf="!isFormVisible">Ajouter un étudiant</button>
+    <button (click)="toggleForm()" class="btn btn-secondary" *ngIf="isFormVisible">Fermer le formulaire</button>
+  </div>
+
+  <div [ngClass]="{'form-container': true, 'visible': isFormVisible}">
+    <form [formGroup]="etudiantForm" (ngSubmit)="addOrUpdateEtudiant()">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="prenom">Prénom:</label>
+          <input type="text" id="prenom" formControlName="prenom" class="form-control">
+          <div
+            *ngIf="etudiantForm.controls['nom'].invalid && (etudiantForm.controls['prenom'].dirty || etudiantForm.controls['prenom'].touched)">
+            <small class="text-danger">Prénom est requis.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="nom">Nom:</label>
+          <input type="text" id="nom" formControlName="nom" class="form-control">
+          <div
+            *ngIf="etudiantForm.controls['nom'].invalid && (etudiantForm.controls['nom'].dirty || etudiantForm.controls['nom'].touched)">
+            <small class="text-danger">Nom est requis.</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="date_de_naissance">Date de naissance:</label>
+          <input type="date" id="date_de_naissance" formControlName="date_de_naissance" class="form-control">
+          <div
+            *ngIf="etudiantForm.controls['date_de_naissance'].invalid && (etudiantForm.controls['date_de_naissance'].dirty || etudiantForm.controls['date_de_naissance'].touched)">
+            <small class="text-danger" *ngIf="etudiantForm.controls['date_de_naissance'].errors?.required">Date de
+              naissance est requise.</small>
+            <small class="text-danger" *ngIf="etudiantForm.controls['date_de_naissance'].errors?.ageInvalid">L'âge
+              doit
+              être supérieur ou égal à 4 ans.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="adresse">Adresse:</label>
+          <input type="text" id="adresse" formControlName="adresse" class="form-control">
+          <div
+            *ngIf="etudiantForm.controls['adresse'].invalid && (etudiantForm.controls['adresse'].dirty || etudiantForm.controls['adresse'].touched)">
+            <small class="text-danger">Adresse est requise.</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="niveau">Niveau:</label>
+          <select id="niveau" formControlName="niveau" class="form-control">
+            <option *ngFor="let niveau of niveaux" [value]="niveau">{{ niveau }}</option>
+          </select>
+          <div
+            *ngIf="etudiantForm.controls['niveau'].invalid && (etudiantForm.controls['niveau'].dirty || etudiantForm.controls['niveau'].touched)">
+            <small class="text-danger">Niveau est requis.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="situation_familiale">Situation familiale:</label>
+          <select id="situation_familiale" formControlName="situation_familiale" class="form-control">
+            <option *ngFor="let situation of situationsFamiliales" [value]="situation">{{ situation }}</option>
+          </select>
+          <div
+            *ngIf="etudiantForm.controls['situation_familiale'].invalid && (etudiantForm.controls['situation_familiale'].dirty || etudiantForm.controls['situation_familiale'].touched)">
+            <small class="text-danger">Situation familiale est requise.</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="classe">Classe:</label>
+          <select id="classe" formControlName="classe" class="form-control">
+            <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.name }}</option>
+          </select>
+          <div
+            *ngIf="etudiantForm.controls['classe'].invalid && (etudiantForm.controls['classe'].dirty || etudiantForm.controls['classe'].touched)">
+            <small class="text-danger">Classe est requise.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="parent">Parent:</label>
+          <select id="parent" formControlName="id_user" class="form-control">
+            <option *ngFor="let parent of parents" [value]="parent._id">{{ parent.firstName }} {{ parent.lastName }}
+            </option>
+          </select>
+          <div
+            *ngIf="etudiantForm.controls['id_user'].invalid && (etudiantForm.controls['id_user'].dirty || etudiantForm.controls['id_user'].touched)">
+            <small class="text-danger">Parent est requis.</small>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="etudiantForm.invalid">
+        {{ isEditMode ? 'Mettre à jour' : 'Ajouter un étudiant' }}
+      </button>
+    </form>
+  </div>
+  <!-- Barre de recherche -->
+  <div class="search-bar">
+    <input type="text" placeholder="Rechercher par prénom ou nom" [(ngModel)]="keyword" (input)="search()" class="form-control" />
+  </div>
+  <table class="table table-striped mt-4">
+    <thead class="thead-dark">
+      <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Date de naissance</th>
+        <th>Adresse</th>
+        <th>Niveau</th>
+        <th>Situation familiale</th>
+        <th>Classe</th>
+        <th>Parent</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let etudiant of etudiants">
+        <td>{{ etudiant.prenom }}</td>
+        <td>{{ etudiant.nom }}</td>
+        <td>{{ etudiant.date_de_naissance | date:'dd/MM/yyyy' }}</td>
+        <td>{{ etudiant.adresse }}</td>
+        <td>{{ etudiant.niveau }}</td>
+        <td>{{ etudiant.situation_familiale }}</td>
+        <td>{{ etudiant.classe?.name }}</td>
+        <td>{{ etudiant.id_user.firstName }} {{ etudiant.id_user.lastName }}</td>
+        <td>
+          <button (click)="updateEtudiant(etudiant)" class="btn btn-warning">Update</button>
+          <button (click)="deleteEtudiant(etudiant._id)" class="btn btn-danger">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

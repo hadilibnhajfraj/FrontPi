@@ -5,35 +5,42 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  selected?: boolean; // Définir la propriété selected comme optionnelle
+  children?: RouteInfo[];
 }
+
 export const ROUTES: RouteInfo[] = [
   { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "" },
-  { path: "/icons", title: "Icons", icon: "education_atom", class: "" },
-  { path: "/maps", title: "Maps", icon: "location_map-big", class: "" },
   {
-    path: "/notifications",
-    title: "Notifications",
-    icon: "ui-1_bell-53",
+    path: "/enplois",
+    title: "Gestion des emplois",
+    icon: "education_atom",
     class: "",
-  },
-
-  {
-    path: "/user-profile",
-    title: "User Profile",
-    icon: "users_single-02",
-    class: "",
+    children: [
+     
+     
+    ],
   },
   {
-    path: "/table-list",
-    title: "Table List",
-    icon: "design_bullet-list-67",
+    path: "/etudiant",
+    title: "Gestion des étudiants",
+    icon: "fas fa-user-graduate",  // Utilisez l'icône "school" de Material Icons
     class: "",
+    children: [],
   },
   {
-    path: "/typography",
-    title: "Typography",
-    icon: "text_caps-small",
+    path: "/classe",
+    title: "Gestion des classes",
+    icon: "fas fa-school",  // Utilisez l'icône "school" de Material Icons
     class: "",
+    children: [],
+  },
+  {
+    path: "/salle",
+    title: "Gestion des salle",
+    icon: "fa-solid fa-building",  // Utilisez l'icône "school" de Material Icons
+    class: "",
+    children: [],
   },
 ];
 
@@ -43,17 +50,41 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ["./sidebar.component.css"],
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
-
-  constructor() {}
+  menuItems: RouteInfo[];
+  selectedMenuItem: any;
+  selectedChildItem: any;
+  constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter((menuItem) => menuItem);
+    console.log("Menu items:", ROUTES);
+    this.menuItems = ROUTES.map((item) => {
+      return {
+        ...item,
+        showChildren: false,
+        selected: false,
+      };
+    });
   }
-  isMobileMenu() {
-    if (window.innerWidth > 991) {
-      return false;
+
+  toggleSubMenu(menuItem: any): void {
+    this.selectedMenuItem = menuItem;
+    if (menuItem.children && menuItem.children.length > 0) {
+      menuItem.showChildren = true;
     }
-    return true;
+  }
+
+  toggleChildItem(childItem: any): void {
+    this.selectedChildItem = childItem;
+    this.menuItems.forEach((menuItem) => {
+      if (menuItem.children && menuItem.children.length > 0) {
+        menuItem.children.forEach((child) => {
+          child.selected = child === childItem;
+        });
+      }
+    });
+  }
+
+  isMobileMenu() {
+    return window.innerWidth <= 991;
   }
 }
