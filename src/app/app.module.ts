@@ -89,7 +89,6 @@ import { UpdatechequeComponent } from './updatecheque/updatecheque.component';
     FetchActiviteComponent,
     InscriptionComponent,
     UserProfileComponent,
-    ListChequeComponent,
     ChequeComponent,
     OffreComponent,
     FraisComponent,
