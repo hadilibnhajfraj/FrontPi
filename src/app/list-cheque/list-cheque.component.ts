@@ -136,5 +136,4 @@ export class ListChequeComponent implements OnInit {
     // Appeler sortedCheques() à chaque changement de valeur dans searchText
     this.sortedCheques();
   }
-
 }
