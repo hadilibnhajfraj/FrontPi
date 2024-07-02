@@ -53,7 +53,7 @@ export class OffreComponent implements OnInit {
       response => {
         console.log('Facture ajoutée avec succès:', response);
         // Redirigez l'utilisateur vers '/notification' après l'ajout réussi de la facture
-        this.router.navigate(['/notifications']);
+        this.router.navigate(['/table-list']);
       },
       error => {
         console.error('Erreur lors de l\'enregistrement de la facture', error);

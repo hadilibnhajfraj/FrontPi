@@ -65,12 +65,6 @@ export const ROUTES: RouteInfo[] = [
     class: "",
   },
   {
-    path: "/typography",
-    title: "Typography",
-    icon: "text_caps-small",
-    class: "",
-  },
-  {
     path: "/notifications",
     title: "Notifications",
     icon: "ui-1_bell-53",
@@ -135,7 +129,9 @@ export class SidebarComponent implements OnInit {
         (item) =>
           item.path !== "/repasAffichage" &&
           item.path !== "/busaffichage" &&
-          item.path !== "/fetchActivite"
+          item.path !== "/fetchActivite" &&
+          item.path !== "/table-list" &&
+          item.path !=="/icons"
         // Exclude 'listUser' from menu for enseignant and parent
       );
     } else if (role === "parent"||role === 'enseignant') {
@@ -146,7 +142,10 @@ export class SidebarComponent implements OnInit {
           item.path !== "/bus" &&
           item.path !== "/chauffeur" &&
           item.path !== "/activite" &&
-           item.path !== '/listUser' 
+           item.path !== '/listUser' &&
+           item.path !="/user-profile" &&
+           item.path !="/notifications" &&
+           item.path !="/maps" 
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)
