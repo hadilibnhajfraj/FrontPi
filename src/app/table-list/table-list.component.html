@@ -1,0 +1,53 @@
+<div class="container">
+  <h3>Liste des factures</h3>
+
+  
+
+  <!-- Tableau des factures -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Nom du client</th>
+        <th>Montant après remise</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let facture of filteredFactures">
+        <td>{{ facture.reference }}</td>
+        <td>{{ facture.userName }}</td>
+        <td>{{ facture.montantApresRemise | number:'1.0-0' }} TND</td>
+        <td>
+          <button class="btn btn-info btn-sm" (click)="showDetail(facture._id)" title="Afficher détails">
+            <i class="fas fa-info-circle"></i>
+          </button>
+          <button class="btn btn-success btn-sm" (click)="downloadPDF(facture._id)" title="Télécharger PDF">
+            <i class="fas fa-file-pdf"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Affichage des détails de la facture sélectionnée -->
+  <div *ngIf="selectedFacture">
+    <h3>Détails de la Facture</h3>
+    <p>Référence: {{ selectedFacture.reference }}</p>
+    <p>Client: {{ selectedFacture.userName }}</p>
+    <p>Date: {{ selectedFacture.date | date }}</p>
+    <p>Montant après remise: {{ selectedFacture.montantApresRemise }} TND</p>
+    <p>Statut: {{ selectedFacture.statut }}</p>
+  </div>
+
+  <!-- Affichage du QR code de la facture sélectionnée -->
+  <div *ngIf="qrCodeUrl" class="qr-code-container">
+    <img [src]="qrCodeUrl" alt="QR Code">
+    <button class="btn btn-secondary mt-2" (click)="qrCodeUrl = null">Fermer</button>
+  </div>
+
+  <!-- Message d'aucune facture disponible -->
+  <ng-template #noFactures>
+    <p>Aucune facture disponible pour le moment.</p>
+  </ng-template>
+</div>

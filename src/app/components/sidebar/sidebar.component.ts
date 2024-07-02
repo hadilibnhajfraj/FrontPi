@@ -42,9 +42,34 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
-  { path: "/listUser", title: "Liste User", icon: "design_app", class: "" },
-  { path: "/icons", title: "Icons", icon: "education_atom", class: "" },
-  { path: "/maps", title: "Maps", icon: "location_map-big", class: "" },
+  { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "" },
+  { path: "/icons", title: "Choisir offre", icon: "education_atom", class: "" },
+  { path: "/maps", title: "Gestion des frais", icon: "location_map-big", class: "" },
+  {
+    path: "/notifications",
+    title: "Gestion factures",
+    icon: "ui-1_bell-53",
+    class: "",
+  },
+
+  {
+    path: "/user-profile",
+    title: "Gestion Portefeuille",
+    icon: "users_single-02",
+    class: "",
+  },
+  {
+    path: "/table-list",
+    title: "Liste des Factures  ",
+    icon: "design_bullet-list-67",
+    class: "",
+  },
+  {
+    path: "/typography",
+    title: "Typography",
+    icon: "text_caps-small",
+    class: "",
+  },
   {
     path: "/notifications",
     title: "Notifications",

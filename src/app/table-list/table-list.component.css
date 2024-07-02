@@ -1,0 +1,29 @@
+/* Ajustements spécifiques pour les boutons */
+
+/* Style pour les boutons "Afficher détails" et "Télécharger PDF" */
+.btn-info i {
+  margin-right: 0.3rem; /* Marge à droite de l'icône */
+}
+
+.btn-success i {
+  margin-right: 0.3rem; /* Marge à droite de l'icône */
+}
+
+/* Style pour les boutons "Afficher détails" et "Télécharger PDF" en rouge et noir */
+.btn-danger i {
+  color: #dc3545; /* Couleur de l'icône en rouge */
+}
+
+.btn-danger {
+  border-color: #dc3545; /* Couleur de la bordure en rouge */
+}
+
+/* Ajout d'une marge entre les boutons "Afficher détails" et "Télécharger PDF" */
+.btn {
+  margin-right: 10px; /* Ajustez la valeur selon vos besoins */
+}
+
+/* Style pour les boutons "Fermer" */
+.btn-secondary {
+  margin-top: 10px; /* Marge en haut du bouton */
+}

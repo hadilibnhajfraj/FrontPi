@@ -30,6 +30,19 @@ import { CoursComponent } from '../../courses/cours/cours.component';
 import { EleveComponent } from '../../etudiant/eleve/eleve.component';
 import { MatiereComponent } from '../../matiere/matiere/matiere.component';
 import { ObservationComponent } from '../../observation/observation/observation.component';
+import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
+
+import { IconsComponent } from '../../icons/icons.component';
+import { MapsComponent } from '../../maps/maps.component';
+import { NotificationsComponent } from '../../notifications/notifications.component';
+//import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { ChequeComponent } from '../../cheque/cheque.component';
+import { OffreComponent } from '../../offre/offre.component';
+import { FraisComponent } from '../../frais/frais.component';
+import { FactureComponent } from '../../facture/facture.component';
+import { UpdatechequeComponent } from '../../updatecheque/updatecheque.component';
+import { TableListComponent } from '../../table-list/table-list.component';
+
 export const AdminLayoutRoutes: Routes = [
   { path: "cours", component: CoursComponent },
   { path: "observation", component: ObservationComponent },
@@ -157,5 +170,22 @@ export const AdminLayoutRoutes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: ['parent'] }
   },
+  { path: 'dashboard',      component: DashboardComponent  , canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin'] } },
+  { path: 'cheque/:id',      component: ChequeComponent },
+  { path: 'offre/:id',      component: OffreComponent },
+  { path: 'user-profile',   component: ListChequeComponent},
+  { path: 'table-list',     component: TableListComponent  , canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['parent'] } },
+  { path: 'icons',          component: IconsComponent  ,  canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['parent'] }},
+  { path: 'maps',           component: MapsComponent  ,  canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin'] }},
+  { path: 'notifications',  component: NotificationsComponent ,   canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin'] }},
+  //{ path: 'upgrade',        component: UpgradeComponent },
+  { path: 'frais/:id', component: FraisComponent },
+  { path: 'facture/:id', component: FactureComponent },
+  { path: 'updatecheque/:id', component: UpdatechequeComponent },
 
 ];

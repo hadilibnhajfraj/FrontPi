@@ -31,7 +31,6 @@ import { BusafficheComponent } from "./busaffiche/busaffiche.component";
 import { ActiviteComponent } from "./activite/activite.component";
 import { AjoutAcctiviteComponent } from "./ajout-acctivite/ajout-acctivite.component";
 import { ActiviteModifieComponent } from "./activite-modifie/activite-modifie.component";
-
 import { EnvoiEmailComponent } from "./envoi-email/envoi-email.component";
 import { LoginComponent } from "./login/login.component";
 import { AfficherepasParentComponent } from "./afficherepas-parent/afficherepas-parent.component";
@@ -39,6 +38,13 @@ import { AffichebusParentComponent } from "./affichebus-parent/affichebus-parent
 import { FetchNotificationComponent } from "./fetch-notification/fetch-notification.component";
 import { FetchActiviteComponent } from "./fetch-activite/fetch-activite.component";
 import { InscriptionComponent } from "./inscription/inscription.component";
+import { ListChequeComponent } from './list-cheque/list-cheque.component';
+import { ChequeComponent } from './cheque/cheque.component';
+import { OffreComponent } from './offre/offre.component';
+import { FraisComponent } from './frais/frais.component';
+import { FactureComponent } from './facture/facture.component';
+import { VirementComponent } from './virement/virement.component';
+import { UpdatechequeComponent } from './updatecheque/updatecheque.component';
 
 @NgModule({
   imports: [
@@ -83,6 +89,13 @@ import { InscriptionComponent } from "./inscription/inscription.component";
     FetchActiviteComponent,
     InscriptionComponent,
     UserProfileComponent,
+    ListChequeComponent,
+    ChequeComponent,
+    OffreComponent,
+    FraisComponent,
+    FactureComponent,
+    VirementComponent,
+    UpdatechequeComponent,
   ],
 
   providers: [],

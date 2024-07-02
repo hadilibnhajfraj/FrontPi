@@ -1,0 +1,84 @@
+<div class="container">
+  <h2>Ajouter un nouveau chèque</h2>
+  
+  <form (ngSubmit)="addCheque()">
+    <div class="form-group">
+      <label for="reference">Référence</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        id="reference" 
+        [(ngModel)]="cheque.reference" 
+        name="reference" 
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="proprietaire">Propriétaire</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="proprietaire" 
+        [(ngModel)]="cheque.proprietaire" 
+        name="proprietaire" 
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="montant">Montant</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        id="montant" 
+        [(ngModel)]="cheque.montant" 
+        name="montant" 
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="echeance">Échéance</label>
+      <input 
+        type="date" 
+        class="form-control" 
+        id="echeance" 
+        [(ngModel)]="cheque.echeance" 
+        name="echeance" 
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="factureId">Facture ID</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="factureId" 
+        [(ngModel)]="cheque.factureId" 
+        name="factureId" 
+        readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image du chèque</label>
+      <input 
+        type="file" 
+        class="form-control" 
+        id="image" 
+        (change)="onFileChange($event)">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <button type="button" class="btn btn-secondary" (click)="goBack()">Retour</button>
+  </form>
+</div>
+
+<div class="container mt-5">
+  <h2>Stripe Checkout</h2>
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <button (click)="pay()" class="btn btn-primary btn-block">Pay {{ montantRestant }} TND</button>
+    </div>
+    <p class="mt-5">
+      Try it out using the test card number <b>4242 4242 4242 4242</b>, a random three-digit CVC number, any expiration date in the future, and a random five-digit U.S. ZIP code.
+    </p>
+  </div>
+</div>

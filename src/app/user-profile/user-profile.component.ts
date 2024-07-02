@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/AuthService';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',

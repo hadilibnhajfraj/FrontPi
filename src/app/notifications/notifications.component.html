@@ -1,2 +1,69 @@
+
 <h1>Notification</h1
 >
+
+<div class="container">
+  <h3>Liste des factures</h3>
+
+  <div class="form-group">
+    <label for="statut">Statut de la facture</label>
+    <div>
+      <button class="btn btn-info btn-sm mr-2" (click)="searchFacturesByStatut()" data-toggle="tooltip" data-placement="top" title="Rechercher">
+        <i class="fas fa-search"></i>
+      </button>
+      <label class="btn btn-secondary">
+        <input type="radio" name="statut" value="Tous" [(ngModel)]="searchQuery.statut" (ngModelChange)="onStatutChange()"> Tous
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="statut" value="encours" [(ngModel)]="searchQuery.statut"> En cours
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="statut" value="soldé" [(ngModel)]="searchQuery.statut"> Soldé
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="statut" value="non soldé" [(ngModel)]="searchQuery.statut"> Non soldé
+      </label>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Date</th>
+        <th>Montant</th>
+        <th>Statut</th>
+        <th>Client</th>
+        <th>Reste à payer</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let facture of filteredFactures">
+        <td>{{ facture.reference }}</td>
+        <td>{{ facture.date | date }}</td>
+        <td>{{ facture.montantApresRemise | number:'1.0-0' }} TND</td>
+        <td>{{ facture.statut }}</td>
+        <td>{{ facture.userName }}</td>
+        <td>{{ facture.montantRestant | number:'1.0-0' }} TND</td>
+        <td>
+          <div class="btn-group">
+            <button class="btn btn-warning btn-sm" (click)="editFacture(facture)" data-toggle="tooltip" data-placement="top" title="Modifier">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteFacture(facture._id)" data-toggle="tooltip" data-placement="top" title="Supprimer">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="btn btn-success btn-sm" (click)="payFacture(facture._id)" [disabled]="facture.montantRestant === 0" data-toggle="tooltip" data-placement="top" title="Payer">
+              <i class="fas fa-credit-card"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noFactures>
+    <p>Aucune facture disponible pour le moment.</p>
+  </ng-template>
+</div>
+

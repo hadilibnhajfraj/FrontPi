@@ -1,0 +1,24 @@
+<div class="container">
+    <h3>Mettre à jour le chèque</h3>
+    <form (ngSubmit)="updateCheque()">
+      <div class="form-group">
+        <label for="reference">Référence</label>
+        <input type="text" class="form-control" id="reference" [(ngModel)]="cheque.reference" name="reference" required>
+      </div>
+      <div class="form-group">
+        <label for="proprietaire">Propriétaire</label>
+        <input type="text" class="form-control" id="proprietaire" [(ngModel)]="cheque.proprietaire" name="proprietaire" required>
+      </div>
+      <div class="form-group">
+        <label for="montant">Montant</label>
+        <input type="number" class="form-control" id="montant" [(ngModel)]="cheque.montant" name="montant" required>
+      </div>
+      <div class="form-group">
+        <label for="echeance">Échéance</label>
+        <input type="date" class="form-control" id="echeance" [(ngModel)]="cheque.echeance" name="echeance" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Mettre à jour</button>
+      <button type="button" (click)="retour()">Retour</button>
+    </form>
+  </div>
+  
