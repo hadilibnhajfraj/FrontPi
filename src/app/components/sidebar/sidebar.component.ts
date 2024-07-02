@@ -135,11 +135,7 @@ export class SidebarComponent implements OnInit {
         (item) =>
           item.path !== "/repasAffichage" &&
           item.path !== "/busaffichage" &&
-          item.path !== "/fetchActivite" &&
-          item.path !== "/icons" &&
-          item.path !== "/maps" &&
-          item.path !== "/notifications"&&
-          item.path !== "/user-profile"
+          item.path !== "/fetchActivite"
         // Exclude 'listUser' from menu for enseignant and parent
       );
     } else if (role === "parent"||role === 'enseignant') {
@@ -150,12 +146,7 @@ export class SidebarComponent implements OnInit {
           item.path !== "/bus" &&
           item.path !== "/chauffeur" &&
           item.path !== "/activite" &&
-           item.path !== '/listUser' &&
-           item.path !== "/icons" &&
-           item.path !== "/maps" &&
-           item.path !== "/notifications"&&
-           item.path !== "/user-profile"
-
+           item.path !== '/listUser' 
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)
