@@ -37,7 +37,7 @@ import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
     MatRadioModule
   ],
   declarations: [
-    
+
     CoursComponent,
     ObservationComponent,
     EleveComponent,
@@ -50,6 +50,7 @@ import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    
   ]
 })
 export class AdminLayoutModule {}

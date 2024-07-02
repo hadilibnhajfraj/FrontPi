@@ -69,14 +69,7 @@ export const ROUTES: RouteInfo[] = [
     title: "Notifications",
     icon: "ui-1_bell-53",
     class: "",
-  },
-  {
-    path: "/user-profile",
-    title: "User Profile",
-    icon: "",
-    class: ""
   }
-
 ,  { path: "/afficheRepas", title: "Repas", icon: "design_app", class: "" },
   { path: "/bus", title: "Bus", icon: "education_atom", class: "" },
   {
@@ -145,7 +138,7 @@ export class SidebarComponent implements OnInit {
            item.path !== '/listUser' &&
            item.path !="/user-profile" &&
            item.path !="/notifications" &&
-           item.path !="/maps" 
+           item.path !="/maps"
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)

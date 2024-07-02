@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { Bus } from "../model/Bus";
 import { Chauffeur } from "../model/Chauffeur";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -28,9 +29,15 @@ export class BusService {
     return this.http.get<Bus>(`${this.baseUrl}/getBusId/${id}`);
   }
 
-  updateBus(bus: Bus): Observable<Bus> {
-    // Corrected the endpoint spelling
-    return this.http.put<Bus>(`${this.baseUrl}/updateBus/${bus._id}`, bus);
+  updateBus(id: string, busData: Partial<Bus>): Observable<Bus> {
+    return this.http.put<Bus>(`${this.baseUrl}/updatetBus/${id}`, busData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    return throwError('Something went wrong; please try again later.');
   }
 
   addChauffeur(chauffeur: Chauffeur): Observable<Bus> {
@@ -51,6 +58,6 @@ export class BusService {
 
   updateChauffeur(chauffeur: Chauffeur): Observable<Chauffeur> {
     // Corrected the endpoint and parameter type
-    return this.http.put<Chauffeur>(`${this.baseUrl}/updateChauffeur/${chauffeur._id}`, chauffeur);
+    return this.http.put<Chauffeur>(`${this.baseUrl}/updatetChauffeur/${chauffeur._id}`, chauffeur);
   }
 }
