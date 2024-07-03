@@ -144,4 +144,17 @@ export class GestionEmploisComponent implements OnInit {
   viewEmploiDetails(emploiId: string): void {
     this.router.navigate(['/enploisdetail', emploiId]);
   }
+
+  supprimerEmploi(emploiId: string): void {
+    this.emploiService.deleteEmploie(emploiId).subscribe(
+      () => {
+        this.toastr.success('Étudiant supprimé avec succès !');
+        this.loadEmplois();
+        this.loadEmploisParent();
+      },
+      error => {
+        console.error('Erreur lors de la suppression de l\'étudiant', error);
+      }
+    );
+  }
 }

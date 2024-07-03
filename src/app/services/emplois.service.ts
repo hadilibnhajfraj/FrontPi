@@ -88,4 +88,7 @@ export class EmploiService {
   getEmploisByParent(parentId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrle}/getparentemploi/${parentId}`);
   }
+  deleteEmploie(emploieid: string) {
+    return this.http.delete(`${this.apiUrle}/delete/${emploieid}`);
+  }
 }

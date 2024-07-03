@@ -49,6 +49,9 @@
         <td>{{ emploi.date_fin | date }}</td>
         <td><button type="button" class="btn btn-secondary" (click)="viewEmploiDetails(emploi._id)">
             Voir détail emploi
+          </button>
+          <button type="button" class="btn btn-danger" (click)="supprimerEmploi(emploi._id)" style="margin-left: 20px;">
+            supprimer un emploie
           </button></td>
       </tr>
     </tbody>
