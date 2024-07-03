@@ -1,146 +1,441 @@
 <!DOCTYPE html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-</head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="main-title mb-4">
+        <i class="fa-solid fa-users-between-lines"></i> GESTION DES ÉLÈVES
+      </h2>
 
-<body>
-  <div class="container mt-5">
-    <h2 class="main-title mb-4">
-      <i class="fa-solid fa-users-between-lines"></i> GESTION DES ÉLÈVES
-    </h2>
-
-    <div class="tabs">
-      <div class="tab" [ngClass]="{ active: activeTab === 1 }" (click)="setActiveTab(1)">
-        <i class="fa-solid fa-plus"></i> Ajouter un élève
+      <div class="tabs">
+        <div
+          class="tab"
+          [ngClass]="{ active: activeTab === 1 }"
+          (click)="setActiveTab(1)"
+        >
+          <i class="fa-solid fa-plus"></i> Ajouter un élève
+        </div>
+        <div
+          class="tab"
+          [ngClass]="{ active: activeTab === 2 }"
+          (click)="setActiveTab(2)"
+        >
+          <i class="fa-solid fa-rectangle-list"></i> Historique des élèves
+        </div>
+        <div
+          class="tab"
+          [ngClass]="{ active: activeTab === 3 }"
+          (click)="setActiveTab(3)"
+        >
+          <i class="fa-solid fa-rectangle-list"></i> Exercice rendu
+        </div>
       </div>
-      <div class="tab" [ngClass]="{ active: activeTab === 2 }" (click)="setActiveTab(2)">
-        <i class="fa-solid fa-rectangle-list"></i> Historique des élèves
+
+      <div class="tab-content" *ngIf="activeTab == 1">
+        <form [formGroup]="studentForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="firstName">Prénom :</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="firstName"
+              id="firstName"
+              placeholder="Entrez votre prénom"
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Nom :</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="lastName"
+              id="lastName"
+              placeholder="Entrez votre nom"
+            />
+          </div>
+          <div class="form-group">
+            <label for="date_de_naissance">Date de naissance :</label>
+            <input
+              type="date"
+              class="form-control"
+              formControlName="date_de_naissance"
+              id="date_de_naissance"
+              placeholder="Entrez votre date de naissance"
+            />
+          </div>
+          <div class="form-group">
+            <label for="adresse">Adresse :</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="adresse"
+              id="adresse"
+              placeholder="Entrez votre adresse"
+            />
+          </div>
+          <div class="file-upload mb-1">
+            <label for="doc" class="form-label">image:</label>
+            <div class="input-group">
+              <input
+                type="file"
+                (change)="selectFile($event)"
+                formControlName="image"
+                accept="image/*"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="niveau">Niveau d'étude :</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="niveau"
+              id="niveau"
+              placeholder="Entrez votre niveau scolaire"
+            />
+          </div>
+          <!-- Dropdown pour Classe -->
+          <div class="mb-3">
+            <label for="classe" class="form-label">Classe :</label>
+            <select
+              class="form-select"
+              formControlName="classe"
+              id="classe"
+              required
+            >
+              <option *ngFor="let classe of classes" [value]="classe._id">
+                {{ classe.nom }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                studentForm?.get('classe').invalid &&
+                studentForm?.get('classe').touched
+              "
+              class="invalid-feedback"
+            >
+              La classe est requise.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Situation familiale :</label>
+            <div class="radio-buttons">
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="single"
+                  name="familialStatus"
+                  value="single"
+                  formControlName="familialStatus"
+                />
+                <label for="single">Célibataire</label>
+              </div>
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="married"
+                  name="familialStatus"
+                  value="married"
+                  formControlName="familialStatus"
+                />
+                <label for="married">Marié(e)</label>
+              </div>
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="divorced"
+                  name="familialStatus"
+                  value="divorced"
+                  formControlName="familialStatus"
+                />
+                <label for="divorced">Divorcé(e)</label>
+              </div>
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="widowed"
+                  name="familialStatus"
+                  value="widowed"
+                  formControlName="familialStatus"
+                />
+                <label for="widowed">Veuf/Veuve</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="studentForm.invalid"
+              (click)="saveStudent()"
+            >
+              <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="tab" [ngClass]="{ active: activeTab === 3 }" (click)="setActiveTab(3)">
-        <i class="fa-solid fa-rectangle-list"></i> Exercice rendu
-      </div>
-    </div>
 
-    <div class="tab-content" *ngIf="activeTab == 1">
-      <form [formGroup]="studentForm" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="firstName">Prénom :</label>
-          <input type="text" class="form-control" formControlName="firstName" id="firstName"
-            placeholder="Entrez votre prénom">
-        </div>
-        <div class="form-group">
-          <label for="lastName">Nom :</label>
-          <input type="text" class="form-control" formControlName="lastName" id="lastName"
-            placeholder="Entrez votre nom">
-        </div>
-        <div class="form-group">
-          <label for="date_de_naissance">Date de naissance :</label>
-          <input type="date" class="form-control" formControlName="date_de_naissance" id="date_de_naissance"
-            placeholder="Entrez votre date de naissance">
-        </div>
-        <div class="form-group">
-          <label for="adresse">Adresse :</label>
-          <input type="text" class="form-control" formControlName="adresse" id="adresse"
-            placeholder="Entrez votre adresse">
-        </div>
-        <div class="file-upload mb-1">
-          <label for="doc" class="form-label">image:</label>
-          <div class="input-group">
-            <input type="file" (change)="selectFile($event)" formControlName="image" accept="image/*">
-
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="niveau">Niveau d'étude :</label>
-          <input type="text" class="form-control" formControlName="niveau" id="niveau"
-            placeholder="Entrez votre niveau scolaire">
-        </div>
-        <!-- Dropdown pour Classe -->
-        <div class="mb-3">
-          <label for="classe" class="form-label">Classe :</label>
-          <select class="form-select" formControlName="classe" id="classe" required>
-            <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
-          </select>
-          <div *ngIf="studentForm?.get('classe').invalid && studentForm?.get('classe').touched"
-            class="invalid-feedback">
-            La classe est requise.
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Situation familiale :</label>
-          <div class="radio-buttons">
-            <div class="radio-option">
-              <input type="radio" id="single" name="familialStatus" value="single" formControlName="familialStatus">
-              <label for="single">Célibataire</label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" id="married" name="familialStatus" value="married" formControlName="familialStatus">
-              <label for="married">Marié(e)</label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" id="divorced" name="familialStatus" value="divorced" formControlName="familialStatus">
-              <label for="divorced">Divorcé(e)</label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" id="widowed" name="familialStatus" value="widowed" formControlName="familialStatus">
-              <label for="widowed">Veuf/Veuve</label>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid" (click)="saveStudent()"><i
-              class="fa-solid fa-floppy-disk"></i> Sauvegarder</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="tab-content" *ngIf="activeTab == 2">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-8 mb-4" *ngFor="let etudiant of etudiants">
-            <div class="card shadow-sm rounded">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img [src]="'http://localhost:3001/' + etudiant.image"
-                    alt="Photo de {{ etudiant.prenom }} {{ etudiant.nom }}"
-                    class="img-fluid rounded-start student-image">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ etudiant.prenom }} {{ etudiant.nom }}</h5>
-                    <div class="card-text">
-                      <div class="detail-row">
-                        <span class="label">Date de naissance:</span>
-                        <span class="value">{{ etudiant.date_de_naissance | date:'dd-MM-yyyy' }}</span>
-                      </div>
-                      <div class="detail-row">
-                        <span class="label">Adresse:</span>
-                        <span class="value">{{ etudiant.adresse }}</span>
-                      </div>
-                      <div class="detail-row">
-                        <span class="label">Niveau:</span>
-                        <span class="value">{{ etudiant.niveau }}</span>
-                      </div>
-                      <div class="detail-row">
-                        <span class="label">Situation familiale:</span>
-                        <span class="value">{{ etudiant.situation_familiale }}</span>
-                      </div>
-                      <div class="detail-row">
-                        <span class="label">Classe:</span>
-                        <span class="value">{{ etudiant.classe?.nom }}</span>
+      <div class="tab-content" *ngIf="activeTab == 2">
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-lg-6 col-md-8 mb-4"
+              *ngFor="let etudiant of etudiants"
+            >
+              <div class="card shadow-sm rounded">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      [src]="'http://localhost:3000/' + etudiant.image"
+                      alt="Photo de {{ etudiant.prenom }} {{ etudiant.nom }}"
+                      class="img-fluid rounded-start student-image"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        {{ etudiant.prenom }} {{ etudiant.nom }}
+                      </h5>
+                      <div class="card-text">
+                        <div class="detail-row">
+                          <span class="label">Date de naissance:</span>
+                          <span class="value">{{
+                            etudiant.date_de_naissance | date : "dd-MM-yyyy"
+                          }}</span>
+                        </div>
+                        <div class="detail-row">
+                          <span class="label">Adresse:</span>
+                          <span class="value">{{ etudiant.adresse }}</span>
+                        </div>
+                        <div class="detail-row">
+                          <span class="label">Niveau:</span>
+                          <span class="value">{{ etudiant.niveau }}</span>
+                        </div>
+                        <div class="detail-row">
+                          <span class="label">Situation familiale:</span>
+                          <span class="value">{{
+                            etudiant.situation_familiale
+                          }}</span>
+                        </div>
+                        <div class="detail-row">
+                          <span class="label">Classe:</span>
+                          <span class="value">{{ etudiant.classe?.nom }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-12 d-flex justify-content-end mt-3">
+                    <div class="card-actions">
+                      <i
+                        class="fa-solid fa-pen-to-square blue-icon mr-2"
+                        (click)="openEditModal(etudiant)"
+                      ></i>
+                      <i
+                        class="fa-solid fa-trash red-icon"
+                        (click)="deleteEtudiant(etudiant._id)"
+                      ></i>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-12 d-flex justify-content-end mt-3">
-                  <div class="card-actions">
-                    <i class="fa-solid fa-pen-to-square blue-icon mr-2" (click)="openEditModal(etudiant)"></i>
-                    <i class="fa-solid fa-trash red-icon" (click)="deleteEtudiant(etudiant._id)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" *ngIf="activeTab == 3">
+        <div class="container">
+          <div class="text-center">
+            <h3 class="mb-3">
+              <i class="fa-solid fa-file-alt"></i> Devoirs rendus
+            </h3>
+          </div>
+          <div class="row">
+            <!-- Espace pour ajouter un devoir -->
+            <div class="col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Ajouter un devoir</h5>
+                  <form
+                    [formGroup]="devoirForm"
+                    enctype="multipart/form-data"
+                    novalidate
+                  >
+                    <div class="form-group">
+                      <label for="nom">Nom:</label>
+                      <input
+                        id="nom"
+                        formControlName="nom"
+                        type="text"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="etudiant" class="form-label">Étudiant:</label>
+                      <select
+                        class="form-select"
+                        id="etudiant"
+                        formControlName="etudiant"
+                        required
+                      >
+                        <option
+                          *ngFor="let etudiant of etudiants"
+                          [value]="etudiant._id"
+                        >
+                          {{ etudiant.nom }} {{ etudiant.prenom }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          devoirForm.get('etudiant').invalid &&
+                          devoirForm.get('etudiant').touched
+                        "
+                        class="invalid-feedback"
+                      >
+                        L'étudiant est requis.
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="matiere" class="form-label">Matière:</label>
+                      <select
+                        class="form-select"
+                        id="matiere"
+                        formControlName="matiere"
+                        required
+                      >
+                        <option
+                          *ngFor="let matiere of matieres"
+                          [value]="matiere._id"
+                        >
+                          {{ matiere.nom }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          devoirForm.get('matiere').invalid &&
+                          devoirForm.get('matiere').touched
+                        "
+                        class="invalid-feedback"
+                      >
+                        La matière est requise.
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="classe" class="form-label">Classe:</label>
+                      <select
+                        class="form-select"
+                        id="classe"
+                        formControlName="classe"
+                        required
+                      >
+                        <option
+                          *ngFor="let classe of classes"
+                          [value]="classe._id"
+                        >
+                          {{ classe.nom }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          devoirForm.get('classe').invalid &&
+                          devoirForm.get('classe').touched
+                        "
+                        class="invalid-feedback"
+                      >
+                        La classe est requise.
+                      </div>
+                    </div>
+                    <div class="file-upload mb-1">
+                      <label for="document" class="form-label"
+                        >Documents:</label
+                      >
+                      <div class="input-group">
+                        <input
+                          type="file"
+                          multiple
+                          (change)="selectFile($event)"
+                          class="form-control"
+                          formControlName="file"
+                        />
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        (click)="saveDevoir()"
+                        [disabled]="devoirForm.invalid"
+                      >
+                        <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data grid pour afficher les détails des devoirs -->
+            <div class="col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Détails des devoirs</h5>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">Etudiant</th>
+                          <th scope="col">Matière</th>
+                          <th scope="col">Classe</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Date de rendu</th>
+                          <th scope="col">Document</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let devoir of devoirs">
+                          <td>{{ devoir.etudiant.nom }}</td>
+                          <td>{{ devoir.matiere.nom }}</td>
+                          <td>{{ devoir.classe.nom }}</td>
+                          <td>{{ devoir.nom }}</td>
+                          <td>{{ devoir.createdAt | date : "dd-MM-yyyy" }}</td>
+
+                          <td>
+                            <div *ngFor="let doc of devoir.documents">
+                              <a
+                                href="http://localhost:3000/{{ doc }}"
+                                target="_blank"
+                              >
+                                {{ getFileNameFromPath(doc) }}
+                              </a>
+                            </div>
+                          </td>
+                          <td>
+                            <i
+                              class="fa-solid fa-pen-to-square blue-icon mx-3 fs-3"
+                              (click)="openEditDevoir(devoir)"
+                            ></i>
+                          </td>
+                          <td>
+                            <i
+                              class="fa-solid fa-trash red-icon mx-3 fs-3"
+                              (click)="deleteDevoir(devoir._id)"
+                            ></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -149,184 +444,116 @@
         </div>
       </div>
     </div>
-
-    <div class="tab-content" *ngIf="activeTab == 3">
-      <div class="container">
-        <div class="text-center">
-          <h3 class="mb-3"><i class="fa-solid fa-file-alt"></i> Devoirs rendus</h3>
-        </div>
-        <div class="row">
-          <!-- Espace pour ajouter un devoir -->
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Ajouter un devoir</h5>
-                <form [formGroup]="devoirForm" enctype="multipart/form-data" novalidate>
-                  <div class="form-group">
-                    <label for="nom">Nom:</label>
-                    <input id="nom" formControlName="nom" type="text" class="form-control" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="etudiant" class="form-label">Étudiant:</label>
-                    <select class="form-select" id="etudiant" formControlName="etudiant" required>
-                      <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">{{ etudiant.nom }} {{
-                        etudiant.prenom }}</option>
-                    </select>
-                    <div *ngIf="devoirForm.get('etudiant').invalid && devoirForm.get('etudiant').touched"
-                      class="invalid-feedback">
-                      L'étudiant est requis.
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="matiere" class="form-label">Matière:</label>
-                    <select class="form-select" id="matiere" formControlName="matiere" required>
-                      <option *ngFor="let matiere of matieres" [value]="matiere._id">{{ matiere.nom }}</option>
-                    </select>
-                    <div *ngIf="devoirForm.get('matiere').invalid && devoirForm.get('matiere').touched"
-                      class="invalid-feedback">
-                      La matière est requise.
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="classe" class="form-label">Classe:</label>
-                    <select class="form-select" id="classe" formControlName="classe" required>
-                      <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
-                    </select>
-                    <div *ngIf="devoirForm.get('classe').invalid && devoirForm.get('classe').touched"
-                      class="invalid-feedback">
-                      La classe est requise.
-                    </div>
-                  </div>
-                  <div class="file-upload mb-1">
-                    <label for="document" class="form-label">Documents:</label>
-                    <div class="input-group">
-                      <input type="file" multiple (change)="selectFile($event)" class="form-control"
-                        formControlName="file" />
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary" (click)="saveDevoir()"
-                      [disabled]="devoirForm.invalid">
-                      <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Data grid pour afficher les détails des devoirs -->
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Détails des devoirs</h5>
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">Etudiant</th>
-                        <th scope="col">Matière</th>
-                        <th scope="col">Classe</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Date de rendu</th>
-                        <th scope="col">Document</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let devoir of devoirs">
-                        <td>{{ devoir.etudiant.nom }}</td>
-                        <td>{{ devoir.matiere.nom }}</td>
-                        <td>{{ devoir.classe.nom }}</td>
-                        <td>{{ devoir.nom}}</td>
-                        <td>{{ devoir.createdAt | date:'dd-MM-yyyy'}}</td>
-
-                        <td>
-                          <div *ngFor="let doc of devoir.documents">
-                            <a href="http://localhost:3001/{{doc}}" target="_blank">
-                              {{ getFileNameFromPath(doc) }}
-                            </a>
-                          </div>
-                        </td>
-                        <td><i class="fa-solid fa-pen-to-square blue-icon mx-3 fs-3"
-                            (click)="openEditDevoir(devoir)"></i>
-                        </td>
-                        <td><i class="fa-solid fa-trash red-icon mx-3 fs-3" (click)="deleteDevoir(devoir._id)"></i></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-</body>
-
+  </body>
 </html>
-
-
 
 <div *ngIf="openedEditEtudiant" class="popup">
   <div class="popup-content">
     <div class="popup-header">
-      <h2 class="main-title"><i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier étudiant</h2>
+      <h2 class="main-title">
+        <i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier étudiant
+      </h2>
       <button class="close-icon" (click)="closeEditModal()">&times;</button>
     </div>
     <form [formGroup]="studentForm">
       <div class="form-group">
         <label for="firstName">Prénom :</label>
-        <input type="text" class="form-control" formControlName="firstName" id="firstName"
-          placeholder="Entrez votre prénom">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="firstName"
+          id="firstName"
+          placeholder="Entrez votre prénom"
+        />
       </div>
       <div class="form-group">
         <label for="lastName">Nom :</label>
-        <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Entrez votre nom">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="lastName"
+          id="lastName"
+          placeholder="Entrez votre nom"
+        />
       </div>
       <div class="form-group">
         <label for="date_de_naissance">Date de naissance :</label>
-        <input type="date" class="form-control" formControlName="date_de_naissance" id="date_de_naissance"
-          placeholder="Entrez votre date de naissance">
+        <input
+          type="date"
+          class="form-control"
+          formControlName="date_de_naissance"
+          id="date_de_naissance"
+          placeholder="Entrez votre date de naissance"
+        />
       </div>
       <div class="file-upload mb-1">
         <label for="doc" class="form-label">image:</label>
         <div class="input-group">
-          <input type="file" multiple (change)="selectFile($event)" formControlName="image">
-
+          <input
+            type="file"
+            multiple
+            (change)="selectFile($event)"
+            formControlName="image"
+          />
         </div>
       </div>
       <!-- Affichage des documents existants -->
-      <div *ngIf="editEtudiant && editEtudiant.image && editEtudiant.image.length > 0" class="mb-3">
+      <div
+        *ngIf="
+          editEtudiant && editEtudiant.image && editEtudiant.image.length > 0
+        "
+        class="mb-3"
+      >
         <label for="existingDocs" class="form-label">Image existant:</label>
         <ul>
           <li *ngFor="let image of editEtudiant.image">
-            <a href="http://localhost:3001/{{ image }}" target="_blank">{{ getFileNameFromPath(image)
-              }}</a>
+            <a href="http://localhost:3000/{{ image }}" target="_blank">{{
+              getFileNameFromPath(image)
+            }}</a>
           </li>
         </ul>
       </div>
 
       <div class="form-group">
         <label for="adresse">Adresse :</label>
-        <input type="text" class="form-control" formControlName="adresse" id="adresse"
-          placeholder="Entrez votre adresse">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="adresse"
+          id="adresse"
+          placeholder="Entrez votre adresse"
+        />
       </div>
       <div class="form-group">
         <label for="niveau">Niveau d'étude :</label>
-        <input type="text" class="form-control" formControlName="niveau" id="niveau"
-          placeholder="Entrez votre niveau scolaire">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="niveau"
+          id="niveau"
+          placeholder="Entrez votre niveau scolaire"
+        />
       </div>
       <!-- Dropdown pour Classe -->
       <div class="mb-3">
         <label for="classe" class="form-label">Classe :</label>
-        <select class="form-select" formControlName="classe" id="classe" required>
-          <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
+        <select
+          class="form-select"
+          formControlName="classe"
+          id="classe"
+          required
+        >
+          <option *ngFor="let classe of classes" [value]="classe._id">
+            {{ classe.nom }}
+          </option>
         </select>
-        <div *ngIf="studentForm.get('classe').invalid && studentForm.get('classe').touched" class="invalid-feedback">
+        <div
+          *ngIf="
+            studentForm.get('classe').invalid &&
+            studentForm.get('classe').touched
+          "
+          class="invalid-feedback"
+        >
           La classe est requise.
         </div>
       </div>
@@ -334,26 +561,55 @@
         <label>Situation familiale :</label>
         <div class="radio-buttons">
           <div class="radio-option">
-            <input type="radio" id="single" name="familialStatus" value="single" formControlName="familialStatus">
+            <input
+              type="radio"
+              id="single"
+              name="familialStatus"
+              value="single"
+              formControlName="familialStatus"
+            />
             <label for="single">Célibataire</label>
           </div>
           <div class="radio-option">
-            <input type="radio" id="married" name="familialStatus" value="married" formControlName="familialStatus">
+            <input
+              type="radio"
+              id="married"
+              name="familialStatus"
+              value="married"
+              formControlName="familialStatus"
+            />
             <label for="married">Marié(e)</label>
           </div>
           <div class="radio-option">
-            <input type="radio" id="divorced" name="familialStatus" value="divorced" formControlName="familialStatus">
+            <input
+              type="radio"
+              id="divorced"
+              name="familialStatus"
+              value="divorced"
+              formControlName="familialStatus"
+            />
             <label for="divorced">Divorcé(e)</label>
           </div>
           <div class="radio-option">
-            <input type="radio" id="widowed" name="familialStatus" value="widowed" formControlName="familialStatus">
+            <input
+              type="radio"
+              id="widowed"
+              name="familialStatus"
+              value="widowed"
+              formControlName="familialStatus"
+            />
             <label for="widowed">Veuf/Veuve</label>
           </div>
         </div>
       </div>
 
       <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid" (click)="updateEtudiant()">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="studentForm.invalid"
+          (click)="updateEtudiant()"
+        >
           <i class="fa-solid fa-floppy-disk"></i> Modifier
         </button>
       </div>
@@ -361,67 +617,129 @@
   </div>
 </div>
 
-
-
-
 <div *ngIf="openedEditDevoir" class="popup">
   <div class="popup-content">
     <div class="popup-header">
-      <h2 class="main-title"><i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier de devoir</h2>
-      <button class="close-icon" (click)="closeEditModalDevoir()">&times;</button>
+      <h2 class="main-title">
+        <i class="fa-solid fa-pen-to-square blue-icon"></i> Modifier de devoir
+      </h2>
+      <button class="close-icon" (click)="closeEditModalDevoir()">
+        &times;
+      </button>
     </div>
     <form [formGroup]="devoirForm" enctype="multipart/form-data" novalidate>
       <div class="form-group">
         <label for="nom">Nom:</label>
-        <input id="nom" formControlName="nom" type="text" class="form-control" />
+        <input
+          id="nom"
+          formControlName="nom"
+          type="text"
+          class="form-control"
+        />
       </div>
       <div class="mb-3">
         <label for="etudiant" class="form-label">Étudiant:</label>
-        <select class="form-select" id="etudiant" formControlName="etudiant" required>
-          <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">{{ etudiant.nom }} {{
-            etudiant.prenom }}</option>
+        <select
+          class="form-select"
+          id="etudiant"
+          formControlName="etudiant"
+          required
+        >
+          <option *ngFor="let etudiant of etudiants" [value]="etudiant._id">
+            {{ etudiant.nom }} {{ etudiant.prenom }}
+          </option>
         </select>
-        <div *ngIf="devoirForm.get('etudiant').invalid && devoirForm.get('etudiant').touched" class="invalid-feedback">
+        <div
+          *ngIf="
+            devoirForm.get('etudiant').invalid &&
+            devoirForm.get('etudiant').touched
+          "
+          class="invalid-feedback"
+        >
           L'étudiant est requis.
         </div>
       </div>
       <div class="mb-3">
         <label for="matiere" class="form-label">Matière:</label>
-        <select class="form-select" id="matiere" formControlName="matiere" required>
-          <option *ngFor="let matiere of matieres" [value]="matiere._id">{{ matiere.nom }}</option>
+        <select
+          class="form-select"
+          id="matiere"
+          formControlName="matiere"
+          required
+        >
+          <option *ngFor="let matiere of matieres" [value]="matiere._id">
+            {{ matiere.nom }}
+          </option>
         </select>
-        <div *ngIf="devoirForm.get('matiere').invalid && devoirForm.get('matiere').touched" class="invalid-feedback">
+        <div
+          *ngIf="
+            devoirForm.get('matiere').invalid &&
+            devoirForm.get('matiere').touched
+          "
+          class="invalid-feedback"
+        >
           La matière est requise.
         </div>
       </div>
       <div class="mb-3">
         <label for="classe" class="form-label">Classe:</label>
-        <select class="form-select" id="classe" formControlName="classe" required>
-          <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.nom }}</option>
+        <select
+          class="form-select"
+          id="classe"
+          formControlName="classe"
+          required
+        >
+          <option *ngFor="let classe of classes" [value]="classe._id">
+            {{ classe.nom }}
+          </option>
         </select>
-        <div *ngIf="devoirForm.get('classe').invalid && devoirForm.get('classe').touched" class="invalid-feedback">
+        <div
+          *ngIf="
+            devoirForm.get('classe').invalid && devoirForm.get('classe').touched
+          "
+          class="invalid-feedback"
+        >
           La classe est requise.
         </div>
       </div>
       <div class="file-upload mb-1">
         <label for="document" class="form-label">Documents:</label>
         <div class="input-group">
-          <input type="file" multiple (change)="selectFile($event)" class="form-control" formControlName="file" />
+          <input
+            type="file"
+            multiple
+            (change)="selectFile($event)"
+            class="form-control"
+            formControlName="file"
+          />
         </div>
       </div>
 
-      <div *ngIf="editDevoir && editDevoir.documents && editDevoir.documents.length > 0" class="mb-3">
-        <label for="existingDocs" class="form-label">Documents existants:</label>
+      <div
+        *ngIf="
+          editDevoir && editDevoir.documents && editDevoir.documents.length > 0
+        "
+        class="mb-3"
+      >
+        <label for="existingDocs" class="form-label"
+          >Documents existants:</label
+        >
         <ul>
           <li *ngFor="let document of editDevoir.documents">
-            <a href="http://localhost:3001/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
-              }}</a>
+            <a href="http://localhost:3000/{{ document }}" target="_blank">{{
+              getFileNameFromPath(document)
+            }}</a>
           </li>
         </ul>
       </div>
 
       <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" (click)="updateDevoir()" [disabled]="devoirForm.invalid">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="updateDevoir()"
+          [disabled]="devoirForm.invalid"
+        >
           <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
         </button>
       </div>

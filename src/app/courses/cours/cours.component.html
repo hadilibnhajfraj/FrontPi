@@ -149,7 +149,7 @@
                                             *ngIf="cours.documents && cours.documents.length > 0; else noDocuments">
                                             <ul>
                                                 <li *ngFor="let document of cours.documents">
-                                                    <a href="http://localhost:3001/{{ document }}" target="_blank">
+                                                    <a href="http://localhost:3000/{{ document }}" target="_blank">
                                                         {{ getFileNameFromPath(document) }}
                                                     </a>
                                                 </li>
@@ -262,7 +262,7 @@
                                     <td>{{ exercise.typeExercice }}</td>
                                     <td>
                                         <div *ngFor="let doc of exercise.documents">
-                                            <a href="http://localhost:3001/{{doc}}" target="_blank">
+                                            <a href="http://localhost:3000/{{doc}}" target="_blank">
                                                 {{ getFileNameFromPath(doc) }}
                                             </a>
                                         </div>
@@ -381,7 +381,7 @@
                 <label for="existingDocs" class="form-label">Documents existants:</label>
                 <ul>
                     <li *ngFor="let document of editCours.documents">
-                        <a href="http://localhost:3001/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
+                        <a href="http://localhost:3000/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
                             }}</a>
                     </li>
                 </ul>
@@ -427,7 +427,7 @@
                 <label for="existingDocs" class="form-label">Documents existants:</label>
                 <ul>
                     <li *ngFor="let document of editExercise.documents">
-                        <a href="http://localhost:3001/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
+                        <a href="http://localhost:3000/{{ document }}" target="_blank">{{ getFileNameFromPath(document)
                             }}</a>
                     </li>
                 </ul>
