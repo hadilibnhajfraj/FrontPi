@@ -4,7 +4,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 
 import { GestionEmploisComponent } from '../../gestion-emplois/gestion-emplois.component';
 import { EmploiDetailComponent } from '../../emploi-detail/emploi-detail.component';
-import { EtudiantComponent } from '../../etudiant/etudiant.component';
+import { EtudiantComponent } from '../../etudiants/etudiants.component';
 import { ClassComponent } from '../../class/class.component';
 import { SalleComponent } from '../../salle/salle.component';
 

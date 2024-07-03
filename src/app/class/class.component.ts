@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ClasseService } from '../services/classe.service';
+import { ClasseService } from '../services/classes.service';
 import { Classe } from '../model/class.model';
 import { Etudiant } from '../model/etusiant.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';

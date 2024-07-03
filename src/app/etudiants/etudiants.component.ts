@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { EtudiantService } from '../services/etudiant.service';
+import { EtudiantService } from '../services/etudiants.service';
 import { Etudiant } from '../model/etusiant.model'; // Vérifiez le nom de votre modèle
 
 @Component({
   selector: 'app-etudiant',
-  templateUrl: './etudiant.component.html',
-  styleUrls: ['./etudiant.component.css']
+  templateUrl: './etudiants.component.html',
+  styleUrls: ['./etudiants.component.css']
 })
 export class EtudiantComponent implements OnInit {
   etudiants: Etudiant[] = [];

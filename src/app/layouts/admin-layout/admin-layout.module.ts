@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { EtudiantComponent } from '../../etudiant/etudiant.component';
+import { EtudiantComponent } from '../../etudiants/etudiants.component';
 import { ClassComponent } from '../../class/class.component';
 import { SalleComponent } from '../../salle/salle.component';
 
