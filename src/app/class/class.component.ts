@@ -147,7 +147,8 @@ export class ClassComponent implements OnInit {
   }
 
   toggleDetails(classId: string | undefined): void {
-    if (!classId) return;
+    if (!classId) 
+    return;
     if (this.expandedClassId === classId) {
       this.expandedClassId = null;
     } else {
