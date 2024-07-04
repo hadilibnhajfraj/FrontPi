@@ -192,11 +192,15 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'facture/:id', component: FactureComponent },
   { path: 'updatecheque/:id', component: UpdatechequeComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: "enplois", component: GestionEmploisComponent },
+  { path: "enplois", component: GestionEmploisComponent  ,  canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin' , 'parent', 'enseignant'] } },
   { path: 'enploisdetail/:id', component: EmploiDetailComponent }, // Ajouter ':id' comme paramètre d'ID
-  { path: 'etudiants', component: EtudiantComponent },
-  { path: 'classe', component: ClassComponent }, // Ajouter ':id' comme paramètre d'ID
-  { path: 'salle', component: SalleComponent },
+  { path: 'etudiants', component: EtudiantComponent ,  canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin'] } },
+  { path: 'classe', component: ClassComponent  ,   canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin'] }}, // Ajouter ':id' comme paramètre d'ID
+  { path: 'salle', component: SalleComponent  ,   canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: ['admin'] }},
 
 
 

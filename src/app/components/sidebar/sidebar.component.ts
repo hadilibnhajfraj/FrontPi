@@ -179,7 +179,10 @@ export class SidebarComponent implements OnInit {
           item.path !== "/listUser" &&
           item.path != "/user-profile" &&
           item.path != "/notifications" &&
-          item.path != "/maps"
+          item.path != "/maps" &&
+            item.path != "/etudiants" &&
+            item.path != "/classe" &&
+            item.path != "/salle"
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)

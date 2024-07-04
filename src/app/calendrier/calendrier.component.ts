@@ -55,7 +55,9 @@ export class CalendrierComponent implements OnInit {
         start: repas.jour
       });
     });
+    console.log(events)
     return events;
+
   }
 
 }

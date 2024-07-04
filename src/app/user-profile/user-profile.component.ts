@@ -50,7 +50,7 @@ export class UserProfileComponent implements OnInit {
     this.authService.updateUser(id, this.user).subscribe(
       (response) => {
         console.log('Chauffeur updated:', response);
-        this.router.navigate(['/chauffeur']); // Rediriger vers la liste des chauffeurs après la modification
+        this.router.navigate(['/listUser']); // Rediriger vers la liste des chauffeurs après la modification
       },
       (error) => {
         console.error('Error updating chauffeur:', error);
