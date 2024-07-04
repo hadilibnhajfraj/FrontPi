@@ -8,7 +8,7 @@ import { Classe } from '../model/class.model';
 })
 export class ClasseService {
   private baseUrl = 'http://localhost:3000/classe'; // Remplacez par votre URL
-  private apiUrl = 'http://localhost:3000/etudiant';
+  private apiUrl = 'http://localhost:3000/etudiants';
   constructor(private http: HttpClient) {}
 
   getClasses(): Observable<Classe[]> {
@@ -26,7 +26,7 @@ export class ClasseService {
   deleteClasse(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
-  
+
   changeStudentClass(studentId: string, newClassId: string): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/changeStudentClass/${studentId}/${newClassId}`, {});
   }

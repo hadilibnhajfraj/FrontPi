@@ -1,20 +1,15 @@
 /* Ajoutez des styles pour afficher/masquer les sous-modules */
 
 .sub-menu {
-    padding-left: 35px;
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> ala
+  padding-left: 35px;
 }
 
 .sub-menu a {
-    color: rgb(192, 192, 192);
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: rgb(192, 192, 192);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
-<<<<<<< HEAD
+/*
 .selected {
     background: rgb(116, 151, 165);
     color: rgb(255, 245, 245);
@@ -22,17 +17,15 @@
     padding-left: 16px;
     margin-right: 8px;
     margin-top: 5px;
-  
+
 }
-=======
+*/
 
 .selected {
-    background: #f55151;
-    color: rgb(255, 245, 245);
-    border-left: 4px solid #ff7636;
-    padding-left: 16px;
-    margin-right: 8px;
-    margin-top: 5px;
-
+  background: #f55151;
+  color: rgb(255, 245, 245);
+  border-left: 4px solid #ff7636;
+  padding-left: 16px;
+  margin-right: 8px;
+  margin-top: 5px;
 }
->>>>>>> ala

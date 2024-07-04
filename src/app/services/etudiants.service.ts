@@ -9,7 +9,7 @@ import { Etudiant } from '../model/etusiant.model'
 })
 export class EtudiantService {
 
-  private baseUrl = 'http://localhost:3000/etudiant';
+  private baseUrl = 'http://localhost:3000/etudiants';
   private apiUrl = 'http://localhost:3000/classe/show';
   private apiUrlp = 'http://localhost:3000/user/showParents';
 

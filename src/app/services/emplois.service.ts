@@ -10,11 +10,11 @@ export class EmploiService {
   private apiUrl = 'http://localhost:3000/emploie/show';
   private AddemploisUrl = 'http://localhost:3000/emploie/add';
   private apiUrlclasse ='http://localhost:3000/classe/show';
-  private apiUrle = 'http://127.0.0.1:3000/emploie';
-  private apiUrlMatiere = 'http://localhost:3000/matiere/show';
-  private apiUrlOptions = 'http://127.0.0.1:3000/seance/options';
-  private apiUrlEnseignant = 'http://127.0.0.1:3000/emploiEnseignant';
-  
+  private apiUrle = 'http://localhost:3000/emploie';
+  private apiUrlMatiere = 'http://localhost:3000/emploie/showMatiere';
+  private apiUrlOptions = 'http://localhost:3000/seance/options';
+  private apiUrlEnseignant = 'http://localhost:3000/emploiEnseignant';
+
   constructor(private http: HttpClient) { }
 
   // Ajouter un nouvel emploi

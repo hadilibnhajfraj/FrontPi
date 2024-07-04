@@ -17,8 +17,8 @@ export class GestionEmploisComponent implements OnInit {
   emploiEnseignant: any[] = [];
   emploiParent: any[] = [];
   etudiants: any[] = [];
-  enseignantId: string = "6643852347b83c383da43caa";
-  parentId: string = "6643857147b83c383da43cac"; 
+  enseignantId: string = "666e1c64dce1a30448c93472";
+  parentId: string = "66702d115ce0d433a260f4cf";
   enseignantName: string | undefined;
   enseignantNamefile: string | undefined;
 

@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../../service/AuthService";
@@ -10,7 +9,7 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 
-  showNotification?:boolean
+  showNotification?: boolean;
 
   selected?: boolean; // Définir la propriété selected comme optionnelle
   children?: RouteInfo[];
@@ -47,7 +46,12 @@ export const ROUTES: RouteInfo[] = [
   { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "" },
 
   { path: "/icons", title: "Choisir offre", icon: "education_atom", class: "" },
-  { path: "/maps", title: "Gestion des frais", icon: "location_map-big", class: "" },
+  {
+    path: "/maps",
+    title: "Gestion des frais",
+    icon: "location_map-big",
+    class: "",
+  },
   {
     path: "/notifications",
     title: "Gestion factures",
@@ -66,10 +70,7 @@ export const ROUTES: RouteInfo[] = [
     title: "Gestion des emplois",
     icon: "education_atom",
     class: "",
-    children: [
-     
-     
-    ],
+    children: [],
   },
   {
     path: "/table-list",
@@ -78,9 +79,9 @@ export const ROUTES: RouteInfo[] = [
     class: "",
   },
   {
-    path: "/etudiant",
+    path: "/etudiants",
     title: "Gestion des étudiants",
-    icon: "fas fa-user-graduate",  // Utilisez l'icône "school" de Material Icons
+    icon: "users_circle-08", // Utilisez l'icône "school" de Material Icons
     class: "",
     children: [],
   },
@@ -89,8 +90,8 @@ export const ROUTES: RouteInfo[] = [
     title: "Notifications",
     icon: "ui-1_bell-53",
     class: "",
-  }
-,  { path: "/afficheRepas", title: "Repas", icon: "design_app", class: "" },
+  },
+  { path: "/afficheRepas", title: "Repas", icon: "design_app", class: "" },
   { path: "/bus", title: "Bus", icon: "education_atom", class: "" },
   {
     path: "/chauffeur",
@@ -112,17 +113,17 @@ export const ROUTES: RouteInfo[] = [
     icon: "location_map-big",
     class: "",
   },
-{
+  {
     path: "/classe",
     title: "Gestion des classes",
-    icon: "fas fa-school",  // Utilisez l'icône "school" de Material Icons
+    icon: "fas fa-school", // Utilisez l'icône "school" de Material Icons
     class: "",
     children: [],
   },
   {
     path: "/salle",
     title: "Gestion des salle",
-    icon: "fa-solid fa-building",  // Utilisez l'icône "school" de Material Icons
+    icon: "fa-solid fa-building", // Utilisez l'icône "school" de Material Icons
     class: "",
     children: [],
   },
@@ -139,14 +140,19 @@ export class SidebarComponent implements OnInit {
   selectedChildItem: any;
 
   notificationsList: any[];
-  constructor(private notificationsService: NotificationsService, public authService: AuthService, private router: Router) {
-    this.notificationsService.currentNotificationsList.subscribe(data => this.notificationsList = data)
+  constructor(
+    private notificationsService: NotificationsService,
+    public authService: AuthService,
+    private router: Router
+  ) {
+    this.notificationsService.currentNotificationsList.subscribe(
+      (data) => (this.notificationsList = data)
+    );
   }
 
   readAllNotifications() {
-    this.notificationsService.updateNotifications([])
+    this.notificationsService.updateNotifications([]);
   }
-
 
   getMenuItemsBasedOnRole(): RouteInfo[] {
     const role = this.authService.getUserRole();
@@ -159,10 +165,10 @@ export class SidebarComponent implements OnInit {
           item.path !== "/busaffichage" &&
           item.path !== "/fetchActivite" &&
           item.path !== "/table-list" &&
-          item.path !=="/icons"
+          item.path !== "/icons"
         // Exclude 'listUser' from menu for enseignant and parent
       );
-    } else if (role === "parent"||role === 'enseignant') {
+    } else if (role === "parent" || role === "enseignant") {
       // Show specific menu items for enseignant and parent
       filteredMenuItems = ROUTES.filter(
         (item) =>
@@ -170,10 +176,10 @@ export class SidebarComponent implements OnInit {
           item.path !== "/bus" &&
           item.path !== "/chauffeur" &&
           item.path !== "/activite" &&
-           item.path !== '/listUser' &&
-           item.path !="/user-profile" &&
-           item.path !="/notifications" &&
-           item.path !="/maps"
+          item.path !== "/listUser" &&
+          item.path != "/user-profile" &&
+          item.path != "/notifications" &&
+          item.path != "/maps"
       );
     } else {
       // Default case (handle other roles or unexpected scenarios)
@@ -185,9 +191,9 @@ export class SidebarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
-
-  } ngOnInit() {
+    this.router.navigate(["/login"]);
+  }
+  ngOnInit() {
     this.menuItems = this.getMenuItemsBasedOnRole();
     this.menuItems = this.menuItems.map((item) => {
       return {

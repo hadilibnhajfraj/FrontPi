@@ -71,14 +71,14 @@ export class EmploiDetailComponent implements OnInit {
     this.daysWithDates = [];
     const currentDate = new Date(this.emploi.date_debut);
     const endDate = new Date(this.emploi.date_fin);
-  
+
     while (currentDate <= endDate) {
       const dayOfWeek = currentDate.toLocaleDateString('fr-FR', { weekday: 'long' });
-  
+
       if (!this.isSunday(currentDate) && !this.daysWithDates.some(d => d.date.toDateString() === currentDate.toDateString())) {
         this.daysWithDates.push({ day: dayOfWeek, date: new Date(currentDate) });
       }
-  
+
       currentDate.setDate(currentDate.getDate() + 1);
     }
   }
@@ -144,6 +144,7 @@ export class EmploiDetailComponent implements OnInit {
         (result) => {
           if (result === 'Save') {
             this.addSeance();
+            window.location.reload();
           }
         },
         (reason) => {
@@ -177,7 +178,7 @@ export class EmploiDetailComponent implements OnInit {
     if (this.seanceForm.invalid) {
       return;
     }
-  
+
     const emploiId = this.route.snapshot.paramMap.get('id');
     const classId = this.emploi.class._id;
     const seanceData = {
@@ -189,13 +190,13 @@ export class EmploiDetailComponent implements OnInit {
     };
     console.log('Reached addSeance()');
     console.dir(seanceData);
-  
+
     this.emploiService.addSeance(emploiId, classId, seanceData).subscribe(
       (response) => {
         this.emploi = null;
         this.daysWithDates = [];
         this.loadEmploi();
-  
+
         this.seanceForm.reset(); // Reset form after adding seance
       },
       (error) => {

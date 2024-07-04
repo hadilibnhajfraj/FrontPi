@@ -42,7 +42,7 @@ import { SalleComponent } from '../../salle/salle.component';
     ToastrModule.forRoot(),
     HttpClientModule,
     FullCalendarModule,
-    MatRadioModule
+    MatRadioModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -61,7 +61,7 @@ import { SalleComponent } from '../../salle/salle.component';
     TableListComponent,
     IconsComponent,
     MapsComponent,
-    NotificationsComponent, 
+    NotificationsComponent,
     GestionEmploisComponent,
     EtudiantComponent,
     ClassComponent,

@@ -110,7 +110,7 @@ export class CoursComponent implements OnInit {
           }
         });
         this.coursData = cours;
-        this.allCoursData = cours; 
+        this.allCoursData = cours;
 
       },
       (error) => {

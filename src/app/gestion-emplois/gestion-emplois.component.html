@@ -15,17 +15,17 @@
       <div class="mb-3">
         <label for="classe" class="form-label">Classe:</label>
         <select class="form-select" id="classe" formControlName="classe" required>
-          <option *ngFor="let classe of classes" [value]="classe._id">{{ classe.name }}</option>
+          <option *ngFor="let classe of classes" [value]="classe?._id">{{ classe?.name }}</option>
         </select>
         <div *ngIf="emploiForm.get('classe').invalid && emploiForm.get('classe').touched" class="invalid-feedback">
           La classe est requise.
         </div>
       </div>
-      <button mat-raised-button color="primary" type="submit" [disabled]="emploiForm.invalid">Créer Emploi
-        Scolaire</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="emploiForm.invalid">Créer Emploi Scolaire</button>
     </form>
   </mat-card-content>
 </mat-card>
+
 
 <div class="container">
   <h2>Liste des Emplois</h2>

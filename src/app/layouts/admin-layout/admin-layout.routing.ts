@@ -194,12 +194,12 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: "enplois", component: GestionEmploisComponent },
   { path: 'enploisdetail/:id', component: EmploiDetailComponent }, // Ajouter ':id' comme paramètre d'ID
-  { path: 'etudiant', component: EtudiantComponent }, 
+  { path: 'etudiants', component: EtudiantComponent },
   { path: 'classe', component: ClassComponent }, // Ajouter ':id' comme paramètre d'ID
   { path: 'salle', component: SalleComponent },
 
 
 
- 
+
 
 ];
