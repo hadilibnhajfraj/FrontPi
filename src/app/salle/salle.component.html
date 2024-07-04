@@ -1,0 +1,65 @@
+<div class="container">
+  <h2>Gestion des salles</h2>
+  <div class="button-group text-center">
+    <button (click)="toggleForm()" class="btn btn-primary" *ngIf="!isFormVisible">Ajouter une salle</button>
+    <button (click)="toggleForm()" class="btn btn-secondary" *ngIf="isFormVisible">Fermer le formulaire</button>
+  </div>
+
+  <div [ngClass]="{'form-container': true, 'visible': isFormVisible}">
+    <form [formGroup]="salleForm" (ngSubmit)="addOrUpdateSalle()">
+      <input type="hidden" formControlName="_id">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="name">Nom de la salle:</label>
+          <input type="text" id="name" formControlName="name" class="form-control">
+          <div *ngIf="salleForm.controls['name'].invalid && (salleForm.controls['name'].dirty || salleForm.controls['name'].touched)">
+            <small class="text-danger">Le nom de la salle est requis.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="capacity">Capacité:</label>
+          <input type="number" id="capacity" formControlName="capacity" class="form-control">
+          <div *ngIf="salleForm.controls['capacity'].invalid && (salleForm.controls['capacity'].dirty || salleForm.controls['capacity'].touched)">
+            <small class="text-danger">La capacité est requise.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="location">Emplacement:</label>
+          <select id="location" formControlName="location" class="form-control">
+            <option *ngFor="let level of levels" [value]="level">{{ level }}</option>
+          </select>
+          <div *ngIf="salleForm.controls['location'].invalid && (salleForm.controls['location'].dirty || salleForm.controls['location'].touched)">
+            <small class="text-danger">L'emplacement est requis.</small>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="salleForm.invalid">
+        {{ isEditMode ? 'Mettre à jour' : 'Ajouter une salle' }}
+      </button>
+    </form>
+  </div>
+
+  <table class="table table-striped mt-4">
+    <thead class="thead-dark">
+      <tr>
+        <th>Nom</th>
+        <th>Capacité</th>
+        <th>Emplacement</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let salle of salles">
+        <tr>
+          <td>{{ salle.name }}</td>
+          <td>{{ salle.capacity }}</td>
+          <td>{{ salle.location }}</td>
+          <td>
+            <button (click)="editSalle(salle, $event)" class="btn btn-warning">Modifier</button>
+            <button (click)="deleteSalle(salle._id, $event)" class="btn btn-danger">Supprimer</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

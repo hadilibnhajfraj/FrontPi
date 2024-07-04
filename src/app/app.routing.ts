@@ -1,7 +1,9 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule } from "@angular/router";
+
+import { NgModule } from '@angular/core';
+import { CommonModule, } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
+
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { LoginComponent } from "./login/login.component";
@@ -13,6 +15,7 @@ import { UpdatePasswordComponent } from "./update-password/update-password.compo
 
 const routes: Routes = [
   {
+
     path: "",
     redirectTo: "login",
     pathMatch: "full",
@@ -50,6 +53,7 @@ const routes: Routes = [
           ),
       },
     ],
+
   },
 ];
 
@@ -58,6 +62,7 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes),
+
   ],
   exports: [
     RouterModule,

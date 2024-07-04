@@ -1,0 +1,237 @@
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<!-- emploi-detail.component.html -->
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Emploi du temps de la classe {{ emploi?.class?.name }}
+            <div class="card-header-buttons">
+                <button class="extend" mat-button color="primary" (click)="openExtendModal()">Étendre</button>
+                <button class="save" mat-button color="primary" (click)="openSaveModal(emploi , openSaveModalModal)">Sauvgarde</button>
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle>
+            Du {{ formatDate(emploi?.date_debut) }} au {{ formatDate(emploi?.date_fin) }}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <table class="emploi-table">
+            <thead>
+                <tr>
+                    <th>Jours</th>
+                    <ng-container *ngFor="let hour of hours">
+                        <th>{{ hour }}</th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let day of daysWithDates">
+                    <tr>
+                        <td class="non-clickable">{{ day.day }} <br /> {{ day.date | date:'dd/MM/yyyy' }}</td>
+                        <ng-container *ngFor="let hour of hours">
+                            <td [ngClass]="{'clickable-cell': true}">
+                                <div *ngIf="getSeancesForDayAndHour(day.date, hour).length === 0">
+                                    <div class="cell-buttons">
+                                        <button (click)="openAddSeanceModal(day, hour, addSeanceModal)"
+                                            class="btn btn-primary">Ajouter</button>
+                                    </div>
+                                </div>
+                                <div *ngIf="getSeancesForDayAndHour(day.date, hour).length > 0">
+                                    <div *ngFor="let seance of getSeancesForDayAndHour(day.date, hour)">
+                                        {{ seance.matiere.nom }}<br />
+                                        {{ seance.enseignant.firstName }} {{ seance.enseignant.lastName }}<br />
+                                        {{ seance.salle.name }}
+                                        <div class="cell-buttons">
+                                            <button
+                                                (click)="openEditSeanceModal(seance._id, openEditSeanceModalContent)"
+                                                class="btn btn-secondary">Modifier</button>
+                                            <button (click)="openConfirmationModal(seance, confirmDeleteModal)"
+                                                class="btn btn-danger">Supprimer</button>
+                                            <button (click)="openconfirmAnnulationModal(seance, confirmAnnulationModal)"
+                                                class="btn btn-warning">
+                                                Annuler la séance
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<!-- Modal pour spécifier le nombre de semaines -->
+<div *ngIf="showExtendModal" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Étendre l'emploi</h5>
+                <button type="button" class="close" (click)="closeExtendModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="additionalWeeks">Nombre de semaines à ajouter:</label>
+                <input type="number" [(ngModel)]="additionalWeeks" id="additionalWeeks" min="1" max="10">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeExtendModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" (click)="extendEmploi(additionalWeeks)">Étendre</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal pour ajouter une séance -->
+<ng-template #addSeanceModal let-modal>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter une séance</h5>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="seanceForm">
+            <div class="form-group">
+              <label for="matiere">Matière:</label>
+              <select class="form-control" id="matiere" formControlName="matiere" (change)="onMatiereChange()">
+                <option *ngFor="let matiere of matieres" [ngValue]="matiere">{{ matiere.nom }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="enseignant">Enseignant:</label>
+              <select class="form-control" id="enseignant" formControlName="enseignant">
+                <option *ngFor="let enseignant of enseignants" [ngValue]="enseignant.id">{{ enseignant.fullName }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="salle">Salle:</label>
+              <select class="form-control" id="salle" formControlName="salle">
+                <option *ngFor="let salle of salles" [ngValue]="salle.id">{{ salle.name }}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="modal.close('Save')" [disabled]="!seanceForm.valid">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  
+
+<!-- Modal pour update une séance -->
+<ng-template #openEditSeanceModalContent let-modal>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier une séance</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="matiere">Matière:</label>
+                        <select class="form-control" id="matiere" [(ngModel)]="newSeance.matiere" name="matiere"
+                            required (change)="onMatiereChange()">
+                            <option *ngFor="let matiere of matieres" [ngValue]="matiere">{{ matiere.nom }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="enseignant">Enseignant:</label>
+                        <select class="form-control" id="enseignant" [(ngModel)]="selectedEnseignantId"
+                            name="enseignant" required>
+                            <option *ngFor="let enseignant of enseignants" [ngValue]="enseignant.id">{{
+                                enseignant.fullName }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="salle">Salle:</label>
+                        <select class="form-control" id="salle" [(ngModel)]="selectedSalleId" name="salle" required>
+                            <option *ngFor="let salle of salles" [ngValue]="salle.id">{{ salle.name }}</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Annuler</button>
+                <button type="button" class="btn btn-primary" (click)="modal.close('Save')">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal pour confirmation de suppression -->
+<ng-template #confirmDeleteModal let-modal>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation de suppression</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer cette séance ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="modal.close('Confirm')">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Modal for confirmation of annulation -->
+<ng-template #confirmAnnulationModal let-modal>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation d'annulation</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir annuler cette séance ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="modal.close('Confirm')">Annuler la séance</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal for confirmation of annulation -->
+<ng-template #openSaveModalModal let-modal>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation de sauvgardage</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir sauvgarder votre emploie ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="modal.close('Confirm')">sauvgarder</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

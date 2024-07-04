@@ -1,5 +1,6 @@
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -46,6 +47,13 @@ import { FactureComponent } from './facture/facture.component';
 import { VirementComponent } from './virement/virement.component';
 import { UpdatechequeComponent } from './updatecheque/updatecheque.component';
 
+import { EmploiDetailComponent } from './emploi-detail/emploi-detail.component';
+
+// Import Angular Material modules
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -59,6 +67,8 @@ import { UpdatechequeComponent } from './updatecheque/updatecheque.component';
     ReactiveFormsModule,
     MatRadioModule,
     MatSlideToggleModule,
+    MatCardModule, // Ajouter MatCardModule ici
+    MatTableModule, // Ajouter MatTableModule si nécessaire
   ],
   declarations: [
     AppComponent,
@@ -95,9 +105,11 @@ import { UpdatechequeComponent } from './updatecheque/updatecheque.component';
     FactureComponent,
     VirementComponent,
     UpdatechequeComponent,
+    EmploiDetailComponent
   ],
-
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Ajoutez CUSTOM_ELEMENTS_SCHEMA si nécessaire
+
 })
 export class AppModule {}

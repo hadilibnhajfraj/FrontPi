@@ -21,6 +21,14 @@ import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
+import { GestionEmploisComponent } from '../../gestion-emplois/gestion-emplois.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { EtudiantComponent } from '../../etudiants/etudiants.component';
+import { ClassComponent } from '../../class/class.component';
+import { SalleComponent } from '../../salle/salle.component';
 
 
 @NgModule({
@@ -35,6 +43,10 @@ import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
     HttpClientModule,
     FullCalendarModule,
     MatRadioModule
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
   ],
   declarations: [
 
@@ -49,8 +61,11 @@ import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
     TableListComponent,
     IconsComponent,
     MapsComponent,
-    NotificationsComponent,
-    
+    NotificationsComponent, 
+    GestionEmploisComponent,
+    EtudiantComponent,
+    ClassComponent,
+    SalleComponent
   ]
 })
 export class AdminLayoutModule {}

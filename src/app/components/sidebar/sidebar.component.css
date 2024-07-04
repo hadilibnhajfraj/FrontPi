@@ -2,7 +2,11 @@
 
 .sub-menu {
     padding-left: 35px;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> ala
 }
 
 .sub-menu a {
@@ -10,6 +14,7 @@
     text-decoration: none;
     transition: color 0.3s ease;
 }
+<<<<<<< HEAD
 .selected {
     background: rgb(116, 151, 165);
     color: rgb(255, 245, 245);
@@ -19,3 +24,15 @@
     margin-top: 5px;
   
 }
+=======
+
+.selected {
+    background: #f55151;
+    color: rgb(255, 245, 245);
+    border-left: 4px solid #ff7636;
+    padding-left: 16px;
+    margin-right: 8px;
+    margin-top: 5px;
+
+}
+>>>>>>> ala

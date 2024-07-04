@@ -1,0 +1,111 @@
+.custom-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form-field {
+    margin-bottom: 16px;
+}
+
+.custom-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+    /* Espace entre chaque champ */
+}
+
+
+.form-horizontal {
+
+    .col-form-label,
+    .label-on-right {
+        padding: 10px 5px 0 15px;
+        text-align: right;
+        max-width: 180px;
+    }
+
+    .checkbox-radios {
+        margin-bottom: 15px;
+
+        .form-check:first-child {
+            margin-top: 8px;
+        }
+    }
+
+    .label-on-right {
+        text-align: left;
+        padding: 10px 15px 0 5px;
+    }
+
+    .form-check-inline {
+        margin-top: 6px;
+    }
+}
+
+.container {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .thead-dark {
+    background-color: #343a40;
+    color: white;
+  }
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 100%;
+}
+.emploi-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .emploi-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+  }
+
+  .btn-secondary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover{
+    background-color: #0056b3;
+}
+.btn btn-danger{
+  margin-left: 20px;
+}

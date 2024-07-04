@@ -19,7 +19,11 @@ import { ActiviteComponent } from "../../activite/activite.component";
 import { AjoutAcctiviteComponent } from "../../ajout-acctivite/ajout-acctivite.component";
 import { ActiviteModifieComponent } from "../../activite-modifie/activite-modifie.component";
 import { EnvoiEmailComponent } from "../../envoi-email/envoi-email.component";
-
+import { GestionEmploisComponent } from '../../gestion-emplois/gestion-emplois.component';
+import { EmploiDetailComponent } from '../../emploi-detail/emploi-detail.component';
+import { EtudiantComponent } from '../../etudiants/etudiants.component';
+import { ClassComponent } from '../../class/class.component';
+import { SalleComponent } from '../../salle/salle.component';
 import { AfficherepasParentComponent } from "../../afficherepas-parent/afficherepas-parent.component";
 import { AffichebusParentComponent } from "../../affichebus-parent/affichebus-parent.component";
 import { FetchNotificationComponent } from "../../fetch-notification/fetch-notification.component";
@@ -187,5 +191,15 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'frais/:id', component: FraisComponent },
   { path: 'facture/:id', component: FactureComponent },
   { path: 'updatecheque/:id', component: UpdatechequeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: "enplois", component: GestionEmploisComponent },
+  { path: 'enploisdetail/:id', component: EmploiDetailComponent }, // Ajouter ':id' comme paramètre d'ID
+  { path: 'etudiant', component: EtudiantComponent }, 
+  { path: 'classe', component: ClassComponent }, // Ajouter ':id' comme paramètre d'ID
+  { path: 'salle', component: SalleComponent },
+
+
+
+ 
 
 ];

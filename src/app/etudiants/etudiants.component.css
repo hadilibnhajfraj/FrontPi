@@ -1,0 +1,105 @@
+.container {
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-group {
+  flex: 1;
+  margin: 10px;
+}
+
+.col-md-6 {
+  flex: 0 0 48%;
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1976d2;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.thead-dark {
+  background-color: #343a40;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #ffa94c;
+  border: none;
+  color: black;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-danger {
+  background-color: #b30300;
+  border: none;
+  color: white;
+}
+
+/* New CSS for form visibility and transition */
+.button-group {
+  margin-bottom: 10px;
+}
+
+.button-group button {
+  margin-right: 10px;
+}
+
+.form-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.form-container.visible {
+  max-height: 1000px; /* Adjust this value according to your form's height */
+  transition: max-height 0.5s ease-in;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  flex: 1;
+}

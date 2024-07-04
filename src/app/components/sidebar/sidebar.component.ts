@@ -9,7 +9,9 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+
   showNotification?:boolean
+
   selected?: boolean; // Définir la propriété selected comme optionnelle
   children?: RouteInfo[];
 }
@@ -43,6 +45,7 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "" },
+
   { path: "/icons", title: "Choisir offre", icon: "education_atom", class: "" },
   { path: "/maps", title: "Gestion des frais", icon: "location_map-big", class: "" },
   {
@@ -59,10 +62,27 @@ export const ROUTES: RouteInfo[] = [
     class: "",
   },
   {
+    path: "/enplois",
+    title: "Gestion des emplois",
+    icon: "education_atom",
+    class: "",
+    children: [
+     
+     
+    ],
+  },
+  {
     path: "/table-list",
     title: "Liste des Factures  ",
     icon: "design_bullet-list-67",
     class: "",
+  },
+  {
+    path: "/etudiant",
+    title: "Gestion des étudiants",
+    icon: "fas fa-user-graduate",  // Utilisez l'icône "school" de Material Icons
+    class: "",
+    children: [],
   },
   {
     path: "/notifications",
@@ -92,6 +112,20 @@ export const ROUTES: RouteInfo[] = [
     icon: "location_map-big",
     class: "",
   },
+{
+    path: "/classe",
+    title: "Gestion des classes",
+    icon: "fas fa-school",  // Utilisez l'icône "school" de Material Icons
+    class: "",
+    children: [],
+  },
+  {
+    path: "/salle",
+    title: "Gestion des salle",
+    icon: "fa-solid fa-building",  // Utilisez l'icône "school" de Material Icons
+    class: "",
+    children: [],
+  },
 ];
 
 @Component({
@@ -103,6 +137,7 @@ export class SidebarComponent implements OnInit {
   menuItems: RouteInfo[];
   selectedMenuItem: any;
   selectedChildItem: any;
+
   notificationsList: any[];
   constructor(private notificationsService: NotificationsService, public authService: AuthService, private router: Router) {
     this.notificationsService.currentNotificationsList.subscribe(data => this.notificationsList = data)
@@ -152,9 +187,7 @@ export class SidebarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
 
-  }
-
-  ngOnInit() {
+  } ngOnInit() {
     this.menuItems = this.getMenuItemsBasedOnRole();
     this.menuItems = this.menuItems.map((item) => {
       return {
