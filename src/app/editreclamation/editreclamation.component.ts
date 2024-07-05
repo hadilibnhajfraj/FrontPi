@@ -32,7 +32,7 @@ export class EditreclamationComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.reclamationService.updateReclamation(id, this.reclamation).subscribe(response => {
       console.log('Reclamation updated successfully', response);
-      this.router.navigate(['/dashboard']); // Navigate back to the list of reclamations
+      this.router.navigate(['/reclamation']); // Navigate back to the list of reclamations
     }, error => {
       console.error('Error updating reclamation', error);
     });

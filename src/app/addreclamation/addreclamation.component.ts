@@ -26,7 +26,7 @@ export class AddreclamationComponent implements OnInit {
       alert('Reclamation ajouté avec succès');
 
       // Rediriger vers le tableau de bord
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/reclamation']);
 
     }, error => {
       console.error('Error adding reclamation', error);

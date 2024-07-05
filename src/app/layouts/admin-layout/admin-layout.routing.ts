@@ -205,7 +205,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'salle', component: SalleComponent  ,   canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: ['admin'] }},
 
-    { path: 'dashboard',      component: ReclamationsComponent },
+    { path: 'reclamation',      component: ReclamationsComponent },
     { path: 'addReclamation',      component: AddreclamationComponent },
     { path: 'editReclamation/:id',      component: EditreclamationComponent },
     { path: 'viewreclamation/:id',      component: ViewreclamationComponent },
