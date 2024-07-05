@@ -20,3 +20,21 @@ i.fa.fa-trash {
   color: #fff;
   padding: 15px;
 }
+.bold-row {
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.action-icon {
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.action-icon:hover {
+  color: #007bff;
+}

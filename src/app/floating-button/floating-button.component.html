@@ -1,0 +1,35 @@
+<div
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+    align-items: flex-end;
+  "
+>
+  <button class="floating-button" (click)="toggleActiveUsers()">
+    Faire une conversation
+  </button>
+
+  <div *ngIf="showList" class="active-users-list">
+    <ul>
+      <li *ngFor="let user of activeUsers" (click)="handleUserClick(user)">
+        <div>{{ user.name }}</div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngFor="let user of selectedUsers; let i = index" [style.--index]="i">
+    <app-chat-box
+      [userId]="user.id"
+      [userName]="user.name"
+      [userRole]="user.role.join(', ')"
+      [index]="i"
+      [notificationCount]="user.notificationCount"
+      [notifications]="user.notifications"
+      (closeChat)="removeChat(user.id)"
+    ></app-chat-box>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="reclamation-details" *ngIf="reclamation">
+  <h2>Reclamation Details</h2>
+  <p><strong>Utilisateur:</strong> {{ reclamation.user?.firstName }} {{ reclamation.user?.lastName }}</p>
+  <p><strong>Type:</strong> {{ reclamation.type }}</p>
+  <p><strong>Réclamation:</strong> {{ reclamation.body }}</p>
+  <p><strong>Date:</strong> {{ reclamation.date | date: 'short' }}</p>
+  <p><strong>État:</strong> {{ reclamation.etat }}</p>
+
+  <div class="responses">
+    <h3>Réponses</h3>
+    <div *ngIf="reclamation.responses && reclamation.responses.length > 0; else noResponses">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Réponse</th>
+            <th>Utilisateur</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let response of reclamation.responses">
+            <td>{{ response.body }}</td>
+            <td>{{ response.sender?.firstName }} {{ response.sender?.lastName }}</td>
+            <td>{{ response.date | date: 'short' }}</td>
+            <td>
+              <div class="row">
+                <div class="col-md-6">
+                  <i class="fas fa-edit action-icon" (click)="openEditModal(response._id)"></i>
+                </div>
+                <div class="col-md-6">
+                  <i class="fa fa-trash action-icon" (click)="supp(response._id)"></i>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noResponses>
+      <p>Il n'y a pas de réponse pour cette réclamation.</p>
+    </ng-template>
+  </div>
+  <div *ngIf="!senderValid" class="alert alert-danger" role="alert">
+    Sender invalide !
+  </div>
+  <button class="btn btn-primary" (click)="openModal(content)">
+    <i class="fa fa-plus"></i> Ajouter une réponse
+  </button>
+</div>
+
+<!-- Modal pour ajouter une réponse -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="addResponse()" #responseForm="ngForm">
+      <div class="form-group">
+        <label for="responseSender">Sender</label>
+        <input class="form-control" id="responseSender" [(ngModel)]="newResponse.sender" name="sender" required ngbAutofocus>
+        <div *ngIf="responseForm.controls.sender?.errors?.required && responseForm.controls.sender.touched" class="alert alert-danger">
+          Le sender est requis.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="responseBody">Corps de la réponse</label>
+        <textarea class="form-control" id="responseBody" rows="3" [(ngModel)]="newResponse.body" name="body" required></textarea>
+        <div *ngIf="responseForm.controls.body?.errors?.required && responseForm.controls.body.touched" class="alert alert-danger">
+          Le corps de la réponse est requis.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Annuler</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!-- Modal pour éditer une réponse -->
+<ng-template #editResponseContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-edit-response-title">Éditer la réponse</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="updateResponse()" #editResponseForm="ngForm">
+      <div class="form-group">
+        <label for="editResponseBody">Contenu de la réponse</label>
+        <textarea class="form-control" id="editResponseBody" rows="3" [(ngModel)]="editResponse.body" name="body" required></textarea>
+        <div *ngIf="editResponseForm.controls.body?.errors?.required && editResponseForm.controls.body.touched" class="alert alert-danger">
+          Le contenu de la réponse est requis.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

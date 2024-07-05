@@ -1,0 +1,91 @@
+.reclamation-details {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin: 20px;
+}
+
+.reclamation-details h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.reclamation-details p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.reclamation-details .responses {
+  margin-top: 20px;
+}
+
+.reclamation-details .responses h3 {
+  margin-bottom: 10px;
+}
+
+.reclamation-details .btn {
+  margin-top: 20px;
+}
+
+.responses {
+  margin-top: 20px;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 15px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040 !important;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+}
+
+::ng-deep .modal {
+  z-index: 1050 !important;
+}
+
+/* New styles for response table */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.bold-row {
+  font-weight: bold;
+}
+
+.action-icon {
+  cursor: pointer;
+}
+
+.responses table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.responses th, .responses td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.responses th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.responses tr:hover {
+  background-color: #f5f5f5;
+}

@@ -11,6 +11,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AddreclamationComponent } from '../../addreclamation/addreclamation.component';
 import { EditreclamationComponent } from '../../editreclamation/editreclamation.component';
+import { ViewreclamationComponent } from '../../viewreclamation/viewreclamation.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: ReclamationsComponent },
@@ -21,5 +22,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent }
+    { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'viewreclamation/:id',      component: ViewreclamationComponent },
 ];

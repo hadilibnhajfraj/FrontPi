@@ -15,6 +15,10 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { ReclamationsComponent } from './reclamations/reclamations.component';
 import { AddreclamationComponent } from './addreclamation/addreclamation.component';
 import { EditreclamationComponent } from './editreclamation/editreclamation.component';
+import { ViewreclamationComponent } from './viewreclamation/viewreclamation.component';
+import { FloatingButtonComponent } from './floating-button/floating-button.component';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+
 
 @NgModule({
   imports: [
@@ -32,7 +36,11 @@ import { EditreclamationComponent } from './editreclamation/editreclamation.comp
     AdminLayoutComponent,
     ReclamationsComponent,
     AddreclamationComponent,
-    EditreclamationComponent
+    EditreclamationComponent,
+    ViewreclamationComponent,
+    FloatingButtonComponent,
+    ChatBoxComponent,
+    
 
   ],
   providers: [],

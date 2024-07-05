@@ -1,21 +1,25 @@
-
 <div class="logo">
-    <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+  <a href="https://www.creative-tim.com" class="simple-text logo-mini">
       <div class="logo-img">
-          <img src="../../../assets/img/Image1.jpg"/>
+          <img src="../../../assets/img/Image1.jpg" />
       </div>
-    </a>
-    <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-        EduKids
-    </a>
+  </a>
+  <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+      EduKids
+  </a>
 </div>
 <div class="sidebar-wrapper">
-    <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a [routerLink]="[menuItem.path]">
-                <i class="now-ui-icons {{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
-            </a>
-        </li>
-    </ul>
+  <ul class="nav">
+      <li *ngFor="let menuItem of menuItems" class="{{ menuItem.class }} nav-item" routerLinkActive="active">
+          <a [routerLink]="[menuItem.path]">
+              <i class="now-ui-icons {{ menuItem.icon }}"></i>
+              <p>
+                  {{ menuItem.title }}
+                  <span *ngIf="menuItem.notificationCount && menuItem.notificationCount > 0" class="notification-badge">
+                      {{ menuItem.notificationCount }}
+                  </span>
+              </p>
+          </a>
+      </li>
+  </ul>
 </div>

@@ -15,14 +15,17 @@ export class ReclamationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.reclamationService.getReclamations().subscribe(
-      data => this.reclamations = data,
+      data => {
+        this.reclamations = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      },
       error => console.error('Error fetching reclamations', error)
     );
   }
   navigateToDashboard() {
     this.router.navigate(['/addReclamation']);
   }
-  supp(id: string) {
+  supp(id: string, event: Event) {
+    event.stopPropagation();
     this.reclamationService.deleteReclamation(id).subscribe(() => {
       this.reclamations = this.reclamations.filter(reclamation => reclamation._id !== id);
       window.location.reload();
@@ -30,7 +33,12 @@ export class ReclamationsComponent implements OnInit {
       console.error('Error deleting reclamation', error);
     });
   }
-  editRepas(id: string) {
+  editRepas(id: string, event: Event) {
+    event.stopPropagation();
     this.router.navigate(['/editReclamation', id]);
+  }
+  viewReclamation(id: string){
+    console.log("ggggggggggggggggggggg")
+    this.router.navigate(['/viewreclamation', id]);
   }
 }
