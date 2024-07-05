@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 
-=======
-import { ReclamationsComponent } from './../../reclamations/reclamations.component';
->>>>>>> amina
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -43,15 +39,17 @@ import { ListChequeComponent } from '../../list-cheque/list-cheque.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
-<<<<<<< HEAD
 //import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { ReclamationsComponent } from './../../reclamations/reclamations.component';
 import { ChequeComponent } from '../../cheque/cheque.component';
 import { OffreComponent } from '../../offre/offre.component';
 import { FraisComponent } from '../../frais/frais.component';
 import { FactureComponent } from '../../facture/facture.component';
 import { UpdatechequeComponent } from '../../updatecheque/updatecheque.component';
 import { TableListComponent } from '../../table-list/table-list.component';
-
+import { AddreclamationComponent } from '../../addreclamation/addreclamation.component';
+import { EditreclamationComponent } from '../../editreclamation/editreclamation.component';
+import { ViewreclamationComponent } from '../../viewreclamation/viewreclamation.component';
 export const AdminLayoutRoutes: Routes = [
   { path: "cours", component: CoursComponent },
   { path: "observation", component: ObservationComponent },
@@ -207,26 +205,10 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'salle', component: SalleComponent  ,   canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: ['admin'] }},
 
-
-
-
-
-=======
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { AddreclamationComponent } from '../../addreclamation/addreclamation.component';
-import { EditreclamationComponent } from '../../editreclamation/editreclamation.component';
-import { ViewreclamationComponent } from '../../viewreclamation/viewreclamation.component';
-
-export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: ReclamationsComponent },
     { path: 'addReclamation',      component: AddreclamationComponent },
     { path: 'editReclamation/:id',      component: EditreclamationComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
     { path: 'viewreclamation/:id',      component: ViewreclamationComponent },
->>>>>>> amina
+
+
 ];

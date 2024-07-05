@@ -1,27 +1,22 @@
 import { Component, OnInit } from "@angular/core";
-<<<<<<< HEAD
 import { Router } from "@angular/router";
 import { AuthService } from "../../service/AuthService";
 import { NotificationsService } from "../../services/notifications.service";
-=======
 import { ReclamationsService } from '../../service/reclamations.service';
-import { Reclamation } from "../../../app/model/reclamation";
->>>>>>> amina
-
 declare interface RouteInfo {
   path: string;
   title: string;
   icon: string;
   class: string;
-<<<<<<< HEAD
 
   showNotification?: boolean;
-
+  notificationCount?: number;
   selected?: boolean; // Définir la propriété selected comme optionnelle
   children?: RouteInfo[];
 }
 
 export const ROUTES: RouteInfo[] = [
+  { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "", notificationCount: 0 },
   {
     path: "/cours",
     title: "Gestion des cours",
@@ -133,19 +128,6 @@ export const ROUTES: RouteInfo[] = [
     class: "",
     children: [],
   },
-=======
-  notificationCount?: number;
-}
-
-export const ROUTES: RouteInfo[] = [
-  { path: "/dashboard", title: "Dashboard", icon: "design_app", class: "", notificationCount: 0 },
-  { path: "/icons", title: "Icons", icon: "education_atom", class: "" },
-  { path: "/maps", title: "Maps", icon: "location_map-big", class: "" },
-  { path: "/notifications", title: "Notifications", icon: "ui-1_bell-53", class: "" },
-  { path: "/user-profile", title: "User Profile", icon: "users_single-02", class: "" },
-  { path: "/table-list", title: "Table List", icon: "design_bullet-list-67", class: "" },
-  { path: "/typography", title: "Typography", icon: "text_caps-small", class: "" },
->>>>>>> amina
 ];
 
 @Component({
@@ -154,16 +136,17 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ["./sidebar.component.css"],
 })
 export class SidebarComponent implements OnInit {
-<<<<<<< HEAD
   menuItems: RouteInfo[];
   selectedMenuItem: any;
   selectedChildItem: any;
 
   notificationsList: any[];
+  intervalId: NodeJS.Timer;
   constructor(
     private notificationsService: NotificationsService,
     public authService: AuthService,
-    private router: Router
+    private router: Router ,
+    private reclamationService: ReclamationsService
   ) {
     this.notificationsService.currentNotificationsList.subscribe(
       (data) => (this.notificationsList = data)
@@ -225,6 +208,10 @@ export class SidebarComponent implements OnInit {
         selected: false,
       };
     });
+    this.updateNotificationCount();
+    this.intervalId = setInterval(() => {
+      this.updateNotificationCount();
+    }, 10000); // 10000 milliseconds = 10 seconds
   }
 
   toggleSubMenu(menuItem: any): void {
@@ -247,20 +234,7 @@ export class SidebarComponent implements OnInit {
 
   isMobileMenu() {
     return window.innerWidth <= 991;
-=======
-  menuItems: any[];
-  private intervalId: any;
-
-  constructor(private reclamationService: ReclamationsService) {}
-
-  ngOnInit() {
-    this.menuItems = ROUTES.filter((menuItem) => menuItem);
-    this.updateNotificationCount();
-    this.intervalId = setInterval(() => {
-      this.updateNotificationCount();
-    }, 10000); // 10000 milliseconds = 10 seconds
   }
-
   updateNotificationCount() {
     this.reclamationService.getNotification().subscribe((count: number) => {
       console.log("Notification count:", count); // Log the count value
@@ -274,6 +248,5 @@ export class SidebarComponent implements OnInit {
         console.error("Dashboard item not found in menuItems");
       }
     });
->>>>>>> amina
   }
 }
