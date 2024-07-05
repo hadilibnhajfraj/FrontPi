@@ -1,0 +1,66 @@
+<!-- chat-box.component.html -->
+
+<div class="chat-box" [ngClass]="{ minimized: minimized }">
+  <!-- Header de la boîte de chat -->
+  <div class="chat-box-header" (click)="toggleMinimize($event)">
+    <h2>{{ userName }}</h2>
+    <span
+      class="notification-count"
+      [ngClass]="{ 'notification-alert': notificationCount > 0 }"
+    >
+      {{ notificationCount }}
+    </span>
+    <div class="chat-box-actions" (click)="preventParentClick($event)">
+      <span class="icon minimize" (click)="toggleMinimize($event)">_</span>
+      <span class="icon close" (click)="handleCloseChat($event)">×</span>
+    </div>
+  </div>
+
+  <!-- Contenu de la boîte de chat (messages et zone d'entrée) -->
+  <div *ngIf="!minimized" class="chat-box-content">
+    <!-- Contenu des notifications -->
+    <div class="chat-content">
+      <div *ngFor="let notification of notifications" class="notification">
+        <div class="notification-message">
+          Message: {{ notification.message }}
+        </div>
+        <div *ngFor="let image of notification.image">
+          <img [src]="getImageSrc(image)" alt="galerie image" class="img-thumbnail" style="max-width: 150px; margin: 5px;">
+        </div>
+        <div class="notification-message">
+          fichier: {{ notification.fichier }}
+        </div>
+        <div class="notification-timestamp">
+          Envoyé par <span>{{ notification.sender }}</span> le
+          {{ notification.timestamp | date : "short" }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenu des messages avec défilement -->
+    <div class="messages-content">
+      <div
+        class="messages-list"
+        [ngClass]="{ scrollable: notificationCount > 3 }"
+      >
+        <div *ngFor="let message of messages" class="message">
+          <span>{{ message.message }}</span>
+          <p>Envoyé par : {{ message.id_user_envoie }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de la boîte de chat avec zone d'entrée -->
+    <div class="chat-box-footer">
+      <input
+        type="text"
+        placeholder="Type a message..."
+        [(ngModel)]="message"
+      />
+      <input type="file" id="image" class="form-control" (change)="onFileChange($event)" multiple required>
+      <button (click)="sendMessage()">
+        <span class="icon">➤</span>
+      </button>
+    </div>
+  </div>
+</div>

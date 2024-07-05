@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Ajoutez des styles pour afficher/masquer les sous-modules */
 
 .sub-menu {
@@ -28,4 +29,23 @@
   padding-left: 16px;
   margin-right: 8px;
   margin-top: 5px;
+=======
+.notification-badge {
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: auto;
+  display: inline-block;
+  text-align: center;
+  min-width: 10px;
+}
+
+.nav p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+>>>>>>> amina
 }

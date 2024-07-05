@@ -1,0 +1,159 @@
+.chat-box {
+  position: fixed;
+  bottom: 20px;
+  right: calc(230px + 320px * var(--index));
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  z-index: 1000;
+  transition: right 0.3s, height 0.3s, bottom 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.notification-count {
+  font-weight: bold;
+}
+.notification-message {
+  background: gray;
+  width: 70%;
+  text-align: center;
+  color: #000;
+  font-size: 18px;
+  /* display: block; */
+}
+
+.notification-alert {
+  color: #fff;
+  background-color: red;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 5px;
+}
+.message {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+
+.sent-message {
+  background-color: #cceeff; /* Bleu clair pour les messages envoyés */
+  color: #333; /* Couleur du texte pour les messages envoyés */
+}
+
+.received-message {
+  background-color: #f0f0f0; /* Gris clair pour les messages reçus */
+  color: #666; /* Couleur du texte pour les messages reçus */
+}
+.messages-list {
+  max-height: 300px; /* Hauteur maximale initiale pour la liste des messages */
+  overflow-y: auto; /* Activer le défilement vertical si nécessaire */
+}
+
+.messages-list.scrollable {
+  max-height: 200px; /* Hauteur maximale avec défilement activé */
+}
+
+.messages-list.scrollable {
+  max-height: 200px; /* Hauteur maximale avec défilement activé */
+}
+.chat-box-content {
+  overflow: auto;
+}
+.chat-box.minimized {
+  height: 40px;
+  bottom: 20px;
+  justify-content: center;
+}
+
+.chat-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 10px;
+  height: 40px;
+  background-color: #007bff;
+  border-radius: 10px 10px 0 0;
+  color: white;
+}
+
+.chat-box-header h2 {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+  flex: 1;
+}
+
+.chat-box-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-box-actions .icon {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chat-box-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.chat-box-content p {
+  text-align: center;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.chat-box-footer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.chat-box-footer input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.chat-box-footer button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-box-footer button .icon {
+  font-size: 16px;
+}
+/* Example CSS */
+.chat-box-footer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.chat-box-footer input[type="file"] {
+  
+}
+
+.chat-box-footer button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}

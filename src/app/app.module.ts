@@ -53,6 +53,17 @@ import { EmploiDetailComponent } from './emploi-detail/emploi-detail.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
+<<<<<<< HEAD
+=======
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ReclamationsComponent } from './reclamations/reclamations.component';
+import { AddreclamationComponent } from './addreclamation/addreclamation.component';
+import { EditreclamationComponent } from './editreclamation/editreclamation.component';
+import { ViewreclamationComponent } from './viewreclamation/viewreclamation.component';
+import { FloatingButtonComponent } from './floating-button/floating-button.component';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+
+>>>>>>> amina
 
 @NgModule({
   imports: [
@@ -73,6 +84,7 @@ import { MatTableModule } from '@angular/material/table';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+<<<<<<< HEAD
     LoginComponent,
     RegisterComponent,
     ListeUserComponent,
@@ -106,6 +118,16 @@ import { MatTableModule } from '@angular/material/table';
     VirementComponent,
     UpdatechequeComponent,
     EmploiDetailComponent
+=======
+    ReclamationsComponent,
+    AddreclamationComponent,
+    EditreclamationComponent,
+    ViewreclamationComponent,
+    FloatingButtonComponent,
+    ChatBoxComponent,
+    
+
+>>>>>>> amina
   ],
   providers: [],
   bootstrap: [AppComponent],
